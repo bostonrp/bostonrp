@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Interface (Milkyway Project)</title> <!-- <%= htmlWebpackPlugin.options.title %> -->
+  </head>
+
+  <body>
+    <div id="app"></div>
+  </body>
+
+  <style>
+    *, html, body {
+      font-family: 'Montserrat Regular';
+      font-size: 14px;
+
+      padding: 0;
+      margin: 0;
+
+      user-select: none;
+      overflow: hidden;
+
+      caret-color: #FCFCFC;
+      background: rgba(255, 255, 255, 0);
+    }
+
+    img {
+      pointer-events: none;
+    }
+
+    ::selection {
+      background: #25426D;
+    }
+  </style>
+
+  <script>
+    window.oncontextmenu = null;
+  </script>
+</html>

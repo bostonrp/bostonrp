@@ -1,0 +1,12 @@
+*.dll
+/bin
+.listcache
+/maps
+*.exe
+node_modules
+*.log
+/packages
+/plugins
+/package-lock.json
+/client_packages/cef
+/client_packages/client.js
