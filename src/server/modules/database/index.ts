@@ -7,7 +7,7 @@ import terminal from '../terminal';
 
 // CODE
 
-let models:any = new Array();
+let models:Array<DBModel> = new Array();
 
 class DataBase {
     public static main:Sequelize = new Sequelize({
@@ -27,10 +27,7 @@ class DataBase {
 
         try {
             if(!await this.hasConnection()) return false;
-            await this._loadModels();
-
-            let endTime = Date.now();
-            terminal.debug('[DataBase] Модуль базы данных был загружена', `${endTime - startTime}ms`);
+            await this._loadModels(startTime);
             return true;
         } catch(e) {
             terminal.error(e);
@@ -50,17 +47,16 @@ class DataBase {
         }
     }
 
-    private static async _loadModels() {
+    private static async _loadModels(startTime:number) {
         terminal.debugDetailed('DataBase._loadModels();');
 
         try {
-            if(models.length <= 0) return;
-
             models.forEach((model:DBModel) => {
                 model.init();
             });
 
-            models = undefined;
+            let endTime = Date.now();
+            terminal.debug('[DataBase] Модуль базы данных был загружена', `${endTime - startTime}ms`);
         } catch(e) {
             terminal.error(e);
         }
@@ -107,22 +103,22 @@ export class DBModel {
             });
             
             _model.sync({ alter: true });
-            this._delete();
+            // this._delete();
         } catch(e) {
             console.log(e);
         }
     }
 
-    private _delete():boolean {
-        try {
-            let _modelIndex = models.findIndex((model:DBModel) => model.name == this._modelName);
-            models.splice(_modelIndex, 1);
-            return true;
-        } catch(e) {
-            console.log(e);
-            return false;
-        }
-    }
+    // private _delete():boolean {
+    //     try {
+    //         let _modelIndex = models.findIndex((model:DBModel) => model.name == this._modelName);
+    //         models.splice(_modelIndex, 1);
+    //         return true;
+    //     } catch(e) {
+    //         console.log(e);
+    //         return false;
+    //     }
+    // }
 }
 
 export default DataBase;
