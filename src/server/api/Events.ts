@@ -51,11 +51,11 @@ class NewEvents {
         this.#debug = debug;
     }
 
-    public on(eventName:string, callback: (player: PlayerMp, ...args: any[]) => void) {
+    public add(eventName:string, callback: (player: PlayerMp, ...args: any[]) => void) {
         this._add(eventName, callback);
     }
 
-    publicoff(eventName:string) {
+    public remove(eventName:string) {
         this._remove(eventName);
     }
 

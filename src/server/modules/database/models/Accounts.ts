@@ -49,14 +49,12 @@ const Accounts = new DBModel('accounts', {
 
     reg_date: {
         type: DataTypes.BIGINT,
-        allowNull: true,
-        defaultValue: Date.now()
+        allowNull: true
     },
 
     last_date: {
         type: DataTypes.BIGINT,
-        allowNull: true,
-        defaultValue: Date.now()
+        allowNull: true
     },
 
     developer: {
