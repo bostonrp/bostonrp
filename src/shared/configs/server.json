@@ -2,5 +2,10 @@
     "debug": true,
     "debugDetailed": true,
     "development": false,
-    "test": false
+    "test": false,
+
+    "time": {
+        "debug": false,
+        "secondsPedMinute": 15
+    }
 }

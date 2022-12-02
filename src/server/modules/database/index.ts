@@ -21,29 +21,31 @@ class DataBase {
         logging: config.debug ? console.log : false
     });
     
-    public static async Init() {
-        terminal.debug('DataBase.Init();');
+    public static async Init():Promise<boolean> {
+        terminal.debugDetailed('DataBase.Init();');
         let startTime = Date.now();
 
         try {
-            if(!await this._hasConnection()) return;
+            if(!await this.hasConnection()) return false;
             await this._loadModels();
 
             let endTime = Date.now();
             terminal.debug('[DataBase] Модуль базы данных был загружена', `${endTime - startTime}ms`);
+            return true;
         } catch(e) {
             terminal.error(e);
+            return false;
         }
     }
 
-    private static async _hasConnection():Promise<boolean> {
-        terminal.debugDetailed('DataBase._hasConnection();');
+    public static async hasConnection(silent:boolean = false):Promise<boolean> {
+        if(!silent) terminal.debugDetailed('DataBase.hasConnection();');
 
         try {
             await this.main.authenticate();
             return true;
         } catch(e) {
-            terminal.error(e);
+            if(!silent) terminal.error(e);
             return false;
         }
     }

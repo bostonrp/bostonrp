@@ -12,5 +12,5 @@ import './database/models/index';
 export async function loadAll() {
     terminal.debug('modules.loadAll();');
 
-    await DataBase.Init();
+    await DataBase.Init()
 }
