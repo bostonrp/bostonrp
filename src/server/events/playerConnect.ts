@@ -4,8 +4,6 @@
 // CODE
 
 function playerConnect(player:PlayerMp) {
-    mp.vehicles.new('oracle', new mp.Vector3(12, 12, 71));
-
     player.setClothes(2, 57, 0, 0);
     player.setClothes(4, 1, 0, 0);
     player.setClothes(6, 1, 0, 0);

@@ -35,7 +35,11 @@ const WorldTime = new DBModel('world_time', {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0
-    },
+    }
 });
+
+setTimeout(() => {
+    WorldTime.methods?.findOrCreate({ where: { id: 1 } });
+}, 1000);
 
 export default WorldTime;

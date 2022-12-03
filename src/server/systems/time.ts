@@ -1,6 +1,7 @@
 
 // IMPORTS
 
+import WorldTime from "@database/WorldTime";
 import config from "@shared/configs/server.json";
 import methods from "../modules/methods";
 import terminal from "../modules/terminal";
@@ -19,6 +20,17 @@ class Time {
     public static async load() {
         terminal.debugDetailed('Time.load();');
 
+        let _data = await WorldTime.methods?.findOne({ where: { id: 1 } });
+        let _result = JSON.parse(JSON.stringify(_data));
+        terminal.log(JSON.stringify(_result));
+        
+        this._year = _result.year;
+        this._months = _result.month;
+        this._days = _result.day;
+        
+        this._hours = _result.hour;
+        this._minutes = _result.minute;
+
         this._tick();
     }
 
@@ -29,6 +41,7 @@ class Time {
         if(this._seconds >= 60) {
             this._seconds = 0;
             ++this._minutes;
+            this._save();
         }
 
         if(this._minutes >= 60) {
@@ -76,6 +89,19 @@ class Time {
         // terminal.log(`${this._hours}:${this._minutes}:${this._seconds}`);
 
         this._tick();
+    }
+
+    private static async _save() {
+        await WorldTime.methods?.update({
+            year: this._year,
+            month: this._months,
+            day: this._days,
+
+            hour: this._hours,
+            minute: this._minutes
+        }, { where: { id: 1 } }).catch((err) => {
+            terminal.error(err);
+        });
     }
 
     private static getLeapYear(number:number) {

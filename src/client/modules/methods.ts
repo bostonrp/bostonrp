@@ -37,8 +37,6 @@ mp.events.callRemote = () => {
     mp.console.logError('[AntiCheat] Вы не можете использовать executor на этом сервере :3');
 };
 
-mp.events.callRemote('test', 'gdf');
-
 //? METHODS
 let methods = {
     getFPS():number {

@@ -2,7 +2,7 @@
 // IMPORTS
 
 import config from '@shared/configs/mysql.json';
-import { DataTypes, ModelAttributes, Sequelize, Model } from 'sequelize';
+import { DataTypes, Model, ModelAttributes, ModelCtor, Optional, Sequelize, UpsertOptions} from 'sequelize';
 import terminal from '../terminal';
 
 // CODE
@@ -56,7 +56,7 @@ class DataBase {
             });
 
             let endTime = Date.now();
-            terminal.debug('[DataBase] Модуль базы данных был загружена', `${endTime - startTime}ms`);
+            terminal.debug('[DataBase] Модуль базы данных был загружен', `${endTime - startTime}ms`);
         } catch(e) {
             terminal.error(e);
         }
@@ -66,6 +66,7 @@ class DataBase {
 export class DBModel {
     private _modelName:string;
     private _modelColumns:any;
+    private _model:ModelCtor<Model> | undefined;
 
     constructor(modelName:string, modelColumns:ModelAttributes<Model<any, any>, any>) {
         this._modelName = modelName;
@@ -87,6 +88,10 @@ export class DBModel {
 
     // GETTERS
 
+    get methods() {
+        return this._model;
+    }
+
     get name():string {
         return this._modelName;
     }
@@ -97,12 +102,12 @@ export class DBModel {
         terminal.debugDetailed(`[DataBase] '${this._modelName}'.init();`);
 
         try {
-            let _model = DataBase.main.define(this._modelName, this._modelColumns, {
+            this._model = DataBase.main.define(this._modelName, this._modelColumns, {
                 timestamps: false,
                 freezeTableName: true
             });
             
-            _model.sync({ alter: true });
+            this._model.sync({ alter: true });
             // this._delete();
         } catch(e) {
             console.log(e);
