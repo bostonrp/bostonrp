@@ -19,10 +19,10 @@ class Time {
 
     public static async load() {
         terminal.debugDetailed('Time.load();');
+        await WorldTime.methods?.findOrCreate({ where: { id: 1 } });
 
         let _data = await WorldTime.methods?.findOne({ where: { id: 1 } });
         let _result = JSON.parse(JSON.stringify(_data));
-        terminal.log(JSON.stringify(_result));
         
         this._year = _result.year;
         this._months = _result.month;
@@ -86,12 +86,14 @@ class Time {
         }
 
         mp.world.time.set(this._hours, this._minutes, this._seconds);
-        // terminal.log(`${this._hours}:${this._minutes}:${this._seconds}`);
+        if(config.time.debug) terminal.log(`${this._hours}:${this._minutes}:${this._seconds}`);
 
         this._tick();
     }
 
     private static async _save() {
+        if(config.time.debug) terminal.log('Time._save();');
+        
         await WorldTime.methods?.update({
             year: this._year,
             month: this._months,

@@ -38,8 +38,4 @@ const WorldTime = new DBModel('world_time', {
     }
 });
 
-setTimeout(() => {
-    WorldTime.methods?.findOrCreate({ where: { id: 1 } });
-}, 1000);
-
 export default WorldTime;
