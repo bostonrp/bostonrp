@@ -1,4 +1,6 @@
 
+// CODE
+
 declare namespace TBoston.Vehicles {
     interface createOptions {
         fuel?:number;
@@ -24,6 +26,7 @@ declare namespace TBoston.Vehicles.Fuel {
         jet:string; // Авиатопливо
         admin:string; // Бесконечное топливо
         none:string; // Без топлива
+        electro:string; // Электричество
     }
 }
 

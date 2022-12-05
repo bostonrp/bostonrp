@@ -1,5 +1,7 @@
 // IMPORTS
 
+import terminal from "../modules/terminal";
+
 // CODE
 
 class NewEvents {
@@ -38,7 +40,7 @@ class NewEvents {
     }
 
     private _call(eventName:string, ...args:any) {
-        if(this.#debug) console.log(eventName, JSON.stringify(args));
+        if(this.#debug) terminal.log(eventName, JSON.stringify(args));
         if(this.#events && this.#events.has(eventName)) {
             this.#events.get(eventName).forEach((callback:any) => {
                 callback(...args);

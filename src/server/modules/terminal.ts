@@ -7,9 +7,8 @@ import * as colors from 'console-log-colors';
 
 // CODE
 
-//? Terminal
-let terminal:TBoston.Terminal.Root = {
-    log(text:any, ...args:any[]) {
+class Terminal implements TBoston.Terminal.Root {
+    log(text: any, ...args: any[]): void {
         let _timeTag = colors.gray(methods.getRealTimeToSec());
         let _tag = colors.gray(`[LOG]`);
         let _scobe = {
@@ -24,8 +23,8 @@ let terminal:TBoston.Terminal.Root = {
             `${_timeTag} ${_tag} ${text}`,
             _args ? `${_scobe.open}${_construction}${_scobe.close}` : ''
         );
-    },
-
+    }
+    
     debug(text:any, ...args:any[]) {
         if(!configs.debug) return;
         let _timeTag = colors.gray(methods.getRealTimeToSec());
@@ -42,9 +41,9 @@ let terminal:TBoston.Terminal.Root = {
             `${_timeTag} ${_tag} ${text}`,
             _args ? `${_scobe.open}${_construction}${_scobe.close}` : ''
         );
-    },
+    }
 
-    debugDetailed(text:any, ...args:any[]) {
+     debugDetailed(text:any, ...args:any[]) {
         if(!configs.debugDetailed) return;
         let _timeTag = colors.gray(methods.getRealTimeToSec());
         let _tag = colors.gray(`[DEBUG]`);
@@ -60,7 +59,7 @@ let terminal:TBoston.Terminal.Root = {
             `${_timeTag} ${_tag} ${text}`,
             _args ? `${_scobe.open}${_construction}${_scobe.close}` : ''
         );
-    },
+    }
 
     error(text:any, ...args:any[]) {
         let _timeTag = colors.gray(methods.getRealTimeToSec());
@@ -77,7 +76,7 @@ let terminal:TBoston.Terminal.Root = {
             `${_timeTag} ${_tag} ${text}`,
             _args ? `${_scobe.open}${_construction}${_scobe.close}` : ''
         );
-    },
+    }
 
     warning(text:any, ...args:any[]) {
         let _timeTag = colors.gray(methods.getRealTimeToSec());
@@ -95,6 +94,9 @@ let terminal:TBoston.Terminal.Root = {
             _args ? `${_scobe.open}${_construction}${_scobe.close}` : ''
         );
     }
-};
+
+}
+
+const terminal = new Terminal();
 
 export default terminal;

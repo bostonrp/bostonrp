@@ -7,4 +7,8 @@ declare namespace TBoston.Methods {
         sleep(ms:number):any;
         digitFormat(number:number):string;
     }
+
+    interface RGB {
+        
+    }
 }

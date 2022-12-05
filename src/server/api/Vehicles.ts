@@ -131,7 +131,7 @@ export class Fuel {
         if(this._type == 'admin') return; // todo Нужно обработать ошибку
 
         this.remove(0.001);
-        terminal.log(this.get());
+        // terminal.log(this.get());
 
         this._tick();
     }
