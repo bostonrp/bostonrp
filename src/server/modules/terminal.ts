@@ -7,7 +7,7 @@ import * as colors from 'console-log-colors';
 
 // CODE
 
-class Terminal implements TBoston.Terminal.Root {
+class Terminal {
     log(text: any, ...args: any[]): void {
         let _timeTag = colors.gray(methods.getRealTimeToSec());
         let _tag = colors.gray(`[LOG]`);
@@ -98,5 +98,4 @@ class Terminal implements TBoston.Terminal.Root {
 }
 
 const terminal = new Terminal();
-
 export default terminal;

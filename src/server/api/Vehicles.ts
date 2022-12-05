@@ -1,56 +1,41 @@
 
 // IMPORTS
 
-import methods from "../modules/methods";
+import methods, { List } from "../modules/methods";
 import terminal from "../modules/terminal";
 
 // CODE
 
 class Vehicles {
-    public static list = new Array();
+    private static _list = new List('Vehicles');
 
-    public static addInList(vehicle:Vehicle) {
-        terminal.debugDetailed('Vehicles.addInList();');
-        if(this.hasInListByID(vehicle.id)) return terminal.error(`[Vehicle] Нельзя создать автомобиль с одинаковым ID`, vehicle.id);
-        this.list.push(vehicle);
-    }
-
-    private static getIndexInListByID(id:number) {
-        terminal.debugDetailed('Vehicles.getIndexInListByID();');
-        return this.list.findIndex((element:Vehicle) => element.id == id);
-    }
-
-    public static getInListByID(id:number) {
+    public static getInListByID(id:number):Vehicle {
         terminal.debugDetailed('Vehicles.getInListByID();');
-        return this.list.find((element:Vehicle) => element.id == id);
+        return this._list.getByID(id);
+    }
+
+    public static addInList(user:Vehicle):boolean {
+        terminal.debugDetailed('Vehicles.addInList();');
+        return this._list.add(user);
     }
 
     public static hasInListByID(id:number) {
         terminal.debugDetailed('Vehicles.hasInListByID();');
-        return !!this.getInListByID(id);
+        return this._list.has(id);
+    }
+
+    public static removeInListByID(id:number) {
+        terminal.debugDetailed('Vehicles.removeInListByID();');
+        return this._list.remove(id);
     }
 
     public static generateID(plus?:boolean):number {
         terminal.debugDetailed('Vehicles.generateID();');
-        let _id = this.list.length;
+        let _id = this._list.length;
         if(plus) _id++;
 
         if(this.hasInListByID(_id)) return this.generateID(true);
         return _id;
-    }
-
-    public static delete(id:number):boolean {
-        terminal.debugDetailed('Vehicles.delete();');
-
-        let _vehicle = this.getInListByID(id);
-        if(_vehicle !== undefined) {
-            let index = this.getIndexInListByID(id);
-            this.list.splice(index, 1);
-            return true;
-        }
-
-        terminal.error(`[Vehicles] Ошибка при удалении автомобиля`, id);
-        return false;
     }
 
     public static exists(id:number):boolean {
