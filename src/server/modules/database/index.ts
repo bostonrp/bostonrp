@@ -23,11 +23,9 @@ class DataBase {
     
     public static async Init():Promise<boolean> {
         terminal.debugDetailed('DataBase.Init();');
-        let startTime = Date.now();
-
         try {
             if(!await this.hasConnection()) return false;
-            await this._loadModels(startTime);
+            await this._loadModels();
             return true;
         } catch(e) {
             terminal.error(e);
@@ -47,8 +45,9 @@ class DataBase {
         }
     }
 
-    private static async _loadModels(startTime:number) {
+    private static async _loadModels() {
         terminal.debugDetailed('DataBase._loadModels();');
+        let startTime = Date.now();
 
         try {
             models.forEach((model:DBModel) => {

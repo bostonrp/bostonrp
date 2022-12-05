@@ -5,7 +5,6 @@
         "baseUrl": ".",
         "paths": {
             "@shared/*": ["./src/shared/*"],
-            "@configs/server": ["./src/shared/configs/server.json"],
             "@database/*": ["./src/server/modules/database/models/*"]
         },
 

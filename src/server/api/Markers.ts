@@ -39,7 +39,7 @@ let m = new Marker({
     type: 0,
     position: new mp.Vector3(0, 0, 71),
     scale: 1,
-    color: new RGB(0, 255, 0)
-})
+    color: new RGB(37, 66, 109)
+});
 
 export default Markers;

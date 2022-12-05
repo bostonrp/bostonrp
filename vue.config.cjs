@@ -1,12 +1,12 @@
 
 // REQUIRES
 
-import { defineConfig } from '@vue/cli-service';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
+const { defineConfig } = require('@vue/cli-service');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // CODE
 
-export default defineConfig({
+module.exports = defineConfig({
   transpileDependencies: true,
 
   outputDir: "./client_packages/cef",
@@ -61,4 +61,4 @@ export default defineConfig({
       })
     ]
   }
-})
+});

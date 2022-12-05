@@ -13,11 +13,11 @@ export class Browser {
     private _name:string;
     private _handle:BrowserMp;
 
-    constructor(name:string, path:string, options:TBoston.Browsers.options) {
+    constructor(name:string, path:string, options?:TBoston.Browsers.options) {
         this._handle = mp.browsers.new(path);
 
         this._name = name;
-        this.setActive(options.active);
+        this.setActive(options?.active);
     }
 
     // GETTERS
@@ -42,5 +42,9 @@ export class Browser {
 
     // OTHERS
 }
+
+let browser = new Browser('default', 'http://localhost:8080/', {
+    active: true
+});
 
 export default Browsers;

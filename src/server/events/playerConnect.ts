@@ -7,7 +7,7 @@ import terminal from "../modules/terminal";
 // CODE
 
 function playerConnect(player:PlayerMp) {
-    player.spawn(new mp.Vector3(0, 0, 71));
+    // player.spawn(new mp.Vector3(0, 0, 71));
 
     player.setClothes(2, 57, 0, 0);
     player.setClothes(4, 1, 0, 0);

@@ -65,6 +65,17 @@ export class Vehicle {
             type: options?.fuelType,
             maxBank: options?.fuelMax
         });
+
+        this._tickMileage();
+    }
+
+    // todo Нужно придумать логику пробега
+    private async _tickMileage() {
+        await methods.sleep(1000);
+        
+        
+
+        this._tickMileage();
     }
 
     // SETTERS
@@ -73,6 +84,10 @@ export class Vehicle {
     public setAlpha(number:number = 255) {
         if(number < 0) return; // todo Нужно обработать ошибку
         // this._handle.alpha = number;
+    }
+
+    public setEngineStatus(status:boolean) {
+        this._handle.engine = status;
     }
 
     // SETTERS
@@ -115,6 +130,7 @@ export class Fuel {
         await methods.sleep(1000);
         if(this._type == 'admin') return; // todo Нужно обработать ошибку
 
+        // todo Нужно придумать логику топлива
         this.remove(0.001);
         // terminal.log(this.get());
 
