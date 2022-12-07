@@ -80,7 +80,7 @@ class Terminal {
 
     warning(text:any, ...args:any[]) {
         let _timeTag = colors.gray(methods.getRealTimeToSec());
-        let _tag = colors.yellow(`[WARNING]`);
+        let _tag = colors.bold(colors.yellow(`[WARNING]`));
         let _scobe = {
             open: colors.gray('['),
             close: colors.gray(']')
@@ -95,6 +95,22 @@ class Terminal {
         );
     }
 
+    info(text:any, ...args:any[]) {
+        let _timeTag = colors.gray(methods.getRealTimeToSec());
+        let _tag = colors.yellow(`[INFO]`);
+        let _scobe = {
+            open: colors.gray('['),
+            close: colors.gray(']')
+        };
+    
+        let _args = `${args}`.replace(',', '", "');
+        let _construction = colors.yellow(`"${_args}"`);
+    
+        console.log(
+            `${_timeTag} ${_tag} ${text}`,
+            _args ? `${_scobe.open}${_construction}${_scobe.close}` : ''
+        );
+    }
 }
 
 const terminal = new Terminal();

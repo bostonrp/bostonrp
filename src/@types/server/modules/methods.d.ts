@@ -17,4 +17,9 @@ declare namespace TBoston.Methods {
             a:number;
         };
     }
+
+    interface crypto {
+        sha256:string;
+        md5:string;
+    }
 }

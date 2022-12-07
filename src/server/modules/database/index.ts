@@ -3,6 +3,7 @@
 
 import config from '@shared/configs/mysql.json';
 import { DataTypes, Model, ModelAttributes, ModelCtor, Optional, Sequelize, UpsertOptions} from 'sequelize';
+import methods from '../methods';
 import terminal from '../terminal';
 
 // CODE
@@ -23,6 +24,7 @@ class DataBase {
     
     public static async Init():Promise<boolean> {
         terminal.debugDetailed('DataBase.Init();');
+        
         try {
             if(!await this.hasConnection()) return false;
             await this._loadModels();
@@ -47,18 +49,14 @@ class DataBase {
 
     private static async _loadModels() {
         terminal.debugDetailed('DataBase._loadModels();');
-        let startTime = Date.now();
 
-        try {
+        let funcTime = methods.getPerfomance(() => {
             models.forEach((model:DBModel) => {
                 model.init();
             });
+        });
 
-            let endTime = Date.now();
-            terminal.debug('[DataBase] Модуль базы данных был загружен', `${endTime - startTime}ms`);
-        } catch(e) {
-            terminal.error(e);
-        }
+        terminal.debug('[DataBase] Модуль базы данных был загружен', `${funcTime}ms`);
     }
 }
 

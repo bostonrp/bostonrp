@@ -22,6 +22,8 @@ function playerConnect(player:PlayerMp) {
         socialName: player.socialClub,
         ip: player.ip
     });
+
+    terminal.info(`Игрок ${user.username} (ID: ${user.id}) подключился к серверу`, user.ip);
 }
 
 mp.events.add('playerJoin', playerConnect);

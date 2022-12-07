@@ -21,12 +21,12 @@ class Users {
 
     public static hasInListByID(id:number) {
         terminal.debugDetailed('Users.hasInListByID();');
-        return this._list.has(id);
+        return this._list.hasByID(id);
     }
 
     public static removeInListByID(id:number) {
         terminal.debugDetailed('Users.removeInListByID();');
-        return this._list.remove(id);
+        return this._list.removeByID(id);
     }
 
     public static exists(id:number):boolean {
@@ -41,13 +41,18 @@ export class User {
     public id:number;
     public socialID:number;
     public username:string;
+    public socialName?:string;
+    public ip?:string;
 
+    private _secret:string = 'none';
     private _isLoging:boolean = false;
 
     constructor(options:TBoston.Users.createOptions) {
         this.id = options.id;
         this.username = options.username;
         this.socialID = options.socialID;
+        this.socialName = options.socialName;
+        this.ip = options.ip;
 
         Users.addInList(this);
     }
@@ -65,6 +70,10 @@ export class User {
     }
 
     // OTHERS
+
+    generateSecret() {
+        // todo
+    }
 }
 
 export default Users;

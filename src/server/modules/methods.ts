@@ -2,6 +2,7 @@
 // IMPORTS
 
 import terminal from "./terminal";
+import * as crypto from 'crypto';
 
 // CODE
 
@@ -89,7 +90,7 @@ export class List {
         return this._list.find(_element => _element.id == id);
     }
 
-    getIndex(id:number) {
+    getIndexByID(id:number) {
         return this._list.findIndex(_element => _element.id == id);
     }
 
@@ -111,12 +112,12 @@ export class List {
         List._remove(this._listID);
     }
 
-    has(id:number) {
+    hasByID(id:number) {
         return !!this.getByID(id);
     }
 
     add(element:any):boolean {
-        if(this.has(element.id)) return false;
+        if(this.hasByID(element.id)) return false;
 
         try {
             this._list.push(element);
@@ -127,11 +128,11 @@ export class List {
         }
     }
 
-    remove(id:number) {
-        if(!this.has(id)) return false;
+    removeByID(id:number) {
+        if(!this.hasByID(id)) return false;
 
         try {
-            let _index = this.getIndex(id);
+            let _index = this.getIndexByID(id);
             this._list.splice(_index, 1);
             return true;
         } catch(e) {
@@ -153,6 +154,21 @@ class Methods {
 
     digitFormat(number:number) {
         return ("0" + number).slice(-2);
+    }
+
+    getPerfomance(callback:Function) {
+        try {
+            let startTime = Date.now();
+            callback();
+            let endTime = Date.now();
+            return endTime - startTime;
+        } catch(e) {
+            return terminal.error(e);
+        }
+    }
+
+    createCryptoHash(text:string, algorithm:keyof TBoston.Methods.crypto) {
+        return crypto.createHash(algorithm).update(text).digest('hex');
     }
 }
 

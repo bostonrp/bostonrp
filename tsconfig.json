@@ -5,6 +5,7 @@
         "baseUrl": ".",
         "paths": {
             "@shared/*": ["./src/shared/*"],
+            "@enums/*": ["./src/shared/enums/*"],
             "@database/*": ["./src/server/modules/database/models/*"]
         },
 

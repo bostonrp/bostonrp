@@ -1,6 +1,7 @@
 
 // IMPORTS
 
+import enums from "@enums/server/vehicles/index";
 import methods, { List } from "../modules/methods";
 import terminal from "../modules/terminal";
 
@@ -21,12 +22,12 @@ class Vehicles {
 
     public static hasInListByID(id:number) {
         terminal.debugDetailed('Vehicles.hasInListByID();');
-        return this._list.has(id);
+        return this._list.hasByID(id);
     }
 
     public static removeInListByID(id:number) {
         terminal.debugDetailed('Vehicles.removeInListByID();');
-        return this._list.remove(id);
+        return this._list.removeByID(id);
     }
 
     public static generateID(plus?:boolean):number {
@@ -69,21 +70,19 @@ export class Vehicle {
         this._tickMileage();
     }
 
-    // todo Нужно придумать логику пробега
+    // todo Нужно придумать логику пробега и топлива
     private async _tickMileage() {
         await methods.sleep(1000);
         
-        
-
+        this._handle.engine = true;
         this._tickMileage();
     }
 
     // SETTERS
 
-    // todo Нужно доделать функцию на клиенте меняющая альфу
     public setAlpha(number:number = 255) {
-        if(number < 0) return; // todo Нужно обработать ошибку
-        // this._handle.alpha = number;
+        if(number < 0) return terminal.error(`[Vehicle] Автомобилю с ID ${this._id} не может быть назначена прозрачность менбше нуля`);
+        // this._handle.alpha = number; // todo Нужно доделать функцию на клиенте меняющая альфу
     }
 
     public setEngineStatus(status:boolean) {
@@ -123,19 +122,19 @@ export class Fuel {
         this.setMaxBank(options?.maxBank);
         this.setType(options?.type);
 
-        this._tick();
+        // this._tick();
     }
 
-    private async _tick() {
-        await methods.sleep(1000);
-        if(this._type == 'admin') return; // todo Нужно обработать ошибку
+    // private async _tick() {
+    //     await methods.sleep(1000);
+    //     if(this._type == 'admin') return; // todo Нужно обработать ошибку
 
-        // todo Нужно придумать логику топлива
-        this.remove(0.001);
-        // terminal.log(this.get());
+    //     // todo Нужно придумать логику топлива
+    //     this.remove(0.001);
+    //     // terminal.log(this.get());
 
-        this._tick();
-    }
+    //     this._tick();
+    // }
 
     // SETTERS
 
@@ -144,7 +143,7 @@ export class Fuel {
         this._bank = number;
     }
 
-    public setType<K extends keyof TBoston.Vehicles.Fuel.types>(type?:K) {
+    public setType(type?:keyof TBoston.Vehicles.Fuel.types) {
         this._type = type ? type : 'none';
     }
 
