@@ -1,7 +1,8 @@
 
 // IMPORTS
 
-import './Accounts';
-import './WorldTime';
-import './WorldWeather';
-import './Characters';
+import './accounts';
+import './world_time';
+import './world_weather';
+import './characters';
+import './inventory_items';

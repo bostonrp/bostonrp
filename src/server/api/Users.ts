@@ -7,27 +7,7 @@ import terminal from "../modules/terminal";
 // CODE
 
 class Users {
-    public static _list = new List('Users');
-
-    public static getInListByID(id:number):User {
-        terminal.debugDetailed('Users.getInListByID();');
-        return this._list.getByID(id);
-    }
-
-    public static addInList(user:User):boolean {
-        terminal.debugDetailed('Users.addInList();');
-        return this._list.add(user);
-    }
-
-    public static hasInListByID(id:number) {
-        terminal.debugDetailed('Users.hasInListByID();');
-        return this._list.hasByID(id);
-    }
-
-    public static removeInListByID(id:number) {
-        terminal.debugDetailed('Users.removeInListByID();');
-        return this._list.removeByID(id);
-    }
+    public static list = new List('Users');
 
     public static exists(id:number):boolean {
         terminal.debugDetailed('Users.exists();');
@@ -54,7 +34,7 @@ export class User {
         this.socialName = options.socialName;
         this.ip = options.ip;
 
-        Users.addInList(this);
+        Users.list.add(this);
     }
 
     // SETTERS

@@ -8,34 +8,14 @@ import terminal from "../modules/terminal";
 // CODE
 
 class Vehicles {
-    private static _list = new List('Vehicles');
-
-    public static getInListByID(id:number):Vehicle {
-        terminal.debugDetailed('Vehicles.getInListByID();');
-        return this._list.getByID(id);
-    }
-
-    public static addInList(user:Vehicle):boolean {
-        terminal.debugDetailed('Vehicles.addInList();');
-        return this._list.add(user);
-    }
-
-    public static hasInListByID(id:number) {
-        terminal.debugDetailed('Vehicles.hasInListByID();');
-        return this._list.hasByID(id);
-    }
-
-    public static removeInListByID(id:number) {
-        terminal.debugDetailed('Vehicles.removeInListByID();');
-        return this._list.removeByID(id);
-    }
+    public static list = new List('Vehicles');
 
     public static generateID(plus?:boolean):number {
         terminal.debugDetailed('Vehicles.generateID();');
-        let _id = this._list.length;
+        let _id = this.list.length;
         if(plus) _id++;
 
-        if(this.hasInListByID(_id)) return this.generateID(true);
+        if(this.list.hasByID(_id)) return this.generateID(true);
         return _id;
     }
 
@@ -72,7 +52,7 @@ export class Vehicle {
 
         this._handle.setVariable('server.id', this._id);
 
-        Vehicles.addInList(this);
+        Vehicles.list.add(this);
 
         // this._tickMileage();
     }
@@ -233,14 +213,5 @@ export class Mileage {
         this._count = _oldMileage - float;
     }
 }
-
-let veh = new Vehicle('oracle', new mp.Vector3(12, 12, 71));
-veh.fuel.setMaxBank(45);
-veh.fuel.add(45);
-
-mp.events.addCommand('veh', (player, _, model) => {
-    let veh = new Vehicle(model, player.position);
-    player.putIntoVehicle(veh.handle, 0);
-});
 
 export default Vehicles;

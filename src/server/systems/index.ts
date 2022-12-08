@@ -7,6 +7,7 @@ import Time from "./time";
 import './anticheat';
 import './auth';
 import './weather';
+import './admin/index';
 
 // CODE
 

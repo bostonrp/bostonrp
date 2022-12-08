@@ -1,13 +1,13 @@
 
 // IMPORTS
 
-import { RGB } from "../modules/methods";
+import { List, RGB } from "../modules/methods";
 import terminal from "../modules/terminal";
 
 // CODE
 
 class Markers {
-    public static list = new Array();
+    public static list = new List('Markers');
 }
 
 export class Marker {
@@ -17,6 +17,8 @@ export class Marker {
     constructor(options:TBoston.Markers.createOptions = { type: 0, position: new mp.Vector3(0, 0, 0), scale: 1 }) {
         this._handle = mp.markers.new(options.type, options.position, options.scale);
         this.setColor(options.color);
+
+        Markers.list.add(this);
     }
 
     // SETTERS
