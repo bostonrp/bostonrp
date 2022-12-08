@@ -38,7 +38,7 @@ class Users {
 }
 
 export class User {
-    public id:number;
+    public dynamicID:number;
     public socialID:number;
     public username:string;
     public socialName?:string;
@@ -48,7 +48,7 @@ export class User {
     private _isLoging:boolean = false;
 
     constructor(options:TBoston.Users.createOptions) {
-        this.id = options.id;
+        this.dynamicID = options.dynamicID;
         this.username = options.username;
         this.socialID = options.socialID;
         this.socialName = options.socialName;
@@ -73,6 +73,12 @@ export class User {
 
     generateSecret() {
         // todo
+    }
+
+    putInToVehicle(vehicle:VehicleMp, seat:number) {
+        if(!Users.exists(this.dynamicID)) return;
+        let _player = mp.players.at(this.dynamicID);
+        _player.putIntoVehicle(vehicle, seat);
     }
 }
 

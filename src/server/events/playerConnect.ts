@@ -16,14 +16,14 @@ function playerConnect(player:PlayerMp) {
     player.setClothes(11, 22, 0, 0);
 
     let user = new User({
-        id: player.id,
+        dynamicID: player.id,
         username: player.name,
         socialID: parseInt(player.rgscId),
         socialName: player.socialClub,
         ip: player.ip
     });
 
-    terminal.info(`Игрок ${user.username} (ID: ${user.id}) подключился к серверу`, user.ip);
+    terminal.info(`Игрок ${user.username} (ID: ${user.dynamicID}) подключился к серверу`, user.ip);
 }
 
 mp.events.add('playerJoin', playerConnect);

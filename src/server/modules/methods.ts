@@ -34,6 +34,10 @@ export class RGB implements TBoston.Methods.RGB {
         return { r: this._r, g: this._g, b: this._b, a: this._a };
     }
 
+    getArray() {
+        return [ this._r, this._g, this._b ];
+    }
+
     // OTHERS
 }
 

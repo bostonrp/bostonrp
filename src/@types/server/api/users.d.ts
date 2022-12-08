@@ -3,7 +3,7 @@
 
 declare namespace TBoston.Users {
     interface createOptions {
-        id:number;
+        dynamicID:number;
         username:string;
         socialID:number;
         socialName?:string;

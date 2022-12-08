@@ -2,7 +2,7 @@
 // IMPORTS
 
 import enums from "@enums/server/vehicles/index";
-import methods, { List } from "../modules/methods";
+import methods, { List, RGB } from "../modules/methods";
 import terminal from "../modules/terminal";
 
 // CODE
@@ -56,7 +56,9 @@ export class Vehicle {
     private _fuel:Fuel;
 
     constructor(modelName:string, position:Vector3, options?:TBoston.Vehicles.createOptions) {
-        this._handle = mp.vehicles.new(mp.joaat(modelName), position);
+        this._handle = mp.vehicles.new(mp.joaat(modelName), position, {
+            color: [[252, 252, 252], [252, 252, 252]]
+        });
         this._id = Vehicles.generateID();
 
         this._mileage = new Mileage({
@@ -208,12 +210,21 @@ export class Mileage {
         return this._count;
     }
 
+    public getWithKM() {
+        return parseInt((this.get() / 1000).toFixed(0));
+    }
+
+    public getWithMPH() {
+        return parseInt((this.getWithKM() * 0.62137).toFixed(0));
+    }
+
     // OTHERS
 
     public add(float:number) {
         let _oldMileage = this._count;
         this._count = _oldMileage + float;
-        terminal.log(this._count);
+
+        console.log(`KM: ${this.getWithKM()}`, " | ", `MPH: ${this.getWithMPH()}`);
     }
 
     public remove(float:number) {
