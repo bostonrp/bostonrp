@@ -39,6 +39,7 @@ class Vehicles {
         return _id;
     }
 
+    // todo Нужно переделать
     public static exists(id:number):boolean {
         terminal.debugDetailed('Vehicles.exists();');
         let _vehicle = mp.vehicles.at(id);
@@ -51,8 +52,8 @@ export class Vehicle {
     private _handle:VehicleMp;
     private _id:number;
 
-    private _mileage:Mileage
-    private _fuel:Fuel
+    private _mileage:Mileage;
+    private _fuel:Fuel;
 
     constructor(modelName:string, position:Vector3, options?:TBoston.Vehicles.createOptions) {
         this._handle = mp.vehicles.new(mp.joaat(modelName), position);
@@ -67,16 +68,22 @@ export class Vehicle {
             maxBank: options?.fuelMax
         });
 
-        this._tickMileage();
+        this._handle.setVariable('server.id', this._id);
+
+        Vehicles.addInList(this);
+
+        // this._tickMileage();
     }
 
     // todo Нужно придумать логику пробега и топлива
-    private async _tickMileage() {
-        await methods.sleep(1000);
+    // private async _tickMileage() {
+    //     this._mileageOldPosition = this.position;
+
+    //     await methods.sleep(1000);
         
-        this._handle.engine = true;
-        this._tickMileage();
-    }
+
+    //     this._tickMileage();
+    // }
 
     // SETTERS
 
@@ -107,6 +114,10 @@ export class Vehicle {
 
     get fuel() {
         return this._fuel;
+    }
+
+    get position() {
+        return this._handle.position;
     }
 
     // OTHERS
@@ -202,6 +213,7 @@ export class Mileage {
     public add(float:number) {
         let _oldMileage = this._count;
         this._count = _oldMileage + float;
+        terminal.log(this._count);
     }
 
     public remove(float:number) {

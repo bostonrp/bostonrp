@@ -39,11 +39,11 @@ class NewEvents {
         }
     }
 
-    private _call(eventName:string, ...args:any) {
+    private _call(player:PlayerMp, eventName:string, ...args:any) {
         if(this.#debug) terminal.log(eventName, JSON.stringify(args));
         if(this.#events && this.#events.has(eventName)) {
             this.#events.get(eventName).forEach((callback:any) => {
-                callback(...args);
+                callback(player, ...args);
             });
         }
     }
@@ -61,8 +61,8 @@ class NewEvents {
         this._remove(eventName);
     }
 
-    public call(eventName:string, ...args:any) {
-        this._call(eventName, ...args);
+    public call(player:PlayerMp, eventName:string, ...args:any) {
+        this._call(player, eventName, ...args);
     }
 }
 

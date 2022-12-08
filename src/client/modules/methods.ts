@@ -38,14 +38,19 @@ mp.events.callRemote = () => {
 };
 
 //? METHODS
-let methods = {
+class Methods {
     getFPS():number {
         return FPS.get();
-    },
+    }
 
     callServer(eventName:string, ...args:any[]) {
-        callServer(eventName, ...args);
+        callServer('server.anticheat:events:call', eventName, ...args);
+    }
+
+    async sleep(ms:number) {
+        return new Promise(res => setTimeout(res, ms));
     }
 };
 
+const methods = new Methods();
 export default methods;
