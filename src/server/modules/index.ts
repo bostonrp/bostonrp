@@ -6,11 +6,17 @@ import terminal from './terminal';
 
 import './methods';
 import './database/models/index';
+import Vehicles from '../api/Vehicles';
 
 // CODE
 
 export async function loadAll() {
     terminal.debug('modules.loadAll();');
 
-    await DataBase.Init()
+    try {
+        await DataBase.Init();
+        await Vehicles.loadInfos();
+
+        terminal.done(`[Modules] Модули успешно загрузились`);
+    } catch(e) { terminal.error(e); }
 }

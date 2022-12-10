@@ -52,7 +52,7 @@ export class User {
     // OTHERS
 
     generateSecret() {
-        // todo
+        // todo Нужно реализовать защитный секретный ключ
     }
 
     putInToVehicle(vehicle:VehicleMp, seat:number) {

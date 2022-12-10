@@ -22,12 +22,18 @@ class DataBase {
         logging: config.debug ? console.log : false
     });
     
-    public static async Init():Promise<boolean> {
+    public static async Init():Promise<any> {
         terminal.debugDetailed('DataBase.Init();');
         
+        if(!await this.hasConnection()) return
+        await this._loadModels();
+    }
+
+    public static async hasConnection():Promise<boolean> {
+        terminal.debugDetailed('DataBase.hasConnection();');
+
         try {
-            if(!await this.hasConnection()) return false;
-            await this._loadModels();
+            await this.main.authenticate();
             return true;
         } catch(e) {
             terminal.error(e);
@@ -35,28 +41,18 @@ class DataBase {
         }
     }
 
-    public static async hasConnection(silent:boolean = false):Promise<boolean> {
-        if(!silent) terminal.debugDetailed('DataBase.hasConnection();');
-
-        try {
-            await this.main.authenticate();
-            return true;
-        } catch(e) {
-            if(!silent) terminal.error(e);
-            return false;
-        }
-    }
-
     private static async _loadModels() {
         terminal.debugDetailed('DataBase._loadModels();');
 
-        let funcTime = methods.getPerfomance(() => {
-            models.forEach((model:DBModel) => {
-                model.init();
+        try {
+            let funcTime = methods.getPerfomance(() => {
+                models.forEach((model:DBModel) => {
+                    model.init();
+                });
             });
-        });
 
-        terminal.debug('[DataBase] Модуль базы данных был загружен', `${funcTime}ms`);
+            terminal.done('[DataBase] Модуль базы данных был загружен', `${funcTime}ms`);
+        } catch(e) { terminal.error(e); }
     }
 }
 

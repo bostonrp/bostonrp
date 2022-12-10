@@ -1,7 +1,7 @@
 
 // IMPORTS
 
-import { DataTypes } from 'sequelize'
+import { DataTypes } from 'sequelize';
 import { DBModel } from '../index';
 
 // CODE

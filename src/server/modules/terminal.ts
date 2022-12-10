@@ -111,6 +111,23 @@ class Terminal {
             _args ? `${_scobe.open}${_construction}${_scobe.close}` : ''
         );
     }
+
+    done(text:any, ...args:any[]) {
+        let _timeTag = colors.gray(methods.getRealTimeToSec());
+        let _tag = colors.green(`[DONE]`);
+        let _scobe = {
+            open: colors.gray('['),
+            close: colors.gray(']')
+        };
+    
+        let _args = `${args}`.replace(',', '", "');
+        let _construction = colors.green(`"${_args}"`);
+    
+        console.log(
+            `${_timeTag} ${_tag} ${text}`,
+            _args ? `${_scobe.open}${_construction}${_scobe.close}` : ''
+        );
+    }
 }
 
 const terminal = new Terminal();

@@ -6,7 +6,7 @@ declare namespace TBoston.Vehicles {
         fuel?:number;
         fuelMax?:number;
         fuelType?:keyof TBoston.Vehicles.Fuel.types,
-        mileage?:number
+        mileage?:number;
     }
 }
 
@@ -20,11 +20,11 @@ declare namespace TBoston.Vehicles.Fuel {
 
     interface types {
         regular:string; // 87
-        medium:string; // 89
+        plus:string; // 89
         supreme:string; // 92
         diesel:string; // Дизель
         jet:string; // Авиатопливо
-        admin:string; // Бесконечное топливо
+        infinity:string; // Бесконечное топливо
         none:string; // Без топлива
         electro:string; // Электричество
     }

@@ -14,5 +14,9 @@ import './admin/index';
 export async function loadAll() {
     terminal.debug('systems.loadAll();');
 
-    await Time.load();
+    try {
+        await Time.load();
+
+        terminal.done(`[Systems] Системы были загружены и готовы к работе`);
+    } catch(e) { return terminal.error(e); }
 }

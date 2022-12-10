@@ -1,19 +1,19 @@
 
 // IMPORTS
 
-import { DataTypes } from 'sequelize'
+import { DataTypes } from 'sequelize';
 import { DBModel } from '../index';
 
 // CODE
 
 const Accounts = new DBModel('accounts', {
     email: {
-        type: DataTypes.CHAR({ length: 50 }),
+        type: DataTypes.CHAR({ length: 35 }),
         allowNull: false
     },
     
     username: {
-        type: DataTypes.CHAR({ length: 25 }),
+        type: DataTypes.CHAR({ length: 12 }),
         allowNull: false
     },
 
@@ -23,12 +23,12 @@ const Accounts = new DBModel('accounts', {
     },
 
     socialID: {
-        type: DataTypes.CHAR({ length: 50 }),
+        type: DataTypes.TEXT,
         allowNull: false
     },
 
     socialName: {
-        type: DataTypes.CHAR({ length: 50 }),
+        type: DataTypes.TEXT,
         allowNull: false
     },
 
@@ -38,12 +38,12 @@ const Accounts = new DBModel('accounts', {
     },
 
     reg_ip: {
-        type: DataTypes.CHAR({ length: 25 }),
+        type: DataTypes.TEXT,
         allowNull: false
     },
     
     last_ip: {
-        type: DataTypes.CHAR({ length: 25 }),
+        type: DataTypes.TEXT,
         allowNull: false
     },
 

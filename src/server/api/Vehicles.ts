@@ -1,14 +1,27 @@
 
 // IMPORTS
 
+import VehiclesInfo from "@database/vehicles_info";
 import enums from "@enums/server/vehicles/index";
-import methods, { List, RGB } from "../modules/methods";
+import { List } from "../modules/methods";
 import terminal from "../modules/terminal";
 
 // CODE
 
 class Vehicles {
     public static list = new List('Vehicles');
+    public static infos = new Map();
+
+    public static async loadInfos() {
+        terminal.debugDetailed('Vehicles.loadInfos();');
+
+        try {
+            let _infos = await VehiclesInfo.methods?.findAll();
+            _infos?.forEach((element:any) => {
+                this.infos.set(element.id, element);
+            });
+        } catch(e) { terminal.error(e); }
+    }
 
     public static generateID(plus?:boolean):number {
         terminal.debugDetailed('Vehicles.generateID();');
@@ -53,19 +66,12 @@ export class Vehicle {
         this._handle.setVariable('server.id', this._id);
 
         Vehicles.list.add(this);
-
-        // this._tickMileage();
     }
 
-    // todo Нужно придумать логику пробега и топлива
-    // private async _tickMileage() {
-    //     this._mileageOldPosition = this.position;
-
-    //     await methods.sleep(1000);
+    // todo Нужно придумать логику топлива
+    private _tickFuel() {
         
-
-    //     this._tickMileage();
-    // }
+    }
 
     // SETTERS
 
@@ -105,7 +111,7 @@ export class Vehicle {
     // OTHERS
 }
 
-export class Fuel {
+class Fuel {
     private _type:string = 'none';
 
     private _bank:number = 0.000;
@@ -114,20 +120,7 @@ export class Fuel {
     constructor(options?:TBoston.Vehicles.Fuel.creationOptions) {
         this.setMaxBank(options?.maxBank);
         this.setType(options?.type);
-
-        // this._tick();
     }
-
-    // private async _tick() {
-    //     await methods.sleep(1000);
-    //     if(this._type == 'admin') return; // todo Нужно обработать ошибку
-
-    //     // todo Нужно придумать логику топлива
-    //     this.remove(0.001);
-    //     // terminal.log(this.get());
-
-    //     this._tick();
-    // }
 
     // SETTERS
 
@@ -154,6 +147,10 @@ export class Fuel {
         return this._maxBank;
     } 
 
+    getType() {
+        return this._type;
+    }
+
     // OTHERS
 
     public add(number:number) {
@@ -171,7 +168,7 @@ export class Fuel {
     }
 }
 
-export class Mileage {
+class Mileage {
     private _count = 0.0;
 
     constructor(options?:TBoston.Vehicles.Mileage.creationOptions) {
