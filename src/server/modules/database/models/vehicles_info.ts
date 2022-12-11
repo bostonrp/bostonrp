@@ -9,12 +9,12 @@ import { DBModel } from '../index';
 const VehiclesInfo = new DBModel('vehicles_info', {
     name: {
         type: DataTypes.CHAR({ length: 15 }),
-        allowNull: false
+        allowNull: true
     },
 
     displayName: {
         type: DataTypes.CHAR({ length: 25 }),
-        allowNull: false
+        allowNull: true
     },
 
     class: {
@@ -22,23 +22,31 @@ const VehiclesInfo = new DBModel('vehicles_info', {
         allowNull: false
     },
 
+    mass: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+    },
+
     fuelType: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        defaultValue: 0
     },
 
     fuelMax: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        defaultValue: 1
     },
 
     handling: {
         type: DataTypes.JSON,
         allowNull: false,
         defaultValue: {
-            acceleration: 0.01, // number
-            antiRollBarBiasFront: 0.0, // number // number
-            antiRollBarBiasRear: 0.0, // number // number
+            acceleration: 0.0, // number
+            antiRollBarBiasFront: 0.0, // number
+            antiRollBarBiasRear: 0.0, // number
             antiRollBarForce: 0.0, // number
             brakeBiasFront: 0.0, // number
             brakeBiasRear: 0.0, // number

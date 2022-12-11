@@ -6,7 +6,7 @@ import terminal from './terminal';
 
 import './methods';
 import './database/models/index';
-import Vehicles from '../api/Vehicles';
+import Vehicles from '../api/vehicles';
 
 // CODE
 

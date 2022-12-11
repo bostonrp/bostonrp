@@ -16,10 +16,10 @@ export const types = {
 }
 
 export const coefficient = {
-    'regular': 0.00,
-    'plus': 0.005,
-    'supreme': 2,
-    'diesel': 3,
-    'jet': 4,
-    'electro': 5
+    'regular': 0.0035,
+    'plus': 0.0025,
+    'supreme': 0.003,
+    'diesel': 0.0015,
+    'jet': 0.01,
+    'electro': 0.004
 }

@@ -2,7 +2,7 @@
 // IMPORTS
 
 import Events from "../api/Events";
-import Vehicles from "../api/Vehicles";
+import Vehicles from "../api/vehicles";
 import terminal from "../modules/terminal";
 
 // CODE

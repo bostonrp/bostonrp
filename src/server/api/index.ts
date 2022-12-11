@@ -2,6 +2,6 @@
 // IMPORTS
 
 import './Events';
-import './Vehicles';
+import './vehicles';
 import './Blips';
 import './Markers';

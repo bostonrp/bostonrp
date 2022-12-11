@@ -1,7 +1,7 @@
 
 // IMPORTS
 
-import { Vehicle } from "src/server/api/Vehicles";
+import { Vehicle } from "src/server/api/vehicles";
 
 // CODE
 

@@ -1,18 +1,18 @@
 
 // CODE
 
-declare namespace TBoston.Vehicles {
+declare namespace TBoston.API.Vehicles {
     interface createOptions {
         fuel?:number;
         fuelMax?:number;
-        fuelType?:keyof TBoston.Vehicles.Fuel.types,
+        fuelType?:keyof TBoston.API.Vehicles.Fuel.types,
         mileage?:number;
     }
 }
 
 // FUEL
 
-declare namespace TBoston.Vehicles.Fuel {
+declare namespace TBoston.API.Vehicles.Fuel {
     interface creationOptions {
         maxBank?:number;
         type?:keyof types;
@@ -32,7 +32,7 @@ declare namespace TBoston.Vehicles.Fuel {
 
 // MILEAGE
 
-declare namespace TBoston.Vehicles.Mileage {
+declare namespace TBoston.API.Vehicles.Mileage {
     interface creationOptions {
         mileage?:number;
     }

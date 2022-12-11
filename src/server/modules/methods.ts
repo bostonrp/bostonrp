@@ -69,9 +69,9 @@ export class List {
     //? CONSTRUCTOR
     private _list = new Array();
     private _listID:number;
-    private _name:string;
+    private _name?:string;
 
-    constructor(name:string) {
+    constructor(name?:string) {
         this._name = name;
         this._listID = List._generateID();
 
