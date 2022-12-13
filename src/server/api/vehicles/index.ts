@@ -54,8 +54,6 @@ export class Vehicle {
         this._handle = mp.vehicles.new(mp.joaat(modelName), position);
         this._id = Vehicles.generateID();
 
-        this.setColor(new RGB(252, 252, 252));
-
         this._mileage = new Mileage({
             mileage: options?.mileage
         });

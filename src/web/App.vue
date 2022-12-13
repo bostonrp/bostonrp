@@ -23,7 +23,7 @@ export default {
 
 <template>
     <div id="bostonrp">
-        <div class="server-build-tag">boston pre-aplha 0.0.1.9</div>
+        <div class="server-build-tag">boston pre-aplha 0.0.1.16</div>
     </div>
 </template>
 

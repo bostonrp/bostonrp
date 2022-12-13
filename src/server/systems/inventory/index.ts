@@ -3,7 +3,7 @@
 
 import { List } from "src/server/modules/methods";
 import terminal from "src/server/modules/terminal";
-import Items, { Item } from "./items";
+import Items from "./items";
 
 // CODE
 
@@ -21,6 +21,10 @@ class Inventory {
 
     // SETTERS
 
+    setCountItemByID(id:number, count:number) {
+        let _item = this.getItemByID(id);
+    }
+
     // GETTERS
 
     getItemByID(id:number):TBoston.Systems.Inventory.itemObject {
@@ -34,22 +38,29 @@ class Inventory {
     // OTHERS
 
     // todo Если нужно то, реализовать функционал стаков для предметов
-    addItem(item:TBoston.Systems.Inventory.itemObject):any {
-        if(!Items.getInListByID(item.id)) return terminal.error(`[Intentory] Вы не можете выдать игроку ${this._userID} предмет с ID ${item.id} так как её не существует`);
+    addItem(item:TBoston.Systems.Inventory.itemObject):void {
+        if(!Items.getInListByID(item.id)) return terminal.error(`[Intentory] Вы не можете выдать игроку ${this._userID} предмет с ID ${item.id} так как его не существует`);
         this._itemsList.add(item);
     }
+
+    addItems(items:Array<TBoston.Systems.Inventory.itemObject>) {
+        if(!items) return;
+        items.forEach(element => {
+            this._itemsList.add(element);
+        });
+    }
+
+    // todo Когда будет функция со стаками, нужно будет дописать
+    deleteItemByID(id:number) {
+        this._itemsList.removeByID(id);
+    }
+
+    deleteItemsByIDs(ids:Array<number>) {
+        if(!ids) return;
+        ids.forEach(id => {
+            this._itemsList.removeByID(id);
+        });
+    }
 }
-
-new Item(0, 'Хуй', {
-    id: 1
-});
-
-let inv = new Inventory(0, {
-    items: [
-        { id: 1, count: 5 }
-    ]
-});
-
-terminal.log(JSON.stringify(inv.getItemByID(1)));
 
 export default Inventory;

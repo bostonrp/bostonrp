@@ -18,6 +18,8 @@ async function Init() {
 
     await modules.loadAll();
     await systems.loadAll();
+
+    mp.world.weather = 'XMAS';
 }
 
 Init();
