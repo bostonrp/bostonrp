@@ -6,4 +6,4 @@ import './events/index';
 import './modules/index';
 import './systems/index';
 
-mp.discord.update('In development', '@aspidemon');
+mp.discord.update('In development', 'bostonrp');

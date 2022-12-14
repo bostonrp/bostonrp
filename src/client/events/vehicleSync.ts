@@ -1,7 +1,7 @@
 
 // IMPORTS
 
-import Vehicle from "../api/Vehicles";
+import Vehicle from "../api/Vehicle";
 
 // CODE
 

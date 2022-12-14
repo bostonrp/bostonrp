@@ -147,20 +147,20 @@ export class List {
 }
 
 class Methods {
-    getRealTimeToSec() {
+    public getRealTimeToSec() {
         let _date = new Date();
         return `${this.digitFormat(_date.getHours())}:${this.digitFormat(_date.getMinutes())}:${this.digitFormat(_date.getSeconds())}`;
     }
 
-    async sleep(ms:number) {
+    public async sleep(ms:number) {
         return new Promise(res => setTimeout(res, ms));
     }
 
-    digitFormat(number:number) {
+    public digitFormat(number:number) {
         return ("0" + number).slice(-2);
     }
 
-    getPerfomance(callback:Function) {
+    public getPerfomance(callback:Function) {
         try {
             let startTime = Date.now();
             callback();
@@ -171,8 +171,29 @@ class Methods {
         }
     }
 
-    createCryptoHash(text:string, algorithm:keyof TBoston.Methods.crypto) {
+    public createCryptoHash(text:string, algorithm:keyof TBoston.Methods.crypto) {
         return crypto.createHash(algorithm).update(text).digest('hex');
+    }
+
+    public getRealTime() {
+        let date = new Date();
+        return `${this.digitFormat(date.getHours())}:${this.digitFormat(date.getMinutes())}`;
+    }
+
+    public getRealDate() {
+        let date = new Date();
+        return `${this.digitFormat(date.getDate())}/${this.digitFormat(date.getMonth() + 1)}`;
+    }
+
+    public generatedCode(length:number) {
+        let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+
+        for(let i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+
+        return result;
     }
 }
 

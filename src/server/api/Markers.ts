@@ -27,67 +27,67 @@ export class Marker {
 
     // SETTERS
 
-    setDimension(id:number = 0) {
+    public setDimension(id:number = 0) {
         this._handle.dimension = id;
     }
 
-    setVisible(status:boolean = true) {
+    public setVisible(status:boolean = true) {
         this._handle.visible = status;
     }
 
-    setRotation(vector3:Vector3 = new mp.Vector3(0, 0, 0)) {
+    public setRotation(vector3:Vector3 = new mp.Vector3(0, 0, 0)) {
         this._handle.rotation = vector3;
     }
 
-    setDirection(vector3:Vector3 = new mp.Vector3(0, 0, 0)) {
+    public setDirection(vector3:Vector3 = new mp.Vector3(0, 0, 0)) {
         this._handle.direction = vector3;
     }
 
-    setScale(number:number) {
+    public setScale(number:number) {
         this._handle.scale = number;
     }
 
-    setPosition(vector3:Vector3) {
+    public setPosition(vector3:Vector3) {
         this._handle.position = vector3;
     }
 
-    setColor(rgb:TBoston.Methods.RGB = new RGB(0, 0, 0)) {
+    public setColor(rgb:TBoston.Methods.RGB = new RGB(0, 0, 0)) {
         let _color = rgb.get();
         this._handle.setColor(_color.r, _color.g, _color.b, _color.a);
     }
 
     // GETTERS
 
-    getColor() {
+    public getColor() {
         let _color = this._handle.getColor();
         return new RGB(_color[0], _color[1], _color[2], _color[3]).get();
     }
 
-    getType() {
+    public getType() {
         return this._handle.type;
     }
 
-    getPosition() {
+    public getPosition() {
         return this._handle.position;
     }
 
-    getScale() {
+    public getScale() {
         return this._handle.scale;
     }
 
-    getDirection() {
+    public getDirection() {
         return this._handle.direction;
     }
 
-    getRotation() {
+    public getRotation() {
         return this._handle.rotation;
     }
 
-    getDimension() {
+    public getDimension() {
         return this._handle.dimension;
     }
 
-    getVisible() {
+    public getVisible() {
         return this._handle.visible;
     }
 

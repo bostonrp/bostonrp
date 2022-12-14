@@ -1,6 +1,8 @@
 
 // IMPORTS
 
+import User from "../api/User";
+
 // CODE
 
 class FPS {
@@ -44,7 +46,7 @@ class Methods {
     }
 
     callServer(eventName:string, ...args:any[]) {
-        callServer('server.anticheat:events:call', eventName, ...args);
+        callServer('server.anticheat:events:call', eventName, User.secret, ...args);
     }
 
     async sleep(ms:number) {

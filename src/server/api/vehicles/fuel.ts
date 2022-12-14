@@ -39,7 +39,7 @@ class Fuel {
         return this._maxBank;
     } 
 
-    getType() {
+    public getType() {
         return this._type;
     }
 

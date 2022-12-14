@@ -96,7 +96,7 @@ export class Vehicle {
 
     // GETTERS
 
-    getEngineStatus() {
+    public getEngineStatus() {
         return this._handle.engine;
     }
 

@@ -8,7 +8,7 @@ import * as colors from 'console-log-colors';
 // CODE
 
 class Terminal {
-    log(text: any, ...args: any[]): void {
+    public log(text: any, ...args: any[]): void {
         let _timeTag = colors.gray(methods.getRealTimeToSec());
         let _tag = colors.gray(`[LOG]`);
         let _scobe = {
@@ -25,7 +25,7 @@ class Terminal {
         );
     }
     
-    debug(text:any, ...args:any[]) {
+    public debug(text:any, ...args:any[]) {
         if(!configs.debug) return;
         let _timeTag = colors.gray(methods.getRealTimeToSec());
         let _tag = colors.cyan(`[DEBUG]`);
@@ -43,7 +43,7 @@ class Terminal {
         );
     }
 
-     debugDetailed(text:any, ...args:any[]) {
+    public debugDetailed(text:any, ...args:any[]) {
         if(!configs.debugDetailed) return;
         let _timeTag = colors.gray(methods.getRealTimeToSec());
         let _tag = colors.gray(`[DEBUG]`);
@@ -61,7 +61,7 @@ class Terminal {
         );
     }
 
-    error(text:any, ...args:any[]) {
+    public error(text:any, ...args:any[]) {
         let _timeTag = colors.gray(methods.getRealTimeToSec());
         let _tag = colors.red(`[ERROR]`);
         let _scobe = {
@@ -78,7 +78,7 @@ class Terminal {
         );
     }
 
-    warning(text:any, ...args:any[]) {
+    public warning(text:any, ...args:any[]) {
         let _timeTag = colors.gray(methods.getRealTimeToSec());
         let _tag = colors.bold(colors.yellow(`[WARNING]`));
         let _scobe = {
@@ -95,7 +95,7 @@ class Terminal {
         );
     }
 
-    info(text:any, ...args:any[]) {
+    public info(text:any, ...args:any[]) {
         let _timeTag = colors.gray(methods.getRealTimeToSec());
         let _tag = colors.yellow(`[INFO]`);
         let _scobe = {
@@ -112,7 +112,7 @@ class Terminal {
         );
     }
 
-    done(text:any, ...args:any[]) {
+    public done(text:any, ...args:any[]) {
         let _timeTag = colors.gray(methods.getRealTimeToSec());
         let _tag = colors.green(`[DONE]`);
         let _scobe = {

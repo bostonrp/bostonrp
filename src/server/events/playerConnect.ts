@@ -6,7 +6,7 @@ import terminal from "../modules/terminal";
 
 // CODE
 
-function playerConnect(player:PlayerMp) {
+async function playerConnect(player:PlayerMp) {
     // player.spawn(new mp.Vector3(0, 0, 71));
 
     player.setClothes(2, 57, 0, 0);
@@ -15,15 +15,17 @@ function playerConnect(player:PlayerMp) {
     player.setClothes(8, 15, 0, 0);
     player.setClothes(11, 22, 0, 0);
 
-    let user = new User({
+    let _user = new User({
         dynamicID: player.id,
         username: player.name,
         socialID: parseInt(player.rgscId),
         socialName: player.socialClub,
-        ip: player.ip
+        ip: player.ip,
     });
 
-    terminal.info(`Игрок ${user.username} (ID: ${user.dynamicID}) подключился к серверу`, user.ip);
+    await _user.generateSecret();
+
+    terminal.info(`Игрок ${_user.username} (ID: ${_user.dynamicID}) подключился к серверу`, _user.ip);
 }
 
 mp.events.add('playerJoin', playerConnect);

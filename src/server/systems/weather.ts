@@ -8,7 +8,7 @@ class Weather {
 
     }
 
-    private static start() {
+    private static _start() {
 
     }
 }

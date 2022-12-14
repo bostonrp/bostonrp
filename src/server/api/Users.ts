@@ -1,7 +1,7 @@
 
 // IMPORTS
 
-import { List } from "../modules/methods";
+import methods, { List } from "../modules/methods";
 import terminal from "../modules/terminal";
 
 // CODE
@@ -9,6 +9,18 @@ import terminal from "../modules/terminal";
 class Users {
     public static list = new List('Users');
 
+    public static getByID(id:number):User {
+        return this.list.getByID(id);
+    }
+
+    public static getSecretExists(secret:string) {
+        let _result = this.list.getAll().find((_player:User) => _player.secret == secret);
+
+        if(_result != undefined) return true;
+        return false;
+    }
+
+    // todo Возможно не будет использоваться
     public static exists(id:number):boolean {
         terminal.debugDetailed('Users.exists();');
         let _player = mp.players.at(id);
@@ -19,6 +31,7 @@ class Users {
 
 export class User {
     public dynamicID:number;
+    public staticID:number|null = null;
     public socialID:number;
     public username:string;
     public socialName?:string;
@@ -39,23 +52,52 @@ export class User {
 
     // SETTERS
 
-    setLoging() {
+    public setLoging() {
         this._isLoging = true;
     }
 
     // GETTERS
 
-    get isLoging() {
+    public getName() {
+        return this.username;
+    }
+
+    public isLoging() {
         return this._isLoging;
+    }
+
+    get secret() {
+        return this._secret;
+    }
+
+    get id() {
+        return this.dynamicID;
     }
 
     // OTHERS
 
-    generateSecret() {
-        // todo Нужно реализовать защитный секретный ключ
+    public quit() {
+        Users.list.removeByID(this.dynamicID);
     }
 
-    putInToVehicle(vehicle:VehicleMp, seat:number) {
+    private async _generateSecret() {
+        return methods.createCryptoHash(`BostonRolePlay`, 'sha256') + methods.createCryptoHash(methods.createCryptoHash(methods.generatedCode(26), 'sha256'), 'md5');
+    }
+
+    public async generateSecret() {
+        let _secret = await this._generateSecret();
+
+        if(!Users.getSecretExists(_secret)) {
+            let _player = mp.players.at(this.dynamicID);
+            this._secret = _secret;
+            return _player.call('client.user:secret:update', [this._secret]); // todo нужно реализовать
+        }
+
+        await methods.sleep(1);
+        this.generateSecret();
+    }
+
+    public putInToVehicle(vehicle:VehicleMp, seat:number) {
         if(!Users.exists(this.dynamicID)) return;
         let _player = mp.players.at(this.dynamicID);
         _player.putIntoVehicle(vehicle, seat);

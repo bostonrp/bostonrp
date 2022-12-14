@@ -55,7 +55,7 @@ class Time {
         }
 
         if(this._months == 2) { // Февраль
-            if(this.getLeapYear(this._year)) { // Высокосный
+            if(this._getLeapYear(this._year)) { // Высокосный
                 if(this._days > 29) {
                     this._days = 1;
                     ++this._months;
@@ -106,7 +106,7 @@ class Time {
         });
     }
 
-    private static getLeapYear(number:number) {
+    private static _getLeapYear(number:number) {
         return !((number % 4) || (!(number % 100) && (number % 400)));
     }
 }

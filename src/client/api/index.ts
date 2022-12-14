@@ -2,4 +2,5 @@
 // IMPORTS
 
 import './Browser';
-import './Vehicles';
+import './Vehicle';
+import './User';

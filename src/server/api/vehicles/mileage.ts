@@ -35,7 +35,7 @@ class Mileage {
     public add(float:number) {
         let _oldMileage = this._count;
         this._count = _oldMileage + float;
-        // console.log(`KM: ${this.getWithKM()}`, " | ", `MPH: ${this.getWithMPH()}`);
+        console.log(`KM: ${this.getWithKM()}`, " | ", `MPH: ${this.getWithMPH()}`);
     }
 
     public remove(float:number) {
