@@ -7,12 +7,12 @@ import { DBModel } from '../index';
 // CODE
 
 const VehiclesInfo = new DBModel('vehicles_info', {
-    name: {
+    hash_name: {
         type: DataTypes.CHAR({ length: 15 }),
         allowNull: true
     },
 
-    displayName: {
+    display_name: {
         type: DataTypes.CHAR({ length: 25 }),
         allowNull: true
     },
@@ -22,19 +22,13 @@ const VehiclesInfo = new DBModel('vehicles_info', {
         allowNull: false
     },
 
-    mass: {
+    fuel_type: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0
     },
 
-    fuelType: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 0
-    },
-
-    fuelMax: {
+    fuel_max: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 1
