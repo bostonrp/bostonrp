@@ -171,8 +171,8 @@ class Methods {
         }
     }
 
-    public createCryptoHash(text:string, algorithm:keyof TBoston.Methods.crypto) {
-        return crypto.createHash(algorithm).update(text).digest('hex');
+    public createCryptoHash(text:any, algorithm:keyof TBoston.Methods.crypto) {
+        return crypto.createHash(algorithm).update(`${text}`).digest('hex');
     }
 
     public getRealTime() {

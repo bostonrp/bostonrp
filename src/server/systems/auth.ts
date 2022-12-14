@@ -8,28 +8,25 @@ import terminal from "../modules/terminal";
 // CODE
 
 class Auth {
-    public static async getAccount(id:number) {
-        return await Accounts.methods?.findOne({ where: { id } });
+    public static async getAccountByKey(key:string, value:any):Promise<any> {
+        return await Accounts.methods?.findOne({ where: { [key]: value } });
     }
 
-    // todo Возможно и не потребуется
-    public static async hasAccount(id:number) {
-        if(!!this.getAccount(id)) return true;
-        return false;
+    public static generatePasswordHash(password:string) {
+        let _passwordHash = null;
+        _passwordHash = methods.createCryptoHash(password, 'md5');
+        _passwordHash = methods.createCryptoHash(_passwordHash, 'sha256');
+        _passwordHash = methods.createCryptoHash(_passwordHash, 'md5');
+        return _passwordHash;
     }
 
     public static async createAccount(options?:TBoston.Systems.Auth.createAccount) {
         if(!options) return;
 
-        let passwordHash = null;
-        passwordHash = methods.createCryptoHash(options.password, 'md5');
-        passwordHash = methods.createCryptoHash(passwordHash, 'sha256');
-        passwordHash = methods.createCryptoHash(passwordHash, 'md5');
-
         await Accounts.methods?.create({
             email: options.email,
             username: options.username,
-            password: passwordHash,
+            password: this.generatePasswordHash(options.password),
             socialID: options.socialID,
             socialName: options.socialName,
             hwid: options.hwid,
@@ -43,7 +40,7 @@ class Auth {
     }
 
     public static async deleteAccount(id:number) {
-        if(!await this.hasAccount(id)) return;
+        if(!await this.getAccountByKey('id', id)) return;
         Accounts.methods?.destroy({ where: { id } });
     }
 }

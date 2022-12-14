@@ -6,11 +6,18 @@ declare namespace TBoston.Systems.Auth {
         email:string;
         username:string;
         password:string;
-        socialID:number;
+        socialID:string;
         socialName:string;
         hwid:string;
         ip:string;
         referal_code?:string;
         donate?:number;
+    }
+
+    interface regData {
+        email:string;
+        username:string;
+        password:string;
+        referalcode:string;
     }
 }
