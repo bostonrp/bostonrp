@@ -21,7 +21,7 @@ export class RGB implements TBoston.Methods.RGB {
 
     // SETTERS
 
-    set(r:number, g:number, b:number, a:number = 255) {
+    public set(r:number, g:number, b:number, a:number = 255) {
         this._r = r;
         this._g = g;
         this._b = b;
@@ -30,11 +30,11 @@ export class RGB implements TBoston.Methods.RGB {
 
     // GETTERS
 
-    get() {
+    public get() {
         return { r: this._r, g: this._g, b: this._b, a: this._a };
     }
 
-    getArray() {
+    public getArray() {
         return [ this._r, this._g, this._b ];
     }
 
@@ -82,19 +82,19 @@ export class List {
 
     // GETTERS
 
-    getName() {
+    public getName() {
         return this._name;
     }
 
-    getAll() {
+    public getAll() {
         return this._list;
     }
 
-    getByID(id:number):any {
+    public getByID(id:number):any {
         return this._list.find(_element => _element.id == id);
     }
 
-    getIndexByID(id:number) {
+    public getIndexByID(id:number) {
         return this._list.findIndex(_element => _element.id == id);
     }
 
@@ -112,15 +112,15 @@ export class List {
 
     // OTHERS
 
-    deleteList() {
+    public deleteList() {
         List._remove(this._listID);
     }
 
-    hasByID(id:number) {
+    public hasByID(id:number) {
         return !!this.getByID(id);
     }
 
-    add(element:any):boolean {
+    public add(element:any):boolean {
         if(this.hasByID(element.id)) return false;
 
         try {
@@ -132,7 +132,7 @@ export class List {
         }
     }
 
-    removeByID(id:number) {
+    public removeByID(id:number) {
         if(!this.hasByID(id)) return false;
 
         try {
@@ -143,6 +143,15 @@ export class List {
             terminal.log(e);
             return false;
         }
+    }
+
+    public generateID():any {
+        let _id = this._list.length + 1;
+        if(!this.getByID(_id)) {
+            return _id;
+        }
+
+        return this.generateID();
     }
 }
 

@@ -28,6 +28,6 @@
         "declaration": false
     },
 
-    "include": ["./src/**/*.ts"],
+    "include": ["./src/**/*.ts", "src/bot/index.mjs"],
     "exclude": ["node_modules", "**/*.spec.ts", "packages", "**/*.json"]
 }

@@ -79,6 +79,7 @@ const server = {
     externalsType: 'module',
     externals: {
         'sequelize': 'sequelize',
+        'discord.js': 'discord.js'
     },
 
     resolve: {

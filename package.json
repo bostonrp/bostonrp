@@ -9,7 +9,8 @@
     "build:web": "vue-cli-service build",
     "watch": "webpack watch",
     "watch:web": "vue-cli-service serve --copyWebpack",
-    "build:server": "tsc ./src/server/index.ts -d ./packages"
+    "build:server": "tsc ./src/server/index.ts -d ./packages",
+    "start:bot": "node ./src/bot/index.mjs"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,7 @@
     "@vue/cli-plugin-babel": "^5.0.8",
     "@vue/cli-service": "^5.0.8",
     "copy-webpack-plugin": "^11.0.0",
+    "discord.js": "^14.7.1",
     "html-webpack-plugin": "^5.5.0",
     "javascript-obfuscator": "^4.0.0",
     "less-loader": "^11.0.0",

@@ -4,7 +4,7 @@ import terminal from "../modules/terminal";
 
 // CODE
 
-class NewEvents {
+export class NewEvents {
     #debug = false;
     #events = new Map();
 
@@ -67,5 +67,4 @@ class NewEvents {
 }
 
 const Events = new NewEvents(false);
-
 export default Events;

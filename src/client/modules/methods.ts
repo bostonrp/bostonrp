@@ -2,6 +2,7 @@
 // IMPORTS
 
 import User from "../api/User";
+import AntiCheat from "../systems/anticheat";
 
 // CODE
 
@@ -34,19 +35,14 @@ class FPS {
     }
 }
 
-const callServer = mp.events.callRemote;
-mp.events.callRemote = () => {
-    mp.console.logError('[AntiCheat] Вы не можете использовать executor на этом сервере :3');
-};
-
 //? METHODS
 class Methods {
-    getFPS():number {
+    getFPS() {
         return FPS.get();
     }
 
     callServer(eventName:string, ...args:any[]) {
-        callServer('server.anticheat:events:call', eventName, User.secret, ...args);
+        AntiCheat.callServer('server.anticheat:events:call', eventName, User.secret, ...args);
     }
 
     async sleep(ms:number) {

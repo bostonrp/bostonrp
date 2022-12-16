@@ -6,7 +6,7 @@ import { List } from "../modules/methods";
 // CODE
 
 class Blips {
-    public static list = new List('Houses');
+    public static list = new List('Blips');
 
     public static getInListByID(id:number):Blip {
         return this.list.getByID(id);
@@ -15,9 +15,12 @@ class Blips {
 
 export class Blip {
     private _handle:BlipMp;
+    private _id:number;
 
     constructor(sprite:number, name:string, position:Vector3, options?:TBoston.API.Blips.createOptions) {
         this._handle = mp.blips.new(sprite, position);
+
+        this._id = Blips.list.generateID();
 
         this.setName(name);
         this.setScale(options?.scale);
@@ -69,10 +72,47 @@ export class Blip {
 
     // GETTERS
 
+    get id() {
+        return this._id;
+    }
+
+    public getSprite() {
+        return this._handle.sprite;
+    }
+
+    public getName() {
+        return this._handle.name;
+    }
+
+    public getScale() {
+        return this._handle.scale;
+    }
+
+    public getColor() {
+        return this._handle.color;
+    }
+
+    public getAlpha() {
+        return this._handle.alpha;
+    }
+
+    public getDrawDistance() {
+        return this._handle.drawDistance;
+    }
+
+    public getShortRange() {
+        return this._handle.shortRange;
+    }
+
+    public getRotation() {
+        this._handle.rotation;
+    }
+
+    public getDimension() {
+        return this._handle.dimension;
+    }
+
     // OTHERS
 }
-
-let blip = new Blip(60, 'Police Department', new mp.Vector3(427.95, -981.05, 0));
-blip.setColor(3);
 
 export default Blips;
