@@ -80,12 +80,12 @@ export class User {
         Users.list.removeByID(this.dynamicID);
     }
 
-    private async _generateSecret() {
+    private _generateSecret() {
         return methods.createCryptoHash(`BostonRolePlay`, 'sha256') + methods.createCryptoHash(methods.createCryptoHash(methods.generatedCode(26), 'sha256'), 'md5');
     }
 
-    public async generateSecret() {
-        let _secret = await this._generateSecret();
+    public generateSecret() {
+        let _secret = this._generateSecret();
 
         if(!Users.getSecretExists(_secret)) {
             let _player = mp.players.at(this.dynamicID);
@@ -93,7 +93,6 @@ export class User {
             return _player.call('client.user:secret:update', [this._secret]); // todo нужно реализовать
         }
 
-        await methods.sleep(1);
         this.generateSecret();
     }
 

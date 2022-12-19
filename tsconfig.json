@@ -25,9 +25,9 @@
         "importHelpers": true,
         "rootDir": "./src",
         "allowSyntheticDefaultImports": true,
-        "declaration": false
+        "composite": true
     },
 
-    "include": ["./src/**/*.ts", "src/bot/index.mjs"],
+    "include": ["./src/**/*.ts"],
     "exclude": ["node_modules", "**/*.spec.ts", "packages", "**/*.json"]
 }

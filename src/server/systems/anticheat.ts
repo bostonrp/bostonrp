@@ -15,12 +15,12 @@ class AntiCheat {
 }
 
 //? EVENT
-mp.events.add('server.anticheat:events:call', async (player:PlayerMp, eventName:any, secret:string, ...args:any) => {
+mp.events.add('server.anticheat:events:call', (player:PlayerMp, eventName:any, secret:string, ...args:any) => {
     let _user:User = Users.list.getAll().find((_player:User) => _player.dynamicID == player.id);
     if(!_user) return;
 
     if(_user.secret === secret) {
-        await _user.generateSecret();
+        _user.generateSecret();
 
         let event = ignoreEvents.find(_name => _name == eventName);
         if(event == undefined) logs.write(`Игрок ${_user.getName()} (ID: ${_user.staticID}) вызвал ивент '${eventName}' с аргументами: ${JSON.stringify(args)}`);
