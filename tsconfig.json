@@ -25,9 +25,9 @@
         "importHelpers": true,
         "rootDir": "./src",
         "allowSyntheticDefaultImports": true,
-        "composite": true
+        "declaration": false
     },
 
-    "include": ["./src/**/*.ts"],
+    "include": ["./src/**/*.ts", "./src/**/*.*", "src/server/api/Colshapests"],
     "exclude": ["node_modules", "**/*.spec.ts", "packages", "**/*.json"]
 }

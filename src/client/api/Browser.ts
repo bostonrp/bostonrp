@@ -43,8 +43,7 @@ export class Browser {
     // OTHERS
 }
 
-let browser = new Browser('default', 'http://26.96.119.45:8080/', {
-    active: true
-});
+// let browser = new Browser('default', 'http://localhost:8080/');
+// browser.setActive(true);
 
 export default Browsers;
