@@ -15,6 +15,7 @@ declare namespace TBoston.API.Vehicles {
 declare namespace TBoston.API.Vehicles.Fuel {
     interface creationOptions {
         maxBank?:number;
+        bank?:number;
         type?:keyof types;
     }
 

@@ -7,7 +7,11 @@ import { RGB } from "src/server/modules/methods";
 // CODE
 
 mp.events.addCommand('veh', (player, _, model) => {
-    let veh = new Vehicle(model, player.position);
+    let veh = new Vehicle(model, player.position, {
+        fuelType: 'jet',
+        fuelMax: 100,
+        fuel: 95
+    });
     veh.setColor(new RGB(31, 87, 84), new RGB(31, 87, 84));
     player.putIntoVehicle(veh.handle, 0);
 });

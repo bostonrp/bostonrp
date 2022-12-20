@@ -1,23 +1,26 @@
 
 // IMPORTS
 
+import terminal from "src/server/modules/terminal";
+
 // CODE
 
 class Fuel {
-    private _type:string = 'none';
+    private _type:keyof TBoston.API.Vehicles.Fuel.types = 'none';
 
     private _bank:number = 0.000;
     private _maxBank:number = 0.000;
 
     constructor(options?:TBoston.API.Vehicles.Fuel.creationOptions) {
         this.setMaxBank(options?.maxBank);
+        this.set(options?.bank);
         this.setType(options?.type);
     }
 
     // SETTERS
 
-    public set(number:number) {
-        if(number > this._maxBank) return; // todo Нужно обработать ошибку
+    public set(number:number = 1) {
+        if(number > this._maxBank) return terminal.warning(`Нельзя установить топлива больше чем места в баке`);
         this._bank = number;
     }
 
@@ -25,7 +28,7 @@ class Fuel {
         this._type = type ? type : 'none';
     }
 
-    public setMaxBank(float:number = 0) {
+    public setMaxBank(float:number = 1) {
         this._maxBank = float;
     }
 
@@ -46,14 +49,14 @@ class Fuel {
     // OTHERS
 
     public add(number:number) {
-        if(number > this._maxBank) return; // todo Нужно обработать ошибку
+        if(number > this._maxBank) return terminal.warning(`Нельзя залить топлива больше чем места в баке`);
         let _oldBank = this._bank;
         let _newBank = (_oldBank + number).toFixed(3);
         this._bank = parseInt(_newBank);
     }
 
     public remove(number:number) {
-        if(this._bank <= 0) return; // todo Нужно обработать ошибку
+        if(this._bank <= 0) return terminal.warning(`Невозможно удалить топливо из авто, так как оно на нуле`);
         let _oldBank = this._bank;
         let _newBank = (_oldBank - number).toFixed(3);
         this._bank = parseFloat(_newBank);

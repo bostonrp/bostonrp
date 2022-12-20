@@ -14,3 +14,10 @@ mp.events.add('client.vehicle:mileage:tick:start', () => {
 mp.events.add('client.vehicle:mileage:tick:stop', () => {
     Vehicle.stopTickMileage();
 });
+
+//? Ивент отдающий текущую скорость автомобиля
+mp.events.addProc('client.vehicle:speed:get', () => {
+    let _vehicle = mp.players.local.vehicle;
+    if(_vehicle) return _vehicle.getSpeed();
+    return null;
+});

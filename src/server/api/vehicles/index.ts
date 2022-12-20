@@ -3,8 +3,9 @@
 
 import VehiclesInfo from "@database/vehicles_info";
 import enums from "@enums/server/vehicles/index";
-import { List, RGB } from "../../modules/methods";
+import methods, { List, RGB } from "../../modules/methods";
 import terminal from "../../modules/terminal";
+import Users from "../Users";
 import Fuel from "./fuel";
 import Mileage from "./mileage";
 
@@ -50,6 +51,8 @@ export class Vehicle {
     private _mileage:Mileage;
     private _fuel:Fuel;
 
+    private _driverID:number = -1;
+
     constructor(modelName:string, position:Vector3, options?:TBoston.API.Vehicles.createOptions) {
         this._handle = mp.vehicles.new(mp.joaat(modelName), position);
         this._id = Vehicles.generateID();
@@ -60,21 +63,50 @@ export class Vehicle {
 
         this._fuel = new Fuel({
             type: options?.fuelType,
+            bank: options?.fuel,
             maxBank: options?.fuelMax
         });
 
         this._handle.setVariable('server.id', this._id);
 
+        this._createEvents();
         Vehicles.list.add(this);
+        
+        this._tickFuel();
     }
 
-    private _tickFuel() {
+    //? Логика топлива
+    private async _tickFuel() {
+        await methods.sleep(1000);
+
         let _fuelType = this.fuel.getType();
 
-        if(_fuelType == 'none' || _fuelType == 'infinity') return;
-        if(!this.getEngineStatus()) return;
+        try {
+            if(_fuelType != 'none') {
+                let _coefficient = enums.fuel.coefficient[`${_fuelType}`];
+                let _player = this._handle.getOccupant(enums.seatNumbers.driver);
+    
+                if(_player && Users.exists(_player.id)) {
+                    let _speed = await _player.callProc('client.vehicle:speed:get');
+    
+                    if(_speed != null) {
+                        _coefficient += 0.001 * _speed;
+                    }
+                }
 
-        // todo Нужно придумать логику топлива
+                if(_fuelType == 'electro') _coefficient = enums.fuel.coefficient.electro;
+    
+                this._fuel.remove(_coefficient);
+                terminal.log(`${_coefficient} / ${this._fuel.get()}`);
+            }
+        } catch(e) {
+            let _coefficient = enums.fuel.coefficient[`${_fuelType}`];
+            this._fuel.remove(_coefficient);
+
+            terminal.error(e);
+        }
+
+        this._tickFuel();
     }
 
     // SETTERS
@@ -121,6 +153,16 @@ export class Vehicle {
     }
 
     // OTHERS
+
+    private _createEvents() {
+        mp.events.add('playerEnterVehicle', (player, vehicle) => {
+            if(vehicle === this._handle) {
+                let _user = Users.getByID(player.id);
+                if(_user) this._driverID = player.id;
+                else this._driverID = -1;
+            }
+        });
+    }
 }
 
 export default Vehicles;
