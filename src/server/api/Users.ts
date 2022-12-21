@@ -22,7 +22,6 @@ class Users {
 
     // todo Возможно не будет использоваться
     public static exists(id:number):boolean {
-        terminal.debugDetailed('Users.exists();');
         let _player = mp.players.at(id);
         if(_player !== null) return true;
         return false;

@@ -6,3 +6,4 @@ import './playerDisconnect';
 import './vehicleSync';
 import './playerEnterVehicle';
 import './auth';
+import './weatherSync';

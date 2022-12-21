@@ -21,17 +21,19 @@ class Time {
         terminal.debugDetailed('Time.load();');
         await WorldTime.methods?.findOrCreate({ where: { id: 1 } });
 
-        let _data = await WorldTime.methods?.findOne({ where: { id: 1 } });
-        let _result = JSON.parse(JSON.stringify(_data));
-        
-        this._year = _result.year;
-        this._months = _result.month;
-        this._days = _result.day;
-        
-        this._hours = _result.hour;
-        this._minutes = _result.minute;
+        try {
+            let _data = await WorldTime.methods?.findOne({ where: { id: 1 } });
+            let _result = JSON.parse(JSON.stringify(_data));
+            
+            this._year = _result.year;
+            this._months = _result.month;
+            this._days = _result.day;
+            
+            this._hours = _result.hour;
+            this._minutes = _result.minute;
 
-        this._tick();
+            this._tick();
+        } catch(e) { terminal.error(e); }
     }
 
     private static async _tick() {
@@ -108,6 +110,25 @@ class Time {
 
     private static _getLeapYear(number:number) {
         return !((number % 4) || (!(number % 100) && (number % 400)));
+    }
+
+    public static getSeasonName() {
+        switch(this._months) {
+            case 1: return 'winter';
+            case 2: return 'autumn';
+            case 3: return 'autumn';
+            case 4: return 'autumn';
+            case 5: return 'summer';
+            case 6: return 'summer';
+            case 7: return 'summer';
+            case 8: return 'spring';
+            case 9: return 'spring';
+            case 10: return 'spring';
+            case 11: return 'winter';
+            case 12: return 'winter';
+
+            default: return null;
+        }
     }
 }
 

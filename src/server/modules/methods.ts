@@ -161,6 +161,10 @@ class Methods {
         return `${this.digitFormat(_date.getHours())}:${this.digitFormat(_date.getMinutes())}:${this.digitFormat(_date.getSeconds())}`;
     }
 
+    public randomInt(min:number, max:number) {
+        return parseInt((Math.random() * (max - min) + min).toFixed(0));
+    }
+
     public async sleep(ms:number) {
         return new Promise(res => setTimeout(res, ms));
     }

@@ -79,6 +79,7 @@ export class Vehicle {
     private async _tickFuel() {
         await methods.sleep(1000);
 
+        if(this._fuel.get() <= 0) return;
         let _fuelType = this.fuel.getType();
 
         try {
@@ -88,16 +89,13 @@ export class Vehicle {
     
                 if(_player && Users.exists(_player.id)) {
                     let _speed = await _player.callProc('client.vehicle:speed:get');
-    
-                    if(_speed != null) {
-                        _coefficient += 0.001 * _speed;
-                    }
+                    if(_speed != null) _coefficient += 0.001 * _speed;
                 }
 
                 if(_fuelType == 'electro') _coefficient = enums.fuel.coefficient.electro;
     
                 this._fuel.remove(_coefficient);
-                terminal.log(`${_coefficient} / ${this._fuel.get()}`);
+                // terminal.log(`${_coefficient} / ${this._fuel.get()}`);
             }
         } catch(e) {
             let _coefficient = enums.fuel.coefficient[`${_fuelType}`];

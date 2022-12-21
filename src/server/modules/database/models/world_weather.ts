@@ -10,67 +10,67 @@ const WorldWeather = new DBModel('world_weather', {
     south_ls: {
         type: DataTypes.CHAR({ length: 15 }),
         allowNull: false,
-        defaultValue: 'CLEAR'
+        defaultValue: 'NONE'
     },
 
     central_ls: {
         type: DataTypes.CHAR({ length: 15 }),
         allowNull: false,
-        defaultValue: 'CLEAR'
+        defaultValue: 'NONE'
     },
 
     north_ls: {
         type: DataTypes.CHAR({ length: 15 }),
         allowNull: false,
-        defaultValue: 'CLEAR'
+        defaultValue: 'NONE'
     },
 
     beaches_ls: {
         type: DataTypes.CHAR({ length: 15 }),
         allowNull: false,
-        defaultValue: 'CLEAR'
+        defaultValue: 'NONE'
     },
 
-    fastern_valley: {
+    eastern_valley: {
         type: DataTypes.CHAR({ length: 15 }),
         allowNull: false,
-        defaultValue: 'CLEAR'
+        defaultValue: 'NONE'
     },
 
     beaches_costal: {
         type: DataTypes.CHAR({ length: 15 }),
         allowNull: false,
-        defaultValue: 'CLEAR'
+        defaultValue: 'NONE'
     },
 
     north_ls_hills: {
         type: DataTypes.CHAR({ length: 15 }),
         allowNull: false,
-        defaultValue: 'CLEAR'
+        defaultValue: 'NONE'
     },
 
     grand_senora_desert: {
         type: DataTypes.CHAR({ length: 15 }),
         allowNull: false,
-        defaultValue: 'CLEAR'
+        defaultValue: 'NONE'
     },
 
     northern_mountains: {
         type: DataTypes.CHAR({ length: 15 }),
         allowNull: false,
-        defaultValue: 'CLEAR'
+        defaultValue: 'NONE'
     },
 
     zancudo: {
         type: DataTypes.CHAR({ length: 15 }),
         allowNull: false,
-        defaultValue: 'CLEAR'
+        defaultValue: 'NONE'
     },
 
     paleto: {
         type: DataTypes.CHAR({ length: 15 }),
         allowNull: false,
-        defaultValue: 'CLEAR'
+        defaultValue: 'NONE'
     },
 });
 

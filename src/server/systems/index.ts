@@ -11,6 +11,7 @@ import './admin/index';
 
 import './inventory/index';
 import Items from "./inventory/items";
+import Weather from "./weather";
 
 // CODE
 
@@ -19,6 +20,7 @@ export async function loadAll() {
 
     try {
         await Time.load();
+        await Weather.load();
         await Items.loadAll();
 
         terminal.done(`[Systems] Системы были загружены и готовы к работе`);

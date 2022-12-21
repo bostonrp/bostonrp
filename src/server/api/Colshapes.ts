@@ -5,7 +5,7 @@ import terminal from "../modules/terminal";
 
 // CODE
 
-class Functions {
+class Methods {
     public static createWithType(id:number, position:Vector3, range:number):ColshapeMp {
         switch(id) {
             case 0: return mp.colshapes.newSphere(position.x, position.y, position.z, range);
@@ -21,7 +21,7 @@ class Colshape {
     private _handle:ColshapeMp;
 
     constructor(type:number, position:Vector3, range:number, dimension:number = 0) {
-        this._handle = Functions.createWithType(type, position, range);
+        this._handle = Methods.createWithType(type, position, range);
 
         this.setDimension(dimension)
 
