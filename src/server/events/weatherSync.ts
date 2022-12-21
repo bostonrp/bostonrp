@@ -10,7 +10,6 @@ import terminal from "../modules/terminal";
 //? Функция которая возвращает погоду в определенном районе
 mp.events.addProc('server.weather:category:get:by:zone', (player, zone) => {
     let _category = enums.getCategoryNameByZoneName(zone);
-    terminal.log(_category);
     if(_category) return Weather.getWeatherByCategory(_category);
     return null;
 });

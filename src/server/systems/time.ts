@@ -5,6 +5,7 @@ import WorldTime from "@database/world_time";
 import config from "@shared/configs/server.json";
 import methods from "../modules/methods";
 import terminal from "../modules/terminal";
+import Weather from "./weather";
 
 // CODE
 
@@ -49,6 +50,8 @@ class Time {
         if(this._minutes >= 60) {
             this._minutes = 0;
             ++this._hours;
+
+            Weather.generateNewWeather();
         }
 
         if(this._hours >= 24) {

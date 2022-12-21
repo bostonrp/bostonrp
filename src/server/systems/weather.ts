@@ -18,18 +18,14 @@ class Category {
         this.name = name;
         this.setCurrent(weather.trim() as keyof TBoston.Weather.names|'NONE');
 
-        this._testSeasonWeathers();
-
-        // setInterval(() => {
-        //     terminal.log(this._current);
-        // }, 1000)
+        if(this._current != 'NONE') return;
+        this.generate();
     }
 
     // SETTERS
 
     public setCurrent(weather:keyof TBoston.Weather.names|'NONE') {
         this._current = weather;
-        
     }
 
     // GETTERS
@@ -54,9 +50,8 @@ class Category {
         } catch(e) { terminal.error(e); }
     }
 
-    private _testSeasonWeathers() {
+    public generate() {
         try {
-            if(this._current != 'NONE') return;
             let _currentSeason = Time.getSeasonName();
         
             if(_currentSeason !== null) {
@@ -115,6 +110,21 @@ class Weather {
                 this.load();
             }
         } catch(e) { terminal.error(e); }
+    }
+
+    public static generateNewWeather() {
+        terminal.log(453534);
+        this.south_ls.generate();
+        this.central_ls.generate();
+        this.north_ls.generate();
+        this.beaches_ls.generate();
+        this.eastern_valley.generate();
+        this.beaches_costal.generate();
+        this.north_ls_hills.generate();
+        this.grand_senora_desert.generate();
+        this.northern_mountains.generate();
+        this.zancudo.generate();
+        this.paleto.generate();
     }
 
     public static async save() {
