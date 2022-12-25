@@ -3,6 +3,7 @@
 
 import Events from "../api/Events";
 import Auth from "../systems/auth";
+import WhiteList from "../systems/whitelist";
 
 // CODE
 
@@ -10,9 +11,12 @@ Events.add('server.auth:login:send', async (player, username, password) => {
     let _account = await Auth.getAccountByKey('username', username);
 
     if(_account !== null) {
-        let _password = await Auth.generatePasswordHash(password);
+        let _password = Auth.generatePasswordHash(password);
         if(_password !== _account.password) return; // todo Нужно уведомить игрока о том, что пароль неверный
         if(_account.socialID !== player.rgscId) return; // todo Нужно уведомить игрока, что это не его аккаунт
+
+        let isWhiteListed = WhiteList.get(player.socialClub);
+        if(isWhiteListed === undefined || !isWhiteListed.status) return player.kickSilent();
 
         // todo Все хорошо, нужно пропустить игрока к выбору персонажа
     } else {

@@ -23,15 +23,14 @@ class Time {
         await WorldTime.methods?.findOrCreate({ where: { id: 1 } });
 
         try {
-            let _data = await WorldTime.methods?.findOne({ where: { id: 1 } });
-            let _result = JSON.parse(JSON.stringify(_data));
+            let _data:any = await WorldTime.methods?.findOne({ where: { id: 1 } });
             
-            this._year = _result.year;
-            this._months = _result.month;
-            this._days = _result.day;
+            this._year = _data.year;
+            this._months = _data.month;
+            this._days = _data.day;
             
-            this._hours = _result.hour;
-            this._minutes = _result.minute;
+            this._hours = _data.hour;
+            this._minutes = _data.minute;
 
             this._tick();
         } catch(e) { terminal.error(e); }

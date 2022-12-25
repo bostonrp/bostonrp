@@ -7,3 +7,4 @@ import './world_weather';
 import './characters';
 import './inventory_items';
 import './vehicles_info';
+import './whitelist';
