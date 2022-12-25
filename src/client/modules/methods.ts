@@ -37,17 +37,21 @@ class FPS {
 
 //? METHODS
 class Methods {
-    getFPS() {
+    public getFPS() {
         return FPS.get();
     }
 
-    callServer(eventName:string, ...args:any[]) {
+    public callServer(eventName:string, ...args:any[]) {
         AntiCheat.callServer('server.anticheat:events:call', eventName, User.secret, ...args);
     }
 
-    async sleep(ms:number) {
+    public async sleep(ms:number) {
         return new Promise(res => setTimeout(res, ms));
     }
+
+    public distanceToPos2D(v1:Vector3, v2:Vector3) {
+        return Math.abs(Math.sqrt(Math.pow(v2.x - v1.x, 2) + Math.pow(v2.y - v1.y, 2)));
+    };
 };
 
 const methods = new Methods();

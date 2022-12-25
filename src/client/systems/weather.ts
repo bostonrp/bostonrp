@@ -24,7 +24,7 @@ class Weather {
         return mp.game.zone.getNameOfZone(_position.x, _position.y, _position.z);
     }
 
-    public static startGetting() {
+    public static startGettingInZone() {
         if(this._interval != null) return;
         this._interval = setInterval(async () => {
             try {
@@ -36,7 +36,7 @@ class Weather {
         }, 1500);
     }
 
-    public static stopGetting() {
+    public static stopGettingInZone() {
         if(this._interval == null) return;
         clearInterval(this._interval);
         this._interval = null;

@@ -1,4 +1,0 @@
-
-// CODE
-
-declare module '*.vue';

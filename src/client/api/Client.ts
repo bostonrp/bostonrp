@@ -10,7 +10,7 @@ class Client {
     public init(secretKey:string) {
         user.secret = secretKey;
         
-        Weather.startGetting();
+        Weather.startGettingInZone();
     }
 }
 
