@@ -1,7 +1,9 @@
 
 // IMPORTS
 
+import { RGB } from "../modules/methods";
 import terminal from "../modules/terminal";
+import { Marker } from "./Markers";
 
 // CODE
 
@@ -19,18 +21,28 @@ class Colshape {
     private _voidsEnter = new Array();
     private _voidsQuit = new Array();
     private _handle:ColshapeMp;
+    private _handleMarker:Marker|null = null;
 
-    constructor(type:number, position:Vector3, range:number, dimension:number = 0) {
+    constructor(type:number, position:Vector3, range:number, options?:TBoston.API.Colshapes.createOptions) {
         this._handle = Methods.createWithType(type, position, range);
 
-        this.setDimension(dimension)
+        this.setDimension(options?.dimension);
+
+        if(options?.marker) {
+            let markerPosition = position;
+            markerPosition.z = markerPosition.z - 1;
+
+            this._handleMarker = new Marker(options.marker.type, markerPosition, options.marker.scale, {
+                color: options.marker.color
+            });
+        }
 
         this._createEvents();
     }
 
     // SETTERS
 
-    public setDimension(number:number) {
+    public setDimension(number:number = 0) {
         this._handle.dimension = number;
     }
 
@@ -77,7 +89,12 @@ class Colshape {
     }
 }
 
-// let colshape = new Colshape(0, new mp.Vector3(0, 0, 71), 2);
+// let colshape = new Colshape(0, new mp.Vector3(0, 0, 71), 2, {
+//     marker: {
+//         type: 1,
+//         color: new RGB(252, 252, 252)
+//     }
+// });
 
 // colshape.onEnter((player) => {
 //     terminal.log(player.name + ' entered colshape');

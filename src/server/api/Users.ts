@@ -76,6 +76,7 @@ export class User {
     // OTHERS
 
     public quit() {
+        // todo Нужно реализовать сохранение данных игрока при выходе из сервера
         Users.list.removeByID(this.dynamicID);
     }
 
@@ -89,7 +90,7 @@ export class User {
         if(!Users.getSecretExists(_secret)) {
             let _player = mp.players.at(this.dynamicID);
             this._secret = _secret;
-            return _player.call('client.user:secret:update', [this._secret]); // todo нужно реализовать
+            return _player.call('client.init', [this._secret]);
         }
 
         this.generateSecret();

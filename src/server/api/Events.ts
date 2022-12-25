@@ -5,23 +5,23 @@ import terminal from "../modules/terminal";
 // CODE
 
 export class NewEvents {
-    #debug = false;
-    #events = new Map();
+    private _debug = false;
+    private _events = new Map();
 
     private _add(eventName:string, callback: (player: PlayerMp, ...args: any[]) => void) {
         let eventList = [];
 
-        if(this.#events.has(eventName)) eventList = this.#events.get(eventName);
+        if(this._events.has(eventName)) eventList = this._events.get(eventName);
         eventList.push(callback);
-        this.#events.set(eventName, eventList);
+        this._events.set(eventName, eventList);
     }
 
     private _remove(eventName:string, callback:void) {
-        if(this.#events.has(eventName)) {
+        if(this._events.has(eventName)) {
             let eventList = [];
 
             if(callback != undefined) {
-                eventList = this.#events.get(eventName);
+                eventList = this._events.get(eventName);
 
                 for(let i = 0; i < eventList.length; i++) {
                     if(eventList[i] === callback) {
@@ -32,17 +32,17 @@ export class NewEvents {
             }
 
             if(eventList.length) {
-                this.#events.set(eventName, callback);
+                this._events.set(eventName, callback);
             } else {
-                this.#events.delete(eventName);
+                this._events.delete(eventName);
             }
         }
     }
 
     private _call(player:PlayerMp, eventName:string, ...args:any) {
-        if(this.#debug) terminal.log(eventName, JSON.stringify(args));
-        if(this.#events && this.#events.has(eventName)) {
-            this.#events.get(eventName).forEach((callback:any) => {
+        if(this._debug) terminal.log(eventName, JSON.stringify(args));
+        if(this._events && this._events.has(eventName)) {
+            this._events.get(eventName).forEach((callback:any) => {
                 callback(player, ...args);
             });
         }
@@ -50,7 +50,7 @@ export class NewEvents {
 
     // CONSTRUCTOR
     constructor(debug = false) {
-        this.#debug = debug;
+        this._debug = debug;
     }
 
     public add(eventName:string, callback: (player: PlayerMp, ...args: any[]) => void) {

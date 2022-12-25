@@ -21,15 +21,13 @@ export class LogFile {
     }
 
     // CONSTRUCTOR
-    public name:string;
     public path:string;
 
-    constructor(fileName:string) {
-        this.name = fileName;
-        this.path = `logs/${fileName}.log`;
+    constructor(public name:string) {
+        this.path = `logs/${this.name}.log`;
 
-        if(!fs.existsSync(`logs/${fileName}.log`)) {
-            fs.appendFile(`logs/${fileName}.log`, '', (err) => { terminal.debugDetailed(err == null ? `[Logs] ${fileName}.log создан` : err); });
+        if(!fs.existsSync(`logs/${this.name}.log`)) {
+            fs.appendFile(`logs/${this.name}.log`, '', (err) => { terminal.debugDetailed(err == null ? `[Logs] ${this.name}.log создан` : err); });
         }
 
         LogFile.list.push(this);

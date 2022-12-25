@@ -13,7 +13,7 @@ class Markers {
 export class Marker {
     private _handle:MarkerMp;
 
-    constructor(type:number, position:Vector3, scale:number, options?:TBoston.Markers.createOptions) {
+    constructor(type:number, position:Vector3, scale:number = 1, options?:TBoston.Markers.createOptions) {
         this._handle = mp.markers.new(type, position, scale);
 
         this.setColor(options?.color);
@@ -43,7 +43,7 @@ export class Marker {
         this._handle.direction = vector3;
     }
 
-    public setScale(number:number) {
+    public setScale(number:number = 1) {
         this._handle.scale = number;
     }
 

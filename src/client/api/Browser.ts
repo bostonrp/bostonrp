@@ -10,13 +10,10 @@ class Browsers {
 }
 
 export class Browser {
-    private _name:string;
     private _handle:BrowserMp;
 
-    constructor(name:string, path:string, options?:TBoston.Browsers.options) {
+    constructor(private _name: string, path:string, options?:TBoston.Browsers.options) {
         this._handle = mp.browsers.new(path);
-
-        this._name = name;
         this.setActive(options?.active);
     }
 
@@ -43,7 +40,7 @@ export class Browser {
     // OTHERS
 }
 
-// let browser = new Browser('default', 'http://localhost:8080/');
-// browser.setActive(true);
+let browser = new Browser('default', 'http://localhost:8080/');
+browser.setActive(true);
 
 export default Browsers;

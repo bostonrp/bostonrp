@@ -6,7 +6,7 @@ import Weather from "../systems/weather";
 // CODE
 
 //? Ивент который, позволяет изменять текущую погоду на клиенте
-mp.events.add('client.weather:set', (weatherName:string) => {
+mp.events.add('client.weather:set', (weatherName) => {
     Weather.setCurrent(weatherName);
 });
 

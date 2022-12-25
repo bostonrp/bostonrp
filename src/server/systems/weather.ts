@@ -47,7 +47,7 @@ class Category {
             await WorldWeather.methods?.update({
                 [name]: this._current
             }, { where: { id: 1 } });
-        } catch(e) { terminal.error(e); }
+        } catch(e) { terminal.warning(e); }
     }
 
     public generate() {
@@ -107,13 +107,11 @@ class Weather {
                 this.paleto = new Category('paleto', _weather.paleto);
             } else {
                 terminal.error(`[Weather] Погода не смогла загрузиться из-за недостатка данных в бд`);
-                this.load();
             }
         } catch(e) { terminal.error(e); }
     }
 
     public static generateNewWeather() {
-        terminal.log(453534);
         this.south_ls.generate();
         this.central_ls.generate();
         this.north_ls.generate();

@@ -28,6 +28,6 @@
         "declaration": false
     },
 
-    "include": ["./src/**/*.ts", "./src/**/*.*", "src/server/api/Colshapests"],
+    "include": ["./src/**/*.ts", "./src/**/*.*"],
     "exclude": ["node_modules", "**/*.spec.ts", "packages", "**/*.json"]
 }
