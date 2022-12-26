@@ -15,6 +15,10 @@ class Vehicles {
     public static list = new List('Vehicles');
     public static infos = new Map();
 
+    public static getByID(id:number):Vehicle {
+        return this.list.getByID(id);
+    }
+
     public static async loadInfos() {
         terminal.debugDetailed('Vehicles.loadInfos();');
 
@@ -80,10 +84,11 @@ export class Vehicle {
         await methods.sleep(1000);
 
         if(this._fuel.get() <= 0) return;
+        if(this._fuel.getType() == 'infinity') return;
         let _fuelType = this.fuel.getType();
 
         try {
-            if(_fuelType != 'none') {
+            if(_fuelType != 'none' && this._driverID != -1) {
                 let _coefficient = enums.fuel.coefficient[`${_fuelType}`];
                 let _player = this._handle.getOccupant(enums.seatNumbers.driver);
     
@@ -96,6 +101,9 @@ export class Vehicle {
     
                 this._fuel.remove(_coefficient);
                 // terminal.log(`${_coefficient} / ${this._fuel.get()}`);
+            } else {
+                let _coefficient = enums.fuel.coefficient[`${_fuelType}`];
+                this._fuel.remove(_coefficient);
             }
         } catch(e) {
             let _coefficient = enums.fuel.coefficient[`${_fuelType}`];
@@ -108,6 +116,10 @@ export class Vehicle {
     }
 
     // SETTERS
+
+    public setNumberPlateText(text:string) {
+        this._handle.numberPlate = text;
+    }
 
     public setColor(primary:RGB, secondary:RGB = new RGB(252, 252, 252)) {
         let _primary = primary.get();
@@ -150,14 +162,33 @@ export class Vehicle {
         return this._handle.position;
     }
 
+    public getDriverID() {
+        return this._driverID;
+    }
+
     // OTHERS
+
+    public repair() {
+        this._handle.repair();
+    }
+
+    public delete() {
+        Vehicles.list.removeByID(this._id);
+        this._handle.destroy();
+    }
 
     private _createEvents() {
         mp.events.add('playerEnterVehicle', (player, vehicle) => {
             if(vehicle === this._handle) {
-                let _user = Users.getByID(player.id);
+                let _user = Users.getByDynamicID(player.id);
                 if(_user) this._driverID = player.id;
                 else this._driverID = -1;
+            }
+        });
+
+        mp.events.add('playerExitVehicle', (player, vehicle) => {
+            if(vehicle === this._handle) {
+                this._driverID = -1;
             }
         });
     }

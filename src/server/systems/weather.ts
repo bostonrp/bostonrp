@@ -26,6 +26,7 @@ class Category {
 
     public setCurrent(weather:keyof TBoston.Weather.names|'NONE') {
         this._current = weather;
+        this.save();
     }
 
     // GETTERS
@@ -59,9 +60,7 @@ class Category {
 
                 if(_weathers) {
                     let _weather = this._generateWeather(_weathers);
-                    this._current = _weather;
-
-                    this.save();
+                    this.setCurrent(_weather);
                 }
             }
         } catch(e) { terminal.error(e); }
@@ -158,6 +157,25 @@ class Weather {
             case 'NM': return this.northern_mountains.getCurrentWeather();
             case 'ZANCUDO': return this.zancudo.getCurrentWeather();
             case 'PALETO': return this.paleto.getCurrentWeather();
+
+            default: return;
+        }
+    }
+
+    public static setWeatherByCategory(category:string, weather:string) {
+        let _weatherName = weather as keyof TBoston.Weather.names;
+        switch(category) {
+            case 'SLS': return this.south_ls.setCurrent(_weatherName);
+            case 'CLS': return this.central_ls.setCurrent(_weatherName);
+            case 'NLS': return this.north_ls.setCurrent(_weatherName);
+            case 'LSB': return this.beaches_ls.setCurrent(_weatherName);
+            case 'EV': return this.eastern_valley.setCurrent(_weatherName);
+            case 'CB': return this.beaches_costal.setCurrent(_weatherName);
+            case 'NLSH': return this.north_ls_hills.setCurrent(_weatherName);
+            case 'GSD': return this.grand_senora_desert.setCurrent(_weatherName);
+            case 'NM': return this.northern_mountains.setCurrent(_weatherName);
+            case 'ZANCUDO': return this.zancudo.setCurrent(_weatherName);
+            case 'PALETO': return this.paleto.setCurrent(_weatherName);
 
             default: return;
         }

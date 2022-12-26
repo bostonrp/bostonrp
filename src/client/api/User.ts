@@ -5,13 +5,26 @@
 
 class User {
     public secret:string|undefined;
+
+    // SETTERS
+
+    public setAlpha(number:number) {
+        if(number < 0 || number > 255) return;
+        mp.players.local.setAlpha(number);
+    }
+
+    public setInvincible(status:boolean = false) {
+        mp.players.local.setInvincible(status);
+    }
+
+    public setFreeze(status:boolean) {
+        mp.players.local.freezePosition(status);
+    }
+
+    // GETTERS
+
+    // OTHERS
 }
 
 const user = new User();
-
-//? EVENT
-mp.events.add('client.user:secret:update', (secret) => {
-    user.secret = secret;
-});
-
 export default user;

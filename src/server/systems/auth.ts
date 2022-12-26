@@ -3,7 +3,6 @@
 
 import Accounts from "@database/accounts";
 import methods from "../modules/methods";
-import terminal from "../modules/terminal";
 
 // CODE
 

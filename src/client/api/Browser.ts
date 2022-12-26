@@ -40,7 +40,7 @@ export class Browser {
     // OTHERS
 }
 
-let browser = new Browser('default', 'http://localhost:8080/');
-browser.setActive(true);
+// let browser = new Browser('default', 'http://localhost:8080/');
+// browser.setActive(true);
 
 export default Browsers;

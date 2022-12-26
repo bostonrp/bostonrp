@@ -13,6 +13,10 @@ class WhiteList {
         return this._list.get(socialClubName);
     }
 
+    public static has(socialClubName:string) {
+        return !!this._list.get(socialClubName);
+    }
+
     public static add(socialClubName:string, status:boolean = true) {
         this._list.set(socialClubName, status);
     }

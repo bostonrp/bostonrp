@@ -6,7 +6,7 @@ declare namespace TBoston.Users {
         dynamicID:number;
         username:string;
         socialID:number;
-        socialName?:string;
+        socialName:string;
         ip?:string;
     }
 }

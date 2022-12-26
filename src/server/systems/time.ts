@@ -132,6 +132,21 @@ class Time {
             default: return null;
         }
     }
+
+    public static async set(hour:number = 12, minute:number = 0) {
+        // this.stop();
+        
+        // await methods.sleep(100);
+        this._hours = hour;
+        this._minutes = minute;
+        this._save();
+
+        // terminal.log(this._hours, this._minutes);
+        
+        // await methods.sleep(100);
+        // this._save();
+        // this.start();
+    }
 }
 
 export default Time;

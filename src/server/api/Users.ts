@@ -9,8 +9,12 @@ import terminal from "../modules/terminal";
 class Users {
     public static list = new List('Users');
 
-    public static getByID(id:number):User {
-        return this.list.getByID(id);
+    public static getByStaticID(staticID:number):User {
+        return this.list.getByID(staticID);
+    }
+
+    public static getByDynamicID(id:number) {
+        return mp.players.at(id);
     }
 
     public static getSecretExists(secret:string) {
@@ -33,7 +37,7 @@ export class User {
     public staticID:number|null = null;
     public socialID:number;
     public username:string;
-    public socialName?:string;
+    public socialName:string;
     public ip?:string;
 
     private _secret:string = 'none';
@@ -51,11 +55,42 @@ export class User {
 
     // SETTERS
 
+    public setFreeze(status:boolean) {
+        this.callClient('client.user:freeze:set', status);
+    }
+
+    public setHealth(number:number) {
+        if(number < 0 || number > 100) return terminal.warning(`[Player] `);
+        let _player = Users.getByDynamicID(this.dynamicID);
+        if(_player) _player.health = number;
+    }
+
+    public setArmour(number:number) {
+        if(number < 0 || number > 100) return terminal.warning(`[Player] `);
+        let _player = Users.getByDynamicID(this.dynamicID);
+        if(_player) _player.armour = number;
+    }
+
+    public setDimension(id:number) {
+        let _player = Users.getByDynamicID(this.dynamicID);
+        if(_player) _player.dimension = id;
+    }
+
+    public setMeta(key:string, value:any) {
+        let _player = Users.getByDynamicID(this.dynamicID);
+        if(_player) _player.setVariable(key, value);
+    }
+
     public setLoging() {
         this._isLoging = true;
     }
 
     // GETTERS
+
+    public getMeta(key:string) {
+        let _player = Users.getByDynamicID(this.dynamicID);
+        if(_player) _player.getVariable(key);
+    }
 
     public getName() {
         return this.username;
@@ -74,6 +109,21 @@ export class User {
     }
 
     // OTHERS
+
+    public kick() {
+        let _player = Users.getByDynamicID(this.dynamicID);
+        if(_player) _player.kickSilent();
+    }
+
+    public giveWeapon(weaponName:string, bulletCount:number) {
+        let _player = Users.getByDynamicID(this.dynamicID);
+        if(_player) _player.giveWeapon(mp.joaat(weaponName), bulletCount);
+    }
+
+    public callClient(eventName:string, ...args:any[]) {
+        let _player = mp.players.at(this.dynamicID);
+        if(_player) _player.call(eventName, [...args]);
+    }
 
     public quit() {
         // todo Нужно реализовать сохранение данных игрока при выходе из сервера
