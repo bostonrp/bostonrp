@@ -3,12 +3,14 @@
 
 import Users from "src/server/api/Users";
 import Vehicles, { Vehicle } from "src/server/api/vehicles";
-import methods, { RGB } from "src/server/modules/methods";
+import { RGB } from "src/server/modules/methods";
 import terminal from "src/server/modules/terminal";
 import Weather from "../weather";
 import * as enums from '@shared/enums/server/weather/index';
 import WhiteList from "../whitelist";
 import Time from "../time";
+
+import './commands';
 
 // CODE
 
@@ -51,6 +53,16 @@ class Admin {
         if(_user) _user.setDimension(dimensionID);
     }
 
+    public static getPosition(playerID:number) {
+        let _user = Users.getByStaticID(playerID);
+        if(_user) return `${_user.getPosition()?.x.toFixed(4)}, ${_user.getPosition()?.y.toFixed(4)}, ${_user.getPosition()?.z.toFixed(4)}`;
+    }
+
+    public static getCameraPosition(playerID:number) {
+        let _player = mp.players.at(playerID);
+        if(_player) _player.call('client.camera:position:get', 'default');
+    }
+
     public static teleportVehicleToMe(playerID:number, vehicleID:number) {
         let _user = Users.getByStaticID(playerID);
         let _veh = Vehicles.getByID(vehicleID);
@@ -87,7 +99,7 @@ class Admin {
         } catch(e) { terminal.error(e); }
     }
 
-    public static setWorldTime(playerID:number, hour:number, minute:number) {
+    public static setWorldTime(playerID:number, hour:number = 12, minute:number = 0) {
         Time.set(hour, minute);
     }
 
@@ -110,7 +122,7 @@ class Admin {
         }
     }
 
-    public static async teleportToWaypoit(playerID:number) {
+    public static async teleportToWaypoint(playerID:number) {
         try {
             let _user = Users.getByStaticID(playerID);
             if(_user) _user.callClient('client.user:waypoint:spawn');
@@ -193,7 +205,7 @@ class Admin {
         // }
 
         let _player = mp.players.at(playerID);
-        if(_player) _player.call('client.user:alpha:set', [status ? 0 : 255]);
+        if(_player) _player.call('client.user:visible:set', [status]);
     }
 
     public static setInvincible(playerID:number, status:boolean) {
@@ -208,38 +220,5 @@ class Admin {
         if(_player) _player.call('client.user:invincible:set', [status]);
     }
 }
-
-//! Скорее всего нужно удалить будет
-mp.events.addCommand('tw', (player) => {
-    Admin.teleportToWaypoit(player.id);
-});
-
-mp.events.addCommand('time', (player, _, hour, minute) => {
-    Admin.setWorldTime(player.id, parseInt(hour), parseInt(minute));
-});
-
-mp.events.addCommand('weather', (player, _, name) => {
-    Admin.setWeather(player.id, name);
-});
-
-mp.events.addCommand('god', (player, _, id) => {
-    Admin.setInvincible(parseInt(id), true);
-});
-
-mp.events.addCommand('inv', (player, _, id) => {
-    Admin.setInvisible(parseInt(id), true);
-});
-
-mp.events.addCommand('slap', (player, _, id) => {
-    Admin.slap(parseInt(id));
-});
-
-mp.events.addCommand('veh', (player, _, model) => {
-    Admin.createVehicle(player.id, model);
-});
-
-mp.events.addCommand('revive', (player, _, id) => {
-    Admin.revive(parseInt(id));
-});
 
 export default Admin;

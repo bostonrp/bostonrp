@@ -40,6 +40,21 @@ class Camera {
         return this._handle;
     }
 
+    public getPosition() {
+        return this._handle.getCoord();
+    }
+
+    public pointingAt(distance:number) {
+        let direction = this._handle.getDirection();
+        const farAway = new mp.Vector3((direction.x * distance) + (this.getPosition().x), (direction.y * distance) + (this.getPosition().y), (direction.z * distance) + (this.getPosition().z));
+    
+        const result = mp.raycasting.testPointToPoint(this.getPosition(), farAway);
+        if (result === undefined) {
+            return 'undefined';
+        }
+        return result;
+    }
+
     // OTHERS
 
     public destroy() {
@@ -90,7 +105,7 @@ export class OrbitalCamera {
 
     // GETTERS
 
-    getRotation() {
+    public getRotation() {
         return this._rotation;
     }
 

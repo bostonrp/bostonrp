@@ -13,6 +13,10 @@ class User {
         mp.players.local.setAlpha(number);
     }
 
+    public setVisible(status:boolean) {
+        mp.players.local.setVisible(status, status);
+    }
+
     public setInvincible(status:boolean = false) {
         mp.players.local.setInvincible(status);
     }

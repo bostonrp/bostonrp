@@ -25,7 +25,11 @@ class Client {
                     let _groundPos = this._getGroundZCoord(_waypointPosition, 10);
 
                     if (_groundPos) {
-                        mp.players.local.position = _groundPos;
+                        let _localPlayer = mp.players.local;
+
+                        if(_localPlayer.vehicle) _localPlayer.vehicle.setCoords(_groundPos.x, _groundPos.y, _groundPos.z, false, false, false, false);
+                        else _localPlayer.position = _groundPos;
+
                         mp.game.streaming.setFocusArea(_groundPos.x, _groundPos.y, _groundPos.z, 0, 0, 0);
                         mp.game.streaming.clearFocus();
                         

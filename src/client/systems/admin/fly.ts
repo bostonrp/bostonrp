@@ -1,10 +1,12 @@
 
 // IMPORTS
 
+import Camera from "src/client/api/Camera";
+
 // CODE
 
 let isFLY = false;
-let FLYCamera:CameraMp|null;
+let FLYCamera:Camera|null;
 let shiftModifier = false;
 let controlModifier = false;
 
@@ -45,9 +47,9 @@ class Fly {
         
         let camRot = mp.game.cam.getGameplayCamRot(2);
 
-        FLYCamera = mp.cameras.new('default', camPos, camRot, 60);
+        FLYCamera = new Camera('default', camPos, camRot, 60);
         FLYCamera.setActive(true);
-        mp.game.cam.renderScriptCams(true, false, 0, true, false);
+        mp.game.cam.renderScriptCams(true, false, 0, true, false, 0);
 
         localPlayer.freezePosition(true);
         localPlayer.setInvincible(true);
@@ -59,14 +61,14 @@ class Fly {
         mp.game.graphics.notify('Вы ~r~выключили ~s~FLY');
 
         if(FLYCamera) {
-            localPlayer.position = FLYCamera.getCoord();
-            localPlayer.setHeading(FLYCamera.getRot(2).z);
+            localPlayer.position = FLYCamera.handle.getCoord();
+            localPlayer.setHeading(FLYCamera.handle.getRot(2).z);
 
-            FLYCamera.destroy(true);
+            FLYCamera.handle.destroy(true);
             FLYCamera = null;
         }
 
-        mp.game.cam.renderScriptCams(false, false, 0, true, false);
+        mp.game.cam.renderScriptCams(false, false, 0, true, false, 0);
         localPlayer.freezePosition(false);
         localPlayer.setInvincible(false);
         localPlayer.setVisible(true, false);
@@ -93,7 +95,7 @@ mp.events.add('render', () => {
     controlModifier = mp.keys.isDown(Fly.bindVirtualKeys.LCTRL);
     shiftModifier = mp.keys.isDown(Fly.bindVirtualKeys.SHIFT);
 
-    let rot = FLYCamera.getRot(2);
+    let rot = FLYCamera.handle.getRot(2);
     let fastMult = 1;
     let slowMult = 1;
 
@@ -107,8 +109,8 @@ mp.events.add('render', () => {
     let rightAxisY = mp.game.controls.getDisabledControlNormal(0, 221);
     let leftAxisX = mp.game.controls.getDisabledControlNormal(0, 218);
     let leftAxisY = mp.game.controls.getDisabledControlNormal(0, 219);
-    let pos = FLYCamera.getCoord();
-    let rr = FLYCamera.getDirection();
+    let pos = FLYCamera.handle.getCoord();
+    let rr = FLYCamera.handle.getDirection();
 
     let vector = new mp.Vector3(0, 0, 0);
     vector.x = rr.x * leftAxisY * fastMult * slowMult;
@@ -135,7 +137,7 @@ mp.events.add('render', () => {
     mp.players.local.position = new mp.Vector3(pos.x + vector.x + 1, pos.y + vector.y + 1, pos.z + vector.z + 1);
     
     mp.players.local.heading = rr.z;
-    FLYCamera.setCoord(pos.x - vector.x + rightVector.x, pos.y - vector.y + rightVector.y, pos.z - vector.z + rightVector.z + upMovement - downMovement);
+    FLYCamera.handle.setCoord(pos.x - vector.x + rightVector.x, pos.y - vector.y + rightVector.y, pos.z - vector.z + rightVector.z + upMovement - downMovement);
     
-    FLYCamera.setRot(rot.x + rightAxisY * -5.0, 0.0, rot.z + rightAxisX * -5.0, 2);
+    FLYCamera.handle.setRot(rot.x + rightAxisY * -5.0, 0.0, rot.z + rightAxisX * -5.0, 2);
 });

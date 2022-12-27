@@ -16,6 +16,11 @@ mp.events.add('client.user:alpha:set', (alpha) => {
     user.setAlpha(alpha);
 });
 
+//? Ивент дающий возможность изменять прозрачность игрока
+mp.events.add('client.user:visible:set', (status) => {
+    user.setVisible(status);
+})
+
 //? Ивент, который включает/выключает неубиваемость (godmode) игрока
 mp.events.add('client.user:invincible:set', (status) => {
     user.setInvincible(status);

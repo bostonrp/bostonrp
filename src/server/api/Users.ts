@@ -87,6 +87,11 @@ export class User {
 
     // GETTERS
 
+    public getPosition() {
+        let _player = Users.getByDynamicID(this.dynamicID);
+        if(_player) return _player.position;
+    }
+
     public getMeta(key:string) {
         let _player = Users.getByDynamicID(this.dynamicID);
         if(_player) _player.getVariable(key);
