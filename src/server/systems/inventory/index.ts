@@ -1,8 +1,8 @@
 
 // IMPORTS
 
-import { List } from "src/server/modules/methods";
-import terminal from "src/server/modules/terminal";
+import { List } from "modules/methods";
+import terminal from "modules/terminal";
 import Items from "./items";
 
 // CODE

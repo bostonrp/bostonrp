@@ -1,10 +1,10 @@
 
 // IMPORTS
 
-import WorldWeather from "@database/world_weather";
+import WorldWeather from "../modules/database/models//world_weather";
 import methods from "../modules/methods";
 import terminal from "../modules/terminal";
-import * as enums from '@shared/enums/server/weather/index';
+import * as enums from '../../shared/enums/server/weather/index';
 import Time from "./time";
 
 // CODE

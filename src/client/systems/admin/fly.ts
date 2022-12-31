@@ -1,7 +1,7 @@
 
 // IMPORTS
 
-import Camera from "src/client/api/Camera";
+import Camera from "api/Camera";
 
 // CODE
 

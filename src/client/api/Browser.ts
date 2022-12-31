@@ -1,8 +1,6 @@
 
 // IMPORTS
 
-import '@shared/configs/server.json';
-
 // CODE
 
 class Browsers {

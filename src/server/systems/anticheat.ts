@@ -1,7 +1,7 @@
 
 // IMPORTS
 
-import { ignoreEvents } from "@shared/enums/server/anticheat";
+import { ignoreEvents } from "../../shared/enums/server/anticheat";
 import Events from "../api/Events";
 import Users, { User } from "../api/Users";
 import { LogFile } from "../modules/filelogs";

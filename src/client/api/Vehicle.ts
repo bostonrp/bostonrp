@@ -2,7 +2,7 @@
 // IMPORTS
 
 import methods from "../modules/methods";
-import enums from '@enums/server/vehicles/index';
+import enums from '../../shared/enums//server/vehicles/index';
 
 // CODE
 

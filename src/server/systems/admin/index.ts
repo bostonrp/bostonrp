@@ -1,12 +1,12 @@
 
 // IMPORTS
 
-import Users from "src/server/api/Users";
-import Vehicles, { Vehicle } from "src/server/api/vehicles";
-import { RGB } from "src/server/modules/methods";
-import terminal from "src/server/modules/terminal";
+import Users from "api/Users";
+import Vehicles, { Vehicle } from "api/vehicles";
+import { RGB } from "modules/methods";
+import terminal from "modules/terminal";
 import Weather from "../weather";
-import * as enums from '@shared/enums/server/weather/index';
+import * as enums from '../../../shared/enums/server/weather/index';
 import WhiteList from "../whitelist";
 import Time from "../time";
 
@@ -60,7 +60,7 @@ class Admin {
 
     public static getCameraPosition(playerID:number) {
         let _player = mp.players.at(playerID);
-        if(_player) _player.call('client.camera:position:get', 'default');
+        if(_player) _player.call('client.camera:position:get', ['default']);
     }
 
     public static teleportVehicleToMe(playerID:number, vehicleID:number) {

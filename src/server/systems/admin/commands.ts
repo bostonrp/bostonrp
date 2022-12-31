@@ -1,9 +1,8 @@
 
 // IMPORTS
 
-import terminal from "src/server/modules/terminal";
+import terminal from "modules/terminal";
 import Admin from ".";
-import fs from 'fs';
 
 // CODE
 

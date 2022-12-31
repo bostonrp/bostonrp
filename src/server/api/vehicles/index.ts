@@ -1,8 +1,8 @@
 
 // IMPORTS
 
-import VehiclesInfo from "@database/vehicles_info";
-import enums from "@enums/server/vehicles/index";
+import VehiclesInfo from "../../modules/database/models/vehicles_info";
+import enums from "../../../shared/enums/server/vehicles/index";
 import methods, { List, RGB } from "../../modules/methods";
 import terminal from "../../modules/terminal";
 import Users from "../Users";

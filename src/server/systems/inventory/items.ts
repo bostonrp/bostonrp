@@ -1,10 +1,10 @@
 
 // IMPORTS
 
-import InventoryItems from "@database/inventory_items";
-import methods from "src/server/modules/methods";
-import { List } from "src/server/modules/methods";
-import terminal from "src/server/modules/terminal";
+import InventoryItems from "../../modules/database/models/inventory_items";
+import methods from "modules/methods";
+import { List } from "modules/methods";
+import terminal from "modules/terminal";
 
 // CODE
 

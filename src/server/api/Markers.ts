@@ -19,7 +19,7 @@ export class Marker {
         this.setColor(options?.color);
         this.setDimension(options?.dimension);
         this.setDirection(options?.direction);
-        this.setRotation(options?.rotation);
+        // this.setRotation(options?.rotation); //? deprecated
         this.setVisible(options?.visible);
 
         Markers.list.add(this);
@@ -35,9 +35,10 @@ export class Marker {
         this._handle.visible = status;
     }
 
-    public setRotation(vector3:Vector3 = new mp.Vector3(0, 0, 0)) {
-        this._handle.rotation = vector3;
-    }
+    //? deprecated
+    // public setRotation(vector3:Vector3 = new mp.Vector3(0, 0, 0)) {
+    //     this._handle.rotation = vector3;
+    // }
 
     public setDirection(vector3:Vector3 = new mp.Vector3(0, 0, 0)) {
         this._handle.direction = vector3;
@@ -79,9 +80,10 @@ export class Marker {
         return this._handle.direction;
     }
 
-    public getRotation() {
-        return this._handle.rotation;
-    }
+    //? deprecated
+    // public getRotation() {
+    //     return this._handle.rotation;
+    // }
 
     public getDimension() {
         return this._handle.dimension;

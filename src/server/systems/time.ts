@@ -1,8 +1,8 @@
 
 // IMPORTS
 
-import WorldTime from "@database/world_time";
-import config from "@shared/configs/server.json";
+import WorldTime from "../modules/database/models/world_time";
+import config from "../../shared/configs/server.json";
 import methods from "../modules/methods";
 import terminal from "../modules/terminal";
 import Weather from "./weather";

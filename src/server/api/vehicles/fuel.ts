@@ -1,7 +1,7 @@
 
 // IMPORTS
 
-import terminal from "src/server/modules/terminal";
+import terminal from "modules/terminal";
 
 // CODE
 

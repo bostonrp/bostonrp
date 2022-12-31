@@ -2,7 +2,7 @@
 // IMPORTS
 
 import methods from './methods';
-import configs from '@shared/configs/server.json';
+import configs from '../../shared/configs/server.json';
 import * as colors from 'console-log-colors';
 
 // CODE

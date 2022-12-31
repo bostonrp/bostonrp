@@ -1,7 +1,7 @@
 
 // IMPORTS
 
-import Accounts from "@database/accounts";
+import Accounts from "../modules/database/models/accounts";
 import methods from "../modules/methods";
 
 // CODE

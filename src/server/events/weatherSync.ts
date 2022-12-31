@@ -2,7 +2,7 @@
 // IMPORTS
 
 import Weather from "../systems/weather";
-import * as enums from '@shared/enums/server/weather/index';
+import * as enums from '../../shared/enums/server/weather/index';
 import terminal from "../modules/terminal";
 
 // CODE

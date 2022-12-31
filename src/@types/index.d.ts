@@ -1,6 +1,0 @@
-
-// CODE
-
-declare namespace TBoston {
-    
-}

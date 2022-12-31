@@ -1,7 +1,7 @@
 
 // IMPORTS
 
-import config from '@shared/configs/mysql.json';
+import config from '../../../shared/configs/mysql.json';
 import { DataTypes, Model, ModelAttributes, ModelCtor, Optional, Sequelize, UpsertOptions} from 'sequelize';
 import methods from '../methods';
 import terminal from '../terminal';

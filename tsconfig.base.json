@@ -1,14 +1,8 @@
 {
     "compilerOptions": {
-        "typeRoots": ["./node_modules/@types", "./node_modules/@ragempcommunity", "./src/@types/**/**"],
+        "typeRoots": ["./node_modules/@types", "./src/@types", "./node_modules/@ragempcommunity"],
 
         "baseUrl": ".",
-        "paths": {
-            "@shared/*": ["./src/shared/*"],
-            "@enums/*": ["./src/shared/enums/*"],
-            "@database/*": ["./src/server/modules/database/models/*"]
-        },
-
         "removeComments": true,
         "noUnusedLocals": false,
         "noUnusedParameters": false,
@@ -23,11 +17,11 @@
         "target": "esNext",
         "outDir": "./packages",
         "importHelpers": true,
-        "rootDir": "./src",
+        "rootDir": ".",
         "allowSyntheticDefaultImports": true,
         "declaration": false
     },
 
-    "include": ["./src/**/*.ts", "./src/**/*.*"],
+    "include": ["./src/**/*.ts"],
     "exclude": ["node_modules", "**/*.spec.ts", "packages", "**/*.json"]
 }
