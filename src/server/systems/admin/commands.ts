@@ -7,7 +7,7 @@ import Admin from ".";
 // CODE
 
 mp.events.addCommand('campos', (player) => {
-    Admin.getCameraPosition(player.id)
+    Admin.getCameraPosition(player.id);
 });
 
 mp.events.add('server.camera:position:send', (player, position, pointAtCoord) => {
@@ -18,11 +18,23 @@ mp.events.add('server.camera:position:send', (player, position, pointAtCoord) =>
     terminal.log(`${pos.x.toFixed(4)}, ${pos.y.toFixed(4)}, ${pos.z.toFixed(4)} (${point.x.toFixed(4)}, ${point.y.toFixed(4)}, ${point.z.toFixed(4)})`);
 });
 
-mp.events.addCommand('cloth', (player, name, count) => {
-    Admin.giveWeapon(player.id, name, parseInt(count));
+mp.events.addCommand('cloth', (player, _, component, drawable, texture, palette) => {
+    Admin.setPlayerClothes(player.id, component as keyof TBoston.Systems.Admin.Clothes.components, parseInt(drawable), parseInt(texture), parseInt(palette));
 });
 
-mp.events.addCommand('weapon', (player, name, count) => {
+mp.events.addCommand('skin', (player, _, name) => {
+    Admin.changeSkin(player.id, name);
+});
+
+mp.events.addCommand('weapontake', (player, _, name) => {
+    Admin.takeWeapon(player.id, name);
+});
+
+mp.events.addCommand('weaponrange', (player, _, range, name, count) => {
+    Admin.giveWeaponInRange(player.id, name, parseInt(count), parseInt(range));
+});
+
+mp.events.addCommand('weapon', (player, _, name, count) => {
     Admin.giveWeapon(player.id, name, parseInt(count));
 });
 
@@ -46,7 +58,7 @@ mp.events.addCommand('god', (player, _, id) => {
     Admin.setInvincible(parseInt(id), true);
 });
 
-mp.events.addCommand('inv', (player, _, id) => {
+mp.events.addCommand('v', (player, _, id) => {
     Admin.setInvisible(parseInt(id), true);
 });
 

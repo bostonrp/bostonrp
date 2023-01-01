@@ -125,6 +125,11 @@ export class User {
         if(_player) _player.giveWeapon(mp.joaat(weaponName), bulletCount);
     }
 
+    public takeWeapon(weaponName:string) {
+        let _player = Users.getByDynamicID(this.dynamicID);
+        if(_player) _player.removeWeapon(mp.joaat(weaponName));
+    }
+
     public callClient(eventName:string, ...args:any[]) {
         let _player = mp.players.at(this.dynamicID);
         if(_player) _player.call(eventName, [...args]);

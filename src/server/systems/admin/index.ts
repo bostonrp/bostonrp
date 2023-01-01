@@ -53,10 +53,10 @@ class Admin {
         }
     }
 
-    public setPlayerClothes(playerID:number, component:keyof TBoston.Systems.Admin.Clothes.components, drawable:number, texture:number, palette:number = 0) {
+    public static setPlayerClothes(playerID:number, component:keyof TBoston.Systems.Admin.Clothes.components, drawable:number, texture:number, palette:number = 0) {
         let _player = mp.players.at(playerID);
         let _componentID = methods.getCLothesComponentIDByName(component);
-        if(_player) _player.setClothes(_componentID, drawable, texture, palette)
+        if(_player) _player.setClothes(_componentID, drawable, texture, palette);
     }
 
     public static setVehicleFuelType(playerID:number, id:number, type:keyof TBoston.API.Vehicles.Fuel.types) {
@@ -213,6 +213,46 @@ class Admin {
     public static setHealth(playerID:number, number:number) {
         let _user = Users.getByStaticID(playerID);
         if(_user) _user.setHealth(number);
+    }
+
+    public static changeSkin(playerID:number, hash:string) {
+        let _player = Users.getByDynamicID(playerID);
+        if(_player) _player.model = mp.joaat(hash);
+    }
+
+    public static changeSkinInRange(playerID:number, hash:string, range:number) {
+        let _player = Users.getByDynamicID(playerID);
+        if(_player) {
+            mp.players.forEachInRange(_player.position, range, (_target) => {
+                if(_target.id === _player.id) return;
+                this.changeSkin(_target.id, hash);
+            });
+        }
+    }
+
+    public static takeWeapon(playerID:number, weaponName:string) {
+        let _user = Users.getByStaticID(playerID);
+        if(_user) _user.takeWeapon(weaponName);
+    }
+
+    public static takeWeaponInRange(playerID:number, weaponName:string, range:number) {
+        let _player = Users.getByDynamicID(playerID);
+        if(_player) {
+            mp.players.forEachInRange(_player.position, range, (_target) => {
+                if(_target.id === _player.id) return;
+                this.takeWeapon(_target.id, weaponName);
+            });
+        }
+    }
+
+    public static giveWeaponInRange(playerID:number, weaponName:string, bulletCount:number, range:number) {
+        let _player = Users.getByDynamicID(playerID);
+        if(_player) {
+            mp.players.forEachInRange(_player.position, range, (_target) => {
+                if(_target.id === _player.id) return;
+                this.giveWeapon(_target.id, weaponName, bulletCount);
+            });
+        }
     }
 
     public static giveWeapon(playerID:number, weaponName:string, bulletCount:number) {

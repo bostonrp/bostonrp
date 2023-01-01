@@ -2,7 +2,7 @@
 // IMPORTS
 
 import terminal from "./terminal";
-import crypto from 'crypto';
+import crypto from 'crypto-js';
 
 // CODE
 
@@ -185,7 +185,10 @@ class Methods {
     }
 
     public createCryptoHash(text:any, algorithm:keyof TBoston.Methods.crypto) {
-        return crypto.createHash(algorithm).update(`${text}`).digest('hex');
+        switch(algorithm) {
+            case 'sha256': return String(crypto.HmacSHA256(text, 'bostonroleplayaspidemkasha256'));
+            case 'md5': return String(crypto.HmacMD5(text, 'bostonroleplayaspidemkamd5'));
+        }
     }
 
     public getRealTime() {
