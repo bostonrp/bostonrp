@@ -121,6 +121,10 @@ export class Vehicle {
         this._handle.numberPlate = text;
     }
 
+    public setNumberPlateType(type:number) {
+        this._handle.numberPlateType = type;
+    }
+
     public setColor(primary:RGB, secondary:RGB = new RGB(252, 252, 252)) {
         let _primary = primary.get();
         let _secondary = secondary.get();

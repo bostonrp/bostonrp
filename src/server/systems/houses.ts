@@ -15,4 +15,6 @@ export class House {
     }
 }
 
+let _house = new House();
+
 export default Houses;

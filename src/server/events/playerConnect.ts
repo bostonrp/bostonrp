@@ -16,10 +16,10 @@ async function playerConnect(player:PlayerMp) {
     player.setClothes(11, 22, 0, 0);
 
     let _user = new User({
-        dynamicID: player.id,
+        dynamic_id: player.id,
         username: player.name,
-        socialID: parseInt(player.rgscId),
-        socialName: player.socialClub,
+        social_id: parseInt(player.rgscId),
+        social_name: player.socialClub,
         ip: player.ip,
     });
 

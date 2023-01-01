@@ -13,5 +13,4 @@ class AntiCheat {
         callServer(eventName, ...args);
     }
 }
-
 export default AntiCheat;

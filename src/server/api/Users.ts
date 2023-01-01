@@ -35,7 +35,7 @@ class Users {
 export class User {
     public dynamicID:number;
     public staticID:number|null = null;
-    public socialID:number;
+    public social_id:number;
     public username:string;
     public socialName:string;
     public ip?:string;
@@ -44,10 +44,10 @@ export class User {
     private _isLoging:boolean = false;
 
     constructor(options:TBoston.Users.createOptions) {
-        this.dynamicID = options.dynamicID;
+        this.dynamicID = options.dynamic_id;
         this.username = options.username;
-        this.socialID = options.socialID;
-        this.socialName = options.socialName;
+        this.social_id = options.social_id;
+        this.socialName = options.social_name;
         this.ip = options.ip;
 
         Users.list.add(this);

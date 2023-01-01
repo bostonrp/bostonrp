@@ -3,7 +3,7 @@
 
 import Users from "api/Users";
 import Vehicles, { Vehicle } from "api/vehicles";
-import { RGB } from "modules/methods";
+import methods, { RGB } from "modules/methods";
 import terminal from "modules/terminal";
 import Weather from "../weather";
 import * as enums from '../../../shared/enums/server/weather/index';
@@ -26,12 +26,17 @@ class Admin {
         _player.putIntoVehicle(_vehicle.handle, 0);
     }
 
-    public static deleteVehicle(vehicleID:number) {
+    public static deleteVehicle(playerID:number, vehicleID:number) {
         let _vehicle = Vehicles.getByID(vehicleID);
         if(_vehicle) _vehicle.delete();
     }
 
-    public static setVehicleNumberPlate(vehicleID:number, text:string) {
+    public static setVehicleNumberPlateType(playerID:number, vehicleID:number, type:number) {
+        let _vehicle = Vehicles.getByID(vehicleID);
+        if(_vehicle) _vehicle.setNumberPlateType;
+    }
+
+    public static setVehicleNumberPlate(playerID:number, vehicleID:number, text:string) {
         let _vehicle = Vehicles.getByID(vehicleID);
         if(_vehicle) _vehicle.setNumberPlateText(text);
     }
@@ -48,6 +53,33 @@ class Admin {
         }
     }
 
+    public setPlayerClothes(playerID:number, component:keyof TBoston.Systems.Admin.Clothes.components, drawable:number, texture:number, palette:number = 0) {
+        let _player = mp.players.at(playerID);
+        let _componentID = methods.getCLothesComponentIDByName(component);
+        if(_player) _player.setClothes(_componentID, drawable, texture, palette)
+    }
+
+    public static setVehicleFuelType(playerID:number, id:number, type:keyof TBoston.API.Vehicles.Fuel.types) {
+        let _veh = Vehicles.getByID(id);
+        if(_veh) _veh.fuel.setType(type);
+    }
+
+    public static setVehicleFuelMax(playerID:number, id:number, max:number) {
+        let _veh = Vehicles.getByID(id);
+        if(_veh) _veh.fuel.setMaxBank(max);
+    }
+
+    public static setVehicleFuelBank(playerID:number, id:number, fuel:number) {
+        let _veh = Vehicles.getByID(id);
+        if(_veh) _veh.fuel.set(fuel);
+    }
+
+    public static getVehiclePosition(playerID:number, vehicleID:number) {
+        let _veh = Vehicles.getByID(vehicleID);
+        if(_veh) return _veh.position;
+        return null;
+    }
+
     public static setPlayerDimension(playerID:number, dimensionID:number) {
         let _user = Users.getByStaticID(playerID);
         if(_user) _user.setDimension(dimensionID);
@@ -56,6 +88,7 @@ class Admin {
     public static getPosition(playerID:number) {
         let _user = Users.getByStaticID(playerID);
         if(_user) return `${_user.getPosition()?.x.toFixed(4)}, ${_user.getPosition()?.y.toFixed(4)}, ${_user.getPosition()?.z.toFixed(4)}`;
+        return null;
     }
 
     public static getCameraPosition(playerID:number) {
@@ -103,7 +136,7 @@ class Admin {
         Time.set(hour, minute);
     }
 
-    public static repairVehicle(vehicleID:number) {
+    public static repairVehicle(playerID:number, vehicleID:number) {
         let _vehicle = Vehicles.getByID(vehicleID);
         if(_vehicle) _vehicle.repair();
     }

@@ -6,8 +6,8 @@ declare namespace TBoston.Systems.Auth {
         email:string;
         username:string;
         password:string;
-        socialID:string;
-        socialName:string;
+        social_id:string;
+        social_name:string;
         hwid:string;
         ip:string;
         referal_code?:string;

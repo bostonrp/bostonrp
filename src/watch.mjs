@@ -1,12 +1,12 @@
 
 // IMPORTS
 
-const esbuild = require('esbuild');
-const inlineImportPlugin = require('esbuild-plugin-inline-import');
+import { build } from 'esbuild';
+import inlineImportPlugin from 'esbuild-plugin-inline-import';
 
 // CODE
 
-esbuild.build({
+build({
     entryPoints: [
         './src/server/index.ts'
     ],
@@ -22,7 +22,7 @@ esbuild.build({
     ]
 }).finally(() => console.log('Client build!'));
 
-esbuild.build({
+build({
     entryPoints: [
         './src/client/index.ts'
     ],

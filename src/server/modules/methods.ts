@@ -2,7 +2,7 @@
 // IMPORTS
 
 import terminal from "./terminal";
-import * as crypto from 'crypto';
+import crypto from 'crypto';
 
 // CODE
 
@@ -207,6 +207,23 @@ class Methods {
         }
 
         return result;
+    }
+
+    public getCLothesComponentIDByName(componentName:keyof TBoston.Systems.Admin.Clothes.components) {
+        switch(componentName) {
+            case 'head': return 0;
+            case 'masks': return 1;
+            case 'hair': return 2;
+            case 'torsos': return 3;
+            case 'legs': return 4;
+            case 'bags': return 5;
+            case 'shoes': return 6;
+            case 'accessories': return 7;
+            case 'undershirts': return 8;
+            case 'bodyarmor': return 9;
+            case 'decals': return 10;
+            case 'tops': return 11;
+        }
     }
 }
 

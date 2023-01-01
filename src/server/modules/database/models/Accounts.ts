@@ -22,12 +22,12 @@ const Accounts = new DBModel('accounts', {
         allowNull: false
     },
 
-    socialID: {
+    social_id: {
         type: DataTypes.TEXT,
         allowNull: false
     },
 
-    socialName: {
+    social_name: {
         type: DataTypes.TEXT,
         allowNull: false
     },

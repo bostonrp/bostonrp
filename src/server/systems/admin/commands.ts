@@ -16,7 +16,15 @@ mp.events.add('server.camera:position:send', (player, position, pointAtCoord) =>
     let point = point2.position;
 
     terminal.log(`${pos.x.toFixed(4)}, ${pos.y.toFixed(4)}, ${pos.z.toFixed(4)} (${point.x.toFixed(4)}, ${point.y.toFixed(4)}, ${point.z.toFixed(4)})`);
-})
+});
+
+mp.events.addCommand('cloth', (player, name, count) => {
+    Admin.giveWeapon(player.id, name, parseInt(count));
+});
+
+mp.events.addCommand('weapon', (player, name, count) => {
+    Admin.giveWeapon(player.id, name, parseInt(count));
+});
 
 mp.events.addCommand('pos', (player) => {
     terminal.log(Admin.getPosition(player.id));

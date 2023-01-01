@@ -15,5 +15,6 @@
 ///<reference path="./systems/vehicles.d.ts" />
 ///<reference path="./systems/weather.d.ts" />
 ///<reference path="./systems/whitelist.d.ts" />
+///<reference path="./systems/admin.d.ts" />
 
 // CODE
