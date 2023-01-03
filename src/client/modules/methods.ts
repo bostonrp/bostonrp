@@ -45,6 +45,10 @@ class Methods {
         AntiCheat.callServer('server.anticheat:events:call', eventName, User.secret, ...args);
     }
 
+    public randomInt(min:number, max:number) {
+        return parseInt((Math.random() * (max - min) + min).toFixed(0));
+    }
+
     public async sleep(ms:number) {
         return new Promise(res => setTimeout(res, ms));
     }

@@ -19,6 +19,10 @@ class Camera {
 
     // SETTERS
 
+    public setRender(render:boolean, ease:boolean = false, easeTime:number = 0, p3:boolean = true, p4:boolean = false, p5:number = 0) {
+        mp.game.cam.renderScriptCams(render, ease, easeTime, p3, p4, p5);
+    }
+
     public setPosition(position:Vector3) {
         this._handle.setCoord(position.x, position.y, position.z);
     }
@@ -44,6 +48,19 @@ class Camera {
         return this._handle.getCoord();
     }
 
+    // OTHERS
+
+    public shake(type:string, amplitude:number) {
+        this._handle.shake(type, amplitude);
+    }
+
+    public smoothToPosition(position:Vector3, pointAtCoord:Vector3, time:number) {
+        let _targetCamera = mp.cameras.new('default', position, this._handle.getRot(0), this._handle.getFov());
+        _targetCamera.pointAtCoord(pointAtCoord.x, pointAtCoord.y, pointAtCoord.z);
+        this._handle.setActiveWithInterp(_targetCamera.handle, time, 0, 0,);
+        this.setRender(true);
+    }
+
     public pointingAt(distance:number) {
         let direction = this._handle.getDirection();
         const farAway = new mp.Vector3((direction.x * distance) + (this.getPosition().x), (direction.y * distance) + (this.getPosition().y), (direction.z * distance) + (this.getPosition().z));
@@ -55,15 +72,9 @@ class Camera {
         return result;
     }
 
-    // OTHERS
-
     public destroy() {
         this.setActive(false);
         // this._handle.destroy();
-    }
-
-    public setRender(render:boolean, ease:boolean = false, easeTime:number = 0, p3:boolean = true, p4:boolean = false, p5:number = 0) {
-        mp.game.cam.renderScriptCams(render, ease, easeTime, p3, p4, p5);
     }
 }
 
