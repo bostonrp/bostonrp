@@ -20,7 +20,7 @@ build({
     plugins: [
         inlineImportPlugin()
     ]
-}).finally(() => console.log('Client build!'));
+}).finally(() => console.log('Client watching!'));
 
 build({
     entryPoints: [
@@ -36,4 +36,4 @@ build({
     plugins: [
         inlineImportPlugin()
     ]
-}).finally(() => console.log('Server build!'));
+}).finally(() => console.log('Server watching!'));

@@ -1,1 +1,0 @@
-(()=>{"use strict";const e=require("webpack-obfuscator");module.exports={mode:"production",plugins:[new e({rotateStringArray:!0},["./client_packages/client.js"])]}})();

@@ -6,7 +6,7 @@ import terminal from './terminal';
 
 import './methods';
 import './database/models/index';
-import './filelogs';
+import './logs';
 
 import Vehicles from '../api/vehicles';
 

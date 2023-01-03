@@ -4,7 +4,7 @@
 // CODE
 
 class Weather {
-    private static _interval:NodeJS.Timer|null = null;
+    private static _interval:number|null = null;
 
     public static current:string = 'NONE';
     public static zone:string;

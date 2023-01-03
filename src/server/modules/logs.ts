@@ -1,6 +1,6 @@
 // IMPORTS
 
-import fs from "fs";
+import * as fs from "fs";
 import methods from "./methods";
 import Methods from "./methods";
 import terminal from "./terminal";
