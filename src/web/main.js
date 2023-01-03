@@ -11,7 +11,7 @@ import EventManager from './EventManager';
 const events = new EventManager(true);
 
 window.emit = (eventName, args) => {
-    let [...args2] = args;
+    let [...args2] = JSON.parse(args);
     global.events.call(eventName, ...args2);
 }
 

@@ -8,7 +8,7 @@ export default {
 
     data() {
         return {
-            visible: true,
+            visible: false,
             page: 'login'
         }
     },
@@ -26,13 +26,17 @@ export default {
     },
 
     components: {
-        Login
+        Login,
+        Register
     },
 
     mounted() {
+        this.$events.add('cef.auth:visible:set', (status) => {
+            this.status = status;
+        });
+
         this.$events.add('cef.auth:page:set', (page) => {
             this.page = page;
-            console.log(page);
         });
     }
 }

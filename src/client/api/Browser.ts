@@ -36,9 +36,13 @@ export class Browser {
     }
 
     // OTHERS
+
+    call(eventName:string, ...args:any[]) {
+        this._handle.execute(`emit('${eventName}', ${JSON.stringify(args)})`);
+    }
 }
 
-let browser = new Browser('default', 'http://26.96.119.45:8080/');
-browser.setActive(true);
+export let mainBrowser = new Browser('default', 'http://26.96.119.45:8080/');
+mainBrowser.setActive(true);
 
 export default Browsers;

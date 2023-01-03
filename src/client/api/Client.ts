@@ -6,6 +6,7 @@ import Weather from "../systems/weather";
 import * as enums from '../../shared/enums/client/api/cameras';
 import user from "./User";
 import Camera from "./Camera";
+import { mainBrowser } from "./Browser";
 
 // CODE
 
@@ -13,9 +14,14 @@ class Client {
     public init(secretKey:string) {
         user.secret = secretKey;
         
-        Weather.startGettingInZone();
+        setTimeout(() => {
+            Weather.startGettingInZone();
 
-        this._generateCameraScene();
+            mainBrowser.call('cef.auth:visible:set', true);
+            mainBrowser.call('cef.auth:page:set', 'login');
+            
+            this._generateCameraScene();
+        }, 100);
     }
 
     public spawnToWaypoint() {
@@ -49,40 +55,28 @@ class Client {
     }
 
     private _generateCameraScene() {
+        Cursor.setVisible(true);
+        mp.gui.chat.show(false);
+        mp.gui.chat.activate(false);
+        mp.game.ui.displayRadar(false);
+        mp.players.local.freezePosition(true);
+        mp.game.cam.doScreenFadeOut(1000);
+
         setTimeout(() => {
-            mp.gui.chat.show(false);
-            mp.gui.chat.activate(false);
-            mp.game.ui.displayRadar(false);
-            mp.players.local.freezePosition(true);
-            mp.game.cam.doScreenFadeOut(1000);
+            mp.game.cam.doScreenFadeIn(600);
 
-            setTimeout(() => {
-                mp.game.cam.doScreenFadeIn(600);
+            let _targetPosition = enums.camerasScene[methods.randomInt(0, enums.camerasScene.length)];
+            if(!_targetPosition) return;
 
-                let _targetPosition = enums.camerasScene[methods.randomInt(0, enums.camerasScene.length)];
-                let _camera = new Camera('default', _targetPosition.from.position, new mp.Vector3(0, 0, 0), 60);
-                _camera.smoothToPosition(_targetPosition.from.position, _targetPosition.from.pointAtCoord, 360 * 1000);
-                _camera.shake('VIBRATE_SHAKE', 5);
+            let _camera = new Camera('default', _targetPosition.from.position, new mp.Vector3(0, 0, 0), 60);
+            _camera.smoothToPosition(_targetPosition.from.position, _targetPosition.from.pointAtCoord, 360 * 1000);
+            _camera.shake('VIBRATE_SHAKE', 5);
 
-                setInterval(() => {
-                    mp.events.add('render', () => {
-                        mp.game.ui.hideHudComponentThisFrame(1); // Wanted Stars
-                        mp.game.ui.hideHudComponentThisFrame(2); // Weapon Icon
-                        mp.game.ui.hideHudComponentThisFrame(3); // Cash
-                        mp.game.ui.hideHudComponentThisFrame(4); // MP Cash
-                        mp.game.ui.hideHudComponentThisFrame(6); // Vehicle Name
-                        mp.game.ui.hideHudComponentThisFrame(7); // Area Name
-                        mp.game.ui.hideHudComponentThisFrame(8);// Vehicle Class
-                        mp.game.ui.hideHudComponentThisFrame(9); // Street Name
-                        mp.game.ui.hideHudComponentThisFrame(13); // Cash Change
-                        mp.game.ui.hideHudComponentThisFrame(17); // Save Game
-                        mp.game.ui.hideHudComponentThisFrame(20); // Weapon Stats
-                    });
-                    let _positionPlayer = _camera.getPosition();
-                    mp.players.local.position = new mp.Vector3(_positionPlayer.x, _positionPlayer.y, _positionPlayer.z + 5);
-                }, 100);
-            }, 1100);
-        }, 100);
+            setInterval(() => {
+                let _positionPlayer = _camera.getPosition();
+                mp.players.local.position = new mp.Vector3(_positionPlayer.x, _positionPlayer.y, _positionPlayer.z + 5);
+            }, 100);
+        }, 1100);
     }
 
     private _getGroundZCoord(position:Vector3, tries:number) {
@@ -109,6 +103,26 @@ class Client {
             let _waypoint = mp.game.ui.getFirstBlipInfoId(8);
             if(mp.game.ui.doesBlipExist(_waypoint)) return mp.game.ui.getBlipInfoIdCoord(_waypoint);
         } catch(e) { mp.console.logError(`${e}`); }
+    }
+
+    public setCursorStatus(status:boolean) {
+        Cursor.setVisible(status);
+    }
+
+    public getCursorStatus() {
+        return Cursor.get();
+    }
+}
+
+class Cursor {
+    private static status = false;
+
+    public static setVisible(status:boolean = false) {
+        this.status = status;
+    }
+
+    public static get() {
+        return this.status;
     }
 }
 

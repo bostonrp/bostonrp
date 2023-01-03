@@ -9,3 +9,7 @@ import client from "../api/Client";
 mp.events.add('client.init', (secretKey) => {
     client.init(secretKey);
 });
+
+mp.events.add('client.send:server:notify', (text) => {
+    mp.game.graphics.notify(text);
+});

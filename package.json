@@ -6,6 +6,7 @@
     "build": "node src/build.mjs",
     "build:web": "vue-cli-service build",
     "watch": "node src/watch.mjs",
+    "watch:all": "concurrently \"npm run watch\" \"npm run watch:web\"",
     "watch:web": "vue-cli-service serve --copyWebpack",
     "crypto:client": "webpack build ./crypto.js"
   },
@@ -14,6 +15,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "concurrently": "^7.6.0",
     "console-log-colors": "^0.3.3",
     "crypto-js": "^4.1.1",
     "pg": "^8.8.0",
