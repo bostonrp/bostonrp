@@ -10,23 +10,21 @@ import EventManager from './EventManager';
 
 const events = new EventManager(true);
 
-window.emit = (eventName, args) => {
-    let [...args2] = JSON.parse(args);
-    global.events.call(eventName, ...args2);
+global.emit = (eventName, ...args) => {
+    events.call(eventName, ...args);
 }
 
-window.on = (eventName, handler) => {
-    global.events.add(eventName, handler);
+global.on = (eventName, handler) => {
+    events.add(eventName, handler);
 }
 
-window.off = (eventName) => {
-    global.events.remove(eventName);
+global.off = (eventName) => {
+    events.remove(eventName);
 }
 
 let app = createApp(App);
 
 app.config.globalProperties.$mp = window.mp;
 app.config.globalProperties.$events = events;
-
 
 app.mount('#app');

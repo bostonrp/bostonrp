@@ -12,15 +12,15 @@ Events.add('server.auth:login:send', async (player, username, password) => {
 
     if(_account !== null) {
         let _password = Auth.generatePasswordHash(password);
-        if(_password !== _account.password) return; // todo Нужно уведомить игрока о том, что пароль неверный
-        if(_account.social_id !== player.rgscId) return; // todo Нужно уведомить игрока, что это не его аккаунт
+        if(_password !== _account.password) return player.notify('~r~Неверный пароль');
+        if(_account.social_id !== player.rgscId) return player.notify('~r~Это не Ваш аккаунт!');
 
         let isWhiteListed = WhiteList.get(player.socialClub);
         if(isWhiteListed === undefined || !isWhiteListed.status) return player.kickSilent();
 
         // todo Все хорошо, нужно пропустить игрока к выбору персонажа
     } else {
-        // todo Нужно обработать ошибку и отправить её на клиент для того чтобы пользователь узнал, что аккаунта не существует
+        player.notify('~r~Такого логина не существует');
     }
 });
 
@@ -33,8 +33,8 @@ Events.add('server.auth:register:send', async (player, data:TBoston.Systems.Auth
             username: await Auth.getAccountByKey('username', data.username)
         };
 
-        if(_data.email !== null) return; // todo Такая почта уже занята
-        if(_data.username !== null) return; // todo Такой логин уже используется
+        if(_data.email !== null) return player.notify('~r~Почта уже используется!');
+        if(_data.username !== null) return player.notify('~r~Такой логин уже занят');
 
         await Auth.createAccount({
             email: data.email,
@@ -49,6 +49,6 @@ Events.add('server.auth:register:send', async (player, data:TBoston.Systems.Auth
 
         // todo Все хорошо, нужно пропустить игрока к выбору персонажа
     } else {
-        // todo Нужно написать игроку, что у него уже существует аккаунт
+        player.notify('~r~У Вас уже существует аккаунт!');
     }
 });

@@ -10,25 +10,30 @@ import { mainBrowser } from "./Browser";
 
 // CODE
 
+const localPlayer = mp.players.local;
+
 class Client {
     public init(secretKey:string) {
+        localPlayer.position = new mp.Vector3(0, 0, 71);
         user.secret = secretKey;
         
         setTimeout(() => {
             Weather.startGettingInZone();
 
-            mainBrowser.call('cef.auth:visible:set', true);
-            mainBrowser.call('cef.auth:page:set', 'login');
+            setTimeout(() => {
+                mainBrowser.call('cef.auth:visible:set', true);
+                mainBrowser.call('cef.auth:page:set', 'login');
+            }, 1000);
             
             this._generateCameraScene();
-        }, 100);
+        }, 500);
     }
 
     public spawnToWaypoint() {
         let _waypointPosition = this._getWaypointPosition();
 
         if (_waypointPosition) {
-            mp.players.local.freezePosition(true);
+            localPlayer.freezePosition(true);
             mp.game.cam.doScreenFadeOut(250);
             
             setTimeout(() => {
@@ -36,16 +41,14 @@ class Client {
                     let _groundPos = this._getGroundZCoord(_waypointPosition, 10);
 
                     if (_groundPos) {
-                        let _localPlayer = mp.players.local;
-
-                        if(_localPlayer.vehicle) _localPlayer.vehicle.setCoords(_groundPos.x, _groundPos.y, _groundPos.z, false, false, false, false);
-                        else _localPlayer.position = _groundPos;
+                        if(localPlayer.vehicle) localPlayer.vehicle.setCoords(_groundPos.x, _groundPos.y, _groundPos.z, false, false, false, false);
+                        else localPlayer.position = _groundPos;
 
                         mp.game.streaming.setFocusArea(_groundPos.x, _groundPos.y, _groundPos.z, 0, 0, 0);
                         mp.game.streaming.clearFocus();
                         
                         setTimeout(() => {
-                            mp.players.local.freezePosition(false);
+                            localPlayer.freezePosition(false);
                             mp.game.cam.doScreenFadeIn(250);
                         }, 200);
                     }
@@ -59,7 +62,7 @@ class Client {
         mp.gui.chat.show(false);
         mp.gui.chat.activate(false);
         mp.game.ui.displayRadar(false);
-        mp.players.local.freezePosition(true);
+        localPlayer.freezePosition(true);
         mp.game.cam.doScreenFadeOut(1000);
 
         setTimeout(() => {
@@ -69,12 +72,11 @@ class Client {
             if(!_targetPosition) return;
 
             let _camera = new Camera('default', _targetPosition.from.position, new mp.Vector3(0, 0, 0), 60);
-            _camera.smoothToPosition(_targetPosition.from.position, _targetPosition.from.pointAtCoord, 360 * 1000);
-            _camera.shake('VIBRATE_SHAKE', 5);
+            _camera.smoothToPosition(_targetPosition.from.position, _targetPosition.from.pointAtCoord, 260 * 1000);
 
             setInterval(() => {
                 let _positionPlayer = _camera.getPosition();
-                mp.players.local.position = new mp.Vector3(_positionPlayer.x, _positionPlayer.y, _positionPlayer.z + 5);
+                localPlayer.position = new mp.Vector3(_positionPlayer.x, _positionPlayer.y, _positionPlayer.z + 5);
             }, 100);
         }, 1100);
     }

@@ -9,7 +9,9 @@ export default {
     data() {
         return {
             visible: false,
-            page: 'login'
+
+            page_id: '',
+            page: ''
         }
     },
 
@@ -22,6 +24,13 @@ export default {
             ];
 
             return _components[id];
+        },
+
+        updatePage(page) {
+            this.page_id = page;
+            setTimeout(() => {
+                this.page = page;
+            }, 310);
         }
     },
 
@@ -32,11 +41,19 @@ export default {
 
     mounted() {
         this.$events.add('cef.auth:visible:set', (status) => {
-            this.status = status;
+            if(!status) {
+                this.updatePage('none');
+
+                setTimeout(() => {
+                    this.visible = status;
+                }, 310);
+            } else {
+                this.visible = status;
+            }
         });
 
         this.$events.add('cef.auth:page:set', (page) => {
-            this.page = page;
+            this.updatePage(page);
         });
     }
 }
@@ -44,8 +61,8 @@ export default {
 
 <template>
     <div id="auth" v-show="visible">
-        <component :is="getComponentByID(0)" v-show="page == 'login'" />
-        <component :is="getComponentByID(1)" v-show="page == 'register'" />
+        <component :is="getComponentByID(0)" v-show="page == 'login'" :class="page_id == 'login' ? 'show' : 'hide'" />
+        <component :is="getComponentByID(1)" v-show="page == 'register'" :class="page_id == 'register' ? 'show' : 'hide'" />
     </div>
 </template>
 
@@ -55,5 +72,28 @@ export default {
     height: 100%;
     
     background: radial-gradient(circle at center, rgba(0, 0, 0, 0), rgb(0, 0, 0, 0.35));
+}
+
+.show {
+    animation: showBlock 0.3s linear forwards;
+}
+.hide {
+    animation: hideBlock 0.3s linear forwards;
+}
+@keyframes showBlock {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes hideBlock {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }
 </style>

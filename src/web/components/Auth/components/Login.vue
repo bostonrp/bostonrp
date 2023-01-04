@@ -12,6 +12,10 @@ export default {
     methods: {
         openPage(page) {
             this.$events.call('cef.auth:page:set', page);
+        },
+
+        sendClient() {
+            
         }
     },
 
