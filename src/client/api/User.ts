@@ -13,6 +13,7 @@ class User {
         mp.players.local.setAlpha(number);
     }
 
+    // todo Не работает
     public setVisible(status:boolean) {
         mp.players.local.setVisible(status, status);
     }

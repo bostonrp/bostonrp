@@ -1,9 +1,58 @@
 
 // IMPORTS
 
+import { Cursor } from "./Client";
+import * as enums from '../../shared/enums/client/api/cameras';
+import methods from "modules/methods";
+import config from '../../shared/configs/client.json';
+
 // CODE
 
 export let activeCamera:Camera;
+const localPlayer = mp.players.local;
+
+export class CameraMethods {
+    private static _oldSceneID:number;
+
+    public static generateRandomCameraScene() {
+        setTimeout(() => {
+            mp.game.cam.doScreenFadeIn(600);
+
+            let _scene = this._getRandomCameraScene();
+            if(!_scene) return;
+            this._startCameraScene(_scene.to.position, _scene.to.pointAtCoord, _scene.from.position, _scene.from.pointAtCoord, config.scenes.time);
+        }, 1100);
+    }
+
+    private static _getRandomCameraScene() {
+        let _id = methods.randomInt(0, enums.camerasScene.length);
+        if(this._oldSceneID == _id) this._getRandomCameraScene();
+        else return enums.camerasScene[_id]
+    }
+
+    private static _startCameraScene(toPosition:Vector3, toPointAtCoord:Vector3, fromPosition:Vector3, fromPointAtCoord:Vector3, time:number) {
+        let _camera = new Camera('default', toPosition, new mp.Vector3(0, 0, 0), 60, {
+            pointAtCoord: toPointAtCoord
+        });
+
+        _camera.smoothToPosition(fromPosition, fromPointAtCoord, time * 1000);
+
+        let _interval:any = setInterval(() => {
+            let _positionPlayer = _camera.getPosition();
+            localPlayer.position = new mp.Vector3(_positionPlayer.x, _positionPlayer.y, _positionPlayer.z + 5);
+        }, 100);
+
+        setTimeout(() => {
+            mp.game.cam.doScreenFadeOut(250);
+
+            setTimeout(() => {
+                clearInterval(_interval);
+                _interval = undefined;
+                this.generateRandomCameraScene();
+            }, 300);
+        }, time * 1000);
+    }
+}
 
 class Camera {
     private _handle:CameraMp;
@@ -57,7 +106,7 @@ class Camera {
     public smoothToPosition(position:Vector3, pointAtCoord:Vector3, time:number) {
         let _targetCamera = mp.cameras.new('default', position, this._handle.getRot(0), this._handle.getFov());
         _targetCamera.pointAtCoord(pointAtCoord.x, pointAtCoord.y, pointAtCoord.z);
-        this._handle.setActiveWithInterp(_targetCamera.handle, time, 0, 0,);
+        this._handle.setActiveWithInterp(_targetCamera.handle, time, 0, 0);
         this.setRender(true);
     }
 

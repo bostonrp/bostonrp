@@ -148,9 +148,8 @@ export class User {
         let _secret = this._generateSecret();
 
         if(!Users.getSecretExists(_secret)) {
-            let _player = mp.players.at(this.dynamicID);
             this._secret = _secret;
-            return _player.call('client.init', [this._secret]);
+            return this.callClient('client.secret:set', [this._secret]);
         }
 
         this.generateSecret();

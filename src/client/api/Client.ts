@@ -1,21 +1,22 @@
 
 // IMPORTS
 
-import methods from "modules/methods";
 import Weather from "../systems/weather";
-import * as enums from '../../shared/enums/client/api/cameras';
 import user from "./User";
-import Camera from "./Camera";
 import { mainBrowser } from "./Browser";
+import { CameraMethods } from "./Camera";
 
 // CODE
 
 const localPlayer = mp.players.local;
 
 class Client {
-    public init(secretKey:string) {
-        localPlayer.position = new mp.Vector3(0, 0, 71);
+    public setSecretCode(secretKey:string) {
         user.secret = secretKey;
+    }
+
+    public init() {
+        localPlayer.position = new mp.Vector3(0, 0, 71);
         
         setTimeout(() => {
             Weather.startGettingInZone();
@@ -24,8 +25,15 @@ class Client {
                 mainBrowser.call('cef.auth:visible:set', true);
                 mainBrowser.call('cef.auth:page:set', 'login');
             }, 1000);
+
+            Cursor.set(true);
+            mp.gui.chat.show(false);
+            mp.gui.chat.activate(false);
+            mp.game.ui.displayRadar(false);
+            localPlayer.freezePosition(true);
+            mp.game.cam.doScreenFadeOut(1000);
             
-            this._generateCameraScene();
+            CameraMethods.generateRandomCameraScene();
         }, 500);
     }
 
@@ -57,30 +65,6 @@ class Client {
         }
     }
 
-    private _generateCameraScene() {
-        Cursor.setVisible(true);
-        mp.gui.chat.show(false);
-        mp.gui.chat.activate(false);
-        mp.game.ui.displayRadar(false);
-        localPlayer.freezePosition(true);
-        mp.game.cam.doScreenFadeOut(1000);
-
-        setTimeout(() => {
-            mp.game.cam.doScreenFadeIn(600);
-
-            let _targetPosition = enums.camerasScene[methods.randomInt(0, enums.camerasScene.length)];
-            if(!_targetPosition) return;
-
-            let _camera = new Camera('default', _targetPosition.from.position, new mp.Vector3(0, 0, 0), 60);
-            _camera.smoothToPosition(_targetPosition.from.position, _targetPosition.from.pointAtCoord, 260 * 1000);
-
-            setInterval(() => {
-                let _positionPlayer = _camera.getPosition();
-                localPlayer.position = new mp.Vector3(_positionPlayer.x, _positionPlayer.y, _positionPlayer.z + 5);
-            }, 100);
-        }, 1100);
-    }
-
     private _getGroundZCoord(position:Vector3, tries:number) {
         let _groundZ;
 
@@ -106,20 +90,12 @@ class Client {
             if(mp.game.ui.doesBlipExist(_waypoint)) return mp.game.ui.getBlipInfoIdCoord(_waypoint);
         } catch(e) { mp.console.logError(`${e}`); }
     }
-
-    public setCursorStatus(status:boolean) {
-        Cursor.setVisible(status);
-    }
-
-    public getCursorStatus() {
-        return Cursor.get();
-    }
 }
 
-class Cursor {
+export class Cursor {
     private static status = false;
 
-    public static setVisible(status:boolean = false) {
+    public static set(status:boolean = false) {
         this.status = status;
     }
 

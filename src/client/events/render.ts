@@ -1,7 +1,7 @@
 
 // IMPORTS
 
-import client from "api/Client";
+import client, { Cursor } from "api/Client";
 
 // CODE
 
@@ -18,6 +18,6 @@ mp.events.add('render', () => {
     mp.game.ui.hideHudComponentThisFrame(17); // Save Game
     mp.game.ui.hideHudComponentThisFrame(20); // Weapon Stats
 
-    if(client.getCursorStatus()) mp.gui.cursor.show(true, true);
+    if(Cursor.get()) mp.gui.cursor.show(true, true);
     else mp.gui.cursor.show(false, false);
 });
