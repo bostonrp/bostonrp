@@ -16,7 +16,7 @@ export class LogFile {
 
     public static createDirectory() {
         if(fs.existsSync('logs')) return false;
-        fs.mkdir('logs', (err:any) => { terminal.debugDetailed(err == null ? `[Logs] Директория logs успешно создана` : err) });
+        fs.mkdir('logs', (err:any) => { terminal.debugDetailed(err == null ? `[Logs] Директория logs успешно создана` : err); });
         return true;
     }
 

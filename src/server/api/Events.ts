@@ -43,7 +43,9 @@ export class NewEvents {
         if(this._debug) terminal.log(eventName, JSON.stringify(args));
         if(this._events && this._events.has(eventName)) {
             this._events.get(eventName).forEach((callback:any) => {
-                callback(player, ...args);
+                try {
+                    callback(player, ...args);
+                } catch(e) { console.log(e); }
             });
         }
     }

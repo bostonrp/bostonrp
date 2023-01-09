@@ -69,17 +69,17 @@ const Characters = new DBModel('characters', {
         allowNull: false
     },
 
+    water_satiety: {
+        type: DataTypes.FLOAT,
+        allowNull: false
+    },
+
     health: {
         type: DataTypes.FLOAT,
         allowNull: false
     },
 
     armour: {
-        type: DataTypes.FLOAT,
-        allowNull: false
-    },
-
-    water_satiety: {
         type: DataTypes.FLOAT,
         allowNull: false
     },

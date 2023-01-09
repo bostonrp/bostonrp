@@ -24,27 +24,29 @@ Events.add('server.auth:login:send', async (player, username, password) => {
     }
 });
 
-Events.add('server.auth:register:send', async (player, data:TBoston.Systems.Auth.regData) => {
+Events.add('server.auth:register:send', async (player, data:string) => {
+    let _data:TBoston.Systems.Auth.registerData = JSON.parse(data);
+
     let _account = await Auth.getAccountByKey('social_id', player.rgscId);
 
-    if(_account !== null) {
-        let _data = {
-            email: await Auth.getAccountByKey('email', data.email),
-            username: await Auth.getAccountByKey('username', data.username)
+    if(_account === null) {
+        let _dataCheck = {
+            email: await Auth.getAccountByKey('email', _data.email),
+            username: await Auth.getAccountByKey('username', _data.username)
         };
 
-        if(_data.email !== null) return player.notify('~r~Почта уже используется!');
-        if(_data.username !== null) return player.notify('~r~Такой логин уже занят');
+        if(_dataCheck.email !== null) return player.notify('~r~Почта уже используется!');
+        if(_dataCheck.username !== null) return player.notify('~r~Такой логин уже занят');
 
         await Auth.createAccount({
-            email: data.email,
-            username: data.username,
-            password: Auth.generatePasswordHash(data.password),
+            email: _data.email,
+            username: _data.username,
+            password: Auth.generatePasswordHash(_data.password),
             social_id: player.rgscId,
             social_name: player.socialClub,
             hwid: player.serial,
             ip: player.ip,
-            referal_code: data.referalcode
+            referal_code: _data.referal_code
         });
 
         // todo Все хорошо, нужно пропустить игрока к выбору персонажа

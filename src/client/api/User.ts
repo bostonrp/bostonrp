@@ -4,7 +4,7 @@
 // CODE
 
 class User {
-    public secret:string|undefined;
+    public secret:string = '';
 
     // SETTERS
 

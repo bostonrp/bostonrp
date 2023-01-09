@@ -23,7 +23,6 @@ async function playerConnect(player:PlayerMp) {
         ip: player.ip,
     });
 
-    _user.generateSecret();
     _user.callClient('client.init');
 
     terminal.info(`Игрок ${_user.username} (ID: ${_user.dynamicID}) подключился к серверу`, _user.ip);

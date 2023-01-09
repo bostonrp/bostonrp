@@ -14,10 +14,15 @@ declare namespace TBoston.Systems.Auth {
         donate?:number;
     }
 
-    interface regData {
+    interface registerData {
         email:string;
         username:string;
         password:string;
-        referalcode:string;
+        referal_code:string;
+    }
+
+    interface loginData {
+        username:string;
+        password:string;
     }
 }

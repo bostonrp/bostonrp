@@ -6,6 +6,10 @@ import user from "../api/User";
 
 // CODE
 
+mp.events.add('client.hud:notify:send', (text) => {
+    mp.game.graphics.notify(text);
+});
+
 //? Ивент отвечающий за изменение секретного ключа для античита
 mp.events.add('client.user:secret:update', (secret) => {
     user.secret = secret;

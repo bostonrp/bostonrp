@@ -50,6 +50,7 @@ export class User {
         this.socialName = options.social_name;
         this.ip = options.ip;
 
+        this.generateSecret();
         Users.list.add(this);
     }
 
@@ -149,7 +150,7 @@ export class User {
 
         if(!Users.getSecretExists(_secret)) {
             this._secret = _secret;
-            return this.callClient('client.secret:set', [this._secret]);
+            return this.callClient('client.secret:set', _secret);
         }
 
         this.generateSecret();

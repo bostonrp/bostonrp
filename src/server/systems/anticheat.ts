@@ -28,7 +28,7 @@ mp.events.add('server.anticheat:events:call', (player:PlayerMp, eventName:any, s
         Events.call(player, eventName, ...args);
     } else {
         logs.write(`Игрок ${_user.getName()} (ID: ${_user.staticID}) попытался вызвать инвент '${eventName}' с аргументами: ${JSON.stringify(args)} с неверным/без секретным ключем\nКлюч: ${secret}`);
-        player.kickSilent();
+        // player.kickSilent();
     }
 });
 
