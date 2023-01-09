@@ -12,6 +12,17 @@ export default {
     methods: {
         openPage(page) {
             this.$events.call('cef.auth:page:set', page);
+        },
+
+        sendClient() {
+            let _data = JSON.stringify({
+                email: this.email,
+                username: this.username,
+                password: this.password,
+                referalCode: this.referalCode
+            });
+
+            this.$mp.trigger('client.auth:register:send:server', _data);
         }
     },
 

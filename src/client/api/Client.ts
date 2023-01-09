@@ -97,6 +97,8 @@ export class Cursor {
 
     public static set(status:boolean = false) {
         this.status = status;
+
+        if(!status) mp.gui.cursor.show(false, false);
     }
 
     public static get() {

@@ -1,7 +1,6 @@
 
 // IMPORTS
 
-import { Cursor } from "./Client";
 import * as enums from '../../shared/enums/client/api/cameras';
 import methods from "modules/methods";
 import config from '../../shared/configs/client.json';
@@ -18,16 +17,11 @@ export class CameraMethods {
         setTimeout(() => {
             mp.game.cam.doScreenFadeIn(600);
 
-            let _scene = this._getRandomCameraScene();
+            let _scene = enums.camerasScene[methods.randomInt(0, enums.camerasScene.length)];
             if(!_scene) return;
+
             this._startCameraScene(_scene.to.position, _scene.to.pointAtCoord, _scene.from.position, _scene.from.pointAtCoord, config.scenes.time);
         }, 1100);
-    }
-
-    private static _getRandomCameraScene() {
-        let _id = methods.randomInt(0, enums.camerasScene.length);
-        if(this._oldSceneID == _id) this._getRandomCameraScene();
-        else return enums.camerasScene[_id]
     }
 
     private static _startCameraScene(toPosition:Vector3, toPointAtCoord:Vector3, fromPosition:Vector3, fromPointAtCoord:Vector3, time:number) {
@@ -50,7 +44,7 @@ export class CameraMethods {
                 _interval = undefined;
                 this.generateRandomCameraScene();
             }, 300);
-        }, time * 1000);
+        }, (time * 1000) - 200);
     }
 }
 
