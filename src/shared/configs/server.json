@@ -1,7 +1,7 @@
 {
     "debug": true,
     "debugDetailed": true,
-    "development": false,
+    "development": true,
     "test": false,
 
     "time": {

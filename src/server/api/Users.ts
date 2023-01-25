@@ -9,12 +9,12 @@ import terminal from "../modules/terminal";
 class Users {
     public static list = new List('Users');
 
-    public static getByStaticID(staticID:number):User {
-        return this.list.getByID(staticID);
-    }
+    // public static getByStaticID(staticID:number):User {
+    //     return this.list.getByID(staticID);
+    // }
 
-    public static getByDynamicID(id:number) {
-        return mp.players.at(id);
+    public static getByDynamicID(id:number): User {
+        return this.list.getByID(id);
     }
 
     public static getSecretExists(secret:string) {
@@ -62,23 +62,23 @@ export class User {
 
     public setHealth(number:number) {
         if(number < 0 || number > 100) return terminal.warning(`[Player] `);
-        let _player = Users.getByDynamicID(this.dynamicID);
+        let _player = mp.players.at(this.dynamicID);
         if(_player) _player.health = number;
     }
 
     public setArmour(number:number) {
         if(number < 0 || number > 100) return terminal.warning(`[Player] `);
-        let _player = Users.getByDynamicID(this.dynamicID);
+        let _player = mp.players.at(this.dynamicID);
         if(_player) _player.armour = number;
     }
 
     public setDimension(id:number) {
-        let _player = Users.getByDynamicID(this.dynamicID);
+        let _player = mp.players.at(this.dynamicID);
         if(_player) _player.dimension = id;
     }
 
     public setMeta(key:string, value:any) {
-        let _player = Users.getByDynamicID(this.dynamicID);
+        let _player = mp.players.at(this.dynamicID);
         if(_player) _player.setVariable(key, value);
     }
 
@@ -89,12 +89,12 @@ export class User {
     // GETTERS
 
     public getPosition() {
-        let _player = Users.getByDynamicID(this.dynamicID);
+        let _player = mp.players.at(this.dynamicID);
         if(_player) return _player.position;
     }
 
     public getMeta(key:string) {
-        let _player = Users.getByDynamicID(this.dynamicID);
+        let _player = mp.players.at(this.dynamicID);
         if(_player) _player.getVariable(key);
     }
 
@@ -117,17 +117,17 @@ export class User {
     // OTHERS
 
     public kick() {
-        let _player = Users.getByDynamicID(this.dynamicID);
+        let _player = mp.players.at(this.dynamicID);
         if(_player) _player.kickSilent();
     }
 
     public giveWeapon(weaponName:string, bulletCount:number) {
-        let _player = Users.getByDynamicID(this.dynamicID);
+        let _player = mp.players.at(this.dynamicID);
         if(_player) _player.giveWeapon(mp.joaat(weaponName), bulletCount);
     }
 
     public takeWeapon(weaponName:string) {
-        let _player = Users.getByDynamicID(this.dynamicID);
+        let _player = mp.players.at(this.dynamicID);
         if(_player) _player.removeWeapon(mp.joaat(weaponName));
     }
 

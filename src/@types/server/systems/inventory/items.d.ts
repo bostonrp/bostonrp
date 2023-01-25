@@ -13,14 +13,3 @@ declare namespace TBoston.Systems.Inventory.Items {
         durability?:number;
     }
 }
-
-declare namespace TBoston.Systems.Inventory {
-    interface itemObject {
-        id:number;
-        count:number;
-    }
-
-    interface createOptions {
-        items:Array<itemObject>;
-    }
-}

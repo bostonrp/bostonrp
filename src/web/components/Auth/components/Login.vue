@@ -5,7 +5,9 @@ export default {
 
     data() {
         return {
-            remember: false
+            remember: false,
+            username: '',
+            password: ''
         }
     },
 
@@ -15,7 +17,16 @@ export default {
         },
 
         sendClient() {
-            
+            console.log(this.username, this.password)
+            if (this.username === '' || this.password === '') return this.$mp.trigger('client.hud:notify:send', '~r~Заполните пустые поля!');
+
+            let _data = JSON.stringify({
+                username: this.username,
+                password: this.password
+            })
+
+            console.log(this.username, this.password)
+            this.$mp.trigger('client.auth:login:send:server', _data);
         }
     },
 
@@ -38,12 +49,12 @@ export default {
             <div class="inputs-content-box">
                 <div class="input-box">
                     <div class="sub-title">Username</div>
-                    <input type="text" placeholder="Введите свой логин" />
+                    <input type="text" v-model="username" placeholder="Введите свой логин" />
                 </div>
 
                 <div class="input-box">
                     <div class="sub-title">Password</div>
-                    <input type="password" placeholder="Введите пароль" />
+                    <input type="password" v-model="password" placeholder="Введите пароль" />
                 </div>
             </div>
 
@@ -61,7 +72,7 @@ export default {
             </div>
 
             <div class="footer">
-                <div class="button-next">Авторизация</div>
+                <div class="button-next" @click="sendClient()">Авторизация</div>
                 <div class="sub-button-box">Еще не с нами? <span class="sub-button-box" @click="openPage('register')">Регистрация</span></div>
             </div>
         </div>

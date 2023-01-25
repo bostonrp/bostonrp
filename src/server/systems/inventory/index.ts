@@ -1,66 +1,59 @@
+import InventoryItem from "./items/InventoryItem";
 
-// IMPORTS
+export default class Inventory {
+    private _itemList: Map<number, InventoryItem>;
 
-import { List } from "modules/methods";
-import terminal from "modules/terminal";
-import Items from "./items";
+    constructor(
+        private ownerId: number, 
+        options?:Array<InventoryItem>
+        ) 
+    {
+        this._itemList = new Map();
 
-// CODE
-
-class Inventory {
-    private _itemsList = new List();
-    private _userID:number;
-
-    constructor(userID:number, options?:TBoston.Systems.Inventory.createOptions) {
-        this._userID = userID;
-        
-        options?.items.forEach((element) => {
-            this._itemsList.add(element);
+        options?.forEach(e => {
+            this._itemList.set(e.getuID(), e);
         });
     }
 
-    // SETTERS
+    //? SETTERS
 
-    setCountItemByID(id:number, count:number) {
+    setItemCountByID(id: number, count: number) {
         let _item = this.getItemByID(id);
     }
 
-    // GETTERS
+    //? GETTERS
 
-    getItemByID(id:number):TBoston.Systems.Inventory.itemObject {
-        return this._itemsList.getByID(id);
+    getItemByID(id: number) {
+        return this._itemList.get(id)
     }
 
-    getItemCountByID(id:number) {
-        return this.getItemByID(id).count;
+    getItemCountByID(id: number) {
+        return this.getItemByID(id)?.getCount()
     }
 
-    // OTHERS
+    //? OTHERS
 
-    // todo Если нужно то, реализовать функционал стаков для предметов
-    addItem(item:TBoston.Systems.Inventory.itemObject):void {
-        if(!Items.getInListByID(item.id)) return terminal.error(`[Intentory] Вы не можете выдать игроку ${this._userID} предмет с ID ${item.id} так как его не существует`);
-        this._itemsList.add(item);
+    addItem(id: number, item: InventoryItem) {
+        this._itemList.set(id, item)
     }
 
-    addItems(items:Array<TBoston.Systems.Inventory.itemObject>) {
-        if(!items) return;
-        items.forEach(element => {
-            this._itemsList.add(element);
-        });
+    addItems(items: Array<InventoryItem>) {
+        items.forEach(e => {
+            this._itemList.set(e.getuID(), e)
+        })
     }
 
-    // todo Когда будет функция со стаками, нужно будет дописать
     deleteItemByID(id:number) {
-        this._itemsList.removeByID(id);
+        this._itemList.delete(id)
     }
 
-    deleteItemsByIDs(ids:Array<number>) {
-        if(!ids) return;
+    deleteItemsByIDs(ids: Array<number>) {
         ids.forEach(id => {
-            this._itemsList.removeByID(id);
-        });
+            this._itemList.delete(id)
+        })
+    }
+
+    clear() {
+        this._itemList = new Map();
     }
 }
-
-export default Inventory;

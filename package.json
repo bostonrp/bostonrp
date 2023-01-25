@@ -20,7 +20,7 @@
     "crypto-js": "^4.1.1",
     "pg": "^8.8.0",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.26.0"
+    "sequelize": "^6.28.0"
   },
   "devDependencies": {
     "@ragempcommunity/types-cef": "^2.1.1",

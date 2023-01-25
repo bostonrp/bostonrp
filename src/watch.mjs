@@ -14,6 +14,7 @@ build({
     platform: 'node',
     bundle: true,
     minify: true,
+    logLevel: 'info',
     watch: true,
     outfile: './packages/gamemode/index.js',
 
@@ -30,6 +31,7 @@ build({
     platform: 'node',
     bundle: true,
     minify: true,
+    logLevel: 'info',
     watch: true,
     outfile: './client_packages/client.js',
 

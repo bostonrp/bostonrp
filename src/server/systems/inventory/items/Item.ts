@@ -1,51 +1,6 @@
+import Items from "./index";
 
-// IMPORTS
-
-import InventoryItems from "../../modules/database/models/inventory_items";
-import methods from "modules/methods";
-import { List } from "modules/methods";
-import terminal from "modules/terminal";
-
-// CODE
-
-// todo Нужно сделать айтемы для инвентаря
-class Items {
-    public static list = new List('InventoryItems');
-
-    public static async loadAll() {
-        terminal.debugDetailed('InventoryItems.loadAll();');
-        
-        try {
-            let _items = await InventoryItems.methods?.findAll();
-            let _count = 0;
-
-            let _perfomance = methods.getPerfomance(() => {
-                _items?.forEach((element:any) => {
-                    new Item(element.type, element.name,{
-                        id: element.id,
-                        description: element.description,
-                        durability: element.durability,
-                        image: element.image,
-                        interaction: element.interaction,
-                        maxStack: element.maxStack,
-                        subtype: element.subtype,
-                        weight: element.weight
-                    });
-
-                    _count++;
-                });
-            });
-
-            terminal.done(`[InventoryItems] Было загружено ${_count} предметов`, `${_perfomance}ms`);
-        } catch(e) { terminal.error(e); }
-    }
-
-    public static getInListByID(id:number):Item {
-        return this.list.getByID(id);
-    }
-}
-
-export class Item {
+export default class Item {
     private _id?:number;
     private _name:string = '';
     private _type:number = 0;
@@ -56,7 +11,7 @@ export class Item {
     private _weight?:number;
     private _interaction?:string;
     private _durability?:number;
-    
+
     constructor(type:number, name:string, options?:TBoston.Systems.Inventory.Items.createOptions) {
         this._id = options?.id;
 
@@ -72,7 +27,7 @@ export class Item {
         Items.list.add(this);
     }
 
-    // SETTERS
+    //? SETTERS
 
     public setDurability(number?:number) {
         this._durability = number;
@@ -110,7 +65,7 @@ export class Item {
         this._subtype = number;
     }
 
-    // GETTERS
+    //? GETTERS
 
     get id() {
         return this._id;
@@ -151,8 +106,4 @@ export class Item {
     getDurability() {
         return this._durability;
     }
-
-    // OTHERS
 }
-
-export default Items;

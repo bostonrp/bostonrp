@@ -15,6 +15,7 @@ build({
     bundle: true,
     minify: true,
     watch: false,
+    logLevel: 'info',
     outfile: './packages/gamemode/index.js',
 
     plugins: [
@@ -26,7 +27,7 @@ build({
     entryPoints: [
         './src/client/index.ts'
     ],
-
+    logLevel: 'info',
     platform: 'node',
     bundle: true,
     minify: true,
