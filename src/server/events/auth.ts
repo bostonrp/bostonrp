@@ -23,15 +23,13 @@ Events.add('server.auth:login:send', async (player, data:string) => {
         if(_password != _account.password) return player.notify('~r~Неверный пароль');
         if(_account.social_id !== player.rgscId) return player.notify('~r~Это не Ваш аккаунт!');
 
-        let isWhiteListed = WhiteList.get(player.socialClub);
-        if(isWhiteListed === undefined || !isWhiteListed.status) return player.kickSilent();
+        // let isWhiteListed = WhiteList.get(player.socialClub);
+        // if(isWhiteListed === undefined || !isWhiteListed.status) return player.kickSilent();
 
         let _user = Users.getByDynamicID(player.id)
 
         if (_user)
             _user.callClient("auth:cef:hide")
-
-        // todo Все хорошо, нужно пропустить игрока к выбору персонажа
     } else {
         player.notify('~r~Такого логина не существует');
     }

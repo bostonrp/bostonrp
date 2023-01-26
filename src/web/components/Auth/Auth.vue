@@ -1,7 +1,8 @@
 
 <script>
-import Login from './components/Login.vue';
-import Register from './components/Register.vue';
+import Login from './components/Auth.vue';
+import Register from './components/Registration.vue';
+import Recovery from './components/Recovery.vue';
 
 export default {
     name: 'Authorization',
@@ -20,7 +21,8 @@ export default {
         getComponentByID(id) {
             let _components = [
                 Login,
-                Register
+                Register,
+                Recovery
             ];
 
             return _components[id];
@@ -36,7 +38,8 @@ export default {
 
     components: {
         Login,
-        Register
+        Register,
+        Recovery
     },
 
     mounted() {
@@ -45,10 +48,10 @@ export default {
                 this.updatePage('none');
 
                 setTimeout(() => {
-                    this.visible = status;
+                    this.visible = status[0];
                 }, 310);
             } else {
-                this.visible = status;
+                this.visible = status[0];
             }
         });
 
@@ -63,15 +66,22 @@ export default {
     <div id="auth" v-show="visible">
         <component :is="getComponentByID(0)" v-show="page == 'login'" :class="page_id == 'login' ? 'show' : 'hide'" />
         <component :is="getComponentByID(1)" v-show="page == 'register'" :class="page_id == 'register' ? 'show' : 'hide'" />
+        <component :is="getComponentByID(2)" v-show="page == 'recovery'" :class="page_id == 'recovery' ? 'show' : 'hide'" />
     </div>
 </template>
 
 <style scoped>
+@import url('./assets/base.css');
+@import url('./assets/main.css');
+
 #auth {
-    width: 100%;
-    height: 100%;
-    
-    background: radial-gradient(circle at center, rgba(0, 0, 0, 0), rgb(0, 0, 0, 0.35));
+  width: 100vw;
+  height: 100vh;
+
+  background-image: url('./assets/bg.png');
+
+  background-color: rgba(0, 0, 0, 0.8);
+  background-size: cover;
 }
 
 .show {

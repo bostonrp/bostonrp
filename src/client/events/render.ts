@@ -17,7 +17,4 @@ mp.events.add('render', () => {
     mp.game.ui.hideHudComponentThisFrame(13); // Cash Change
     mp.game.ui.hideHudComponentThisFrame(17); // Save Game
     mp.game.ui.hideHudComponentThisFrame(20); // Weapon Stats
-
-    if(Cursor.get()) mp.gui.cursor.show(true, true);
-    // else mp.gui.cursor.show(false, false);
 });

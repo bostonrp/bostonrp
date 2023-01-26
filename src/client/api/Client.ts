@@ -26,14 +26,14 @@ class Client {
                 mainBrowser.call('cef.auth:page:set', 'login');
             }, 1000);
 
-            Cursor.set(true);
+            mp.gui.cursor.show(true, true)
             mp.gui.chat.show(false);
             mp.gui.chat.activate(false);
             mp.game.ui.displayRadar(false);
             localPlayer.freezePosition(true);
-            mp.game.cam.doScreenFadeOut(1000);
+            // mp.game.cam.doScreenFadeOut(1000);
             
-            CameraMethods.generateRandomCameraScene();
+            // CameraMethods.generateRandomCameraScene();
         }, 500);
     }
 
@@ -98,7 +98,7 @@ export class Cursor {
     public static set(status:boolean = false) {
         this.status = status;
 
-        if(!status) mp.gui.cursor.show(false, false);
+        if(!status) mp.gui.cursor.show(true, true);
     }
 
     public static get() {
