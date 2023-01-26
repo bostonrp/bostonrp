@@ -1,12 +1,17 @@
+
+// IMPORTS
+
 import InventoryItem from "./items/InventoryItem";
 
-export default class Inventory {
+// CODE
+
+class Inventory {
     private _itemList: Map<number, InventoryItem>;
 
     constructor(
-        private ownerId: number, 
+        private ownerId: number,
         options?:Array<InventoryItem>
-        ) 
+    )
     {
         this._itemList = new Map();
 
@@ -57,3 +62,5 @@ export default class Inventory {
         this._itemList = new Map();
     }
 }
+
+export default Inventory;

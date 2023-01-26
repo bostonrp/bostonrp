@@ -2,4 +2,5 @@
 // IMPORTS
 
 import './methods';
-import './discordRPC';
+import './discordPresence';
+import './RPC';

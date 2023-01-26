@@ -1,4 +1,10 @@
-export default class InventoryItem {
+
+// IMPORTS
+
+// CODE
+
+// todo Не совсем понятно зачем тебе два класса с абсолютно идентичным названием
+class InventoryItem {
     private _uID: number;
     private _itemID: number;
     private _count: number;
@@ -37,3 +43,5 @@ export default class InventoryItem {
         this._count -= count
     }
 }
+
+export default InventoryItem;
