@@ -1,14 +1,18 @@
+
+// IMPORTS
+
 import InventoryItems from "modules/database/models/inventory_items";
 import methods from "modules/methods";
 import { List } from "modules/methods";
 import terminal from "modules/terminal";
 import Item from "./Item";
 
-export default class Items {
+// CODE
+class Items {
     public static list = new List('InventoryItems');
 
     public static async loadAll() {
-        terminal.debugDetailed('InventoryItems.loadAll();');
+        terminal.debugDetailed('[Inventory] Items.loadAll();');
         
         try {
             let _items = await InventoryItems.methods?.findAll();
@@ -31,11 +35,19 @@ export default class Items {
                 });
             });
 
-            terminal.done(`[InventoryItems] Было загружено ${_count} предметов`, `${_perfomance}ms`);
+            terminal.done(`[Inventory] Было загружено ${_count} предметов`, `${_perfomance}ms`);
         } catch(e) { terminal.error(e); }
     }
 
     public static getInListByID(id:number): Item {
         return this.list.getByID(id);
     }
+
+    public static async save() {
+        terminal.debugDetailed('[Inventory] Items.loadAll();');
+
+
+    }
 }
+
+export default Items;

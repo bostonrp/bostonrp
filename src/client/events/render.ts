@@ -1,7 +1,7 @@
 
 // IMPORTS
 
-import client, { Cursor } from "api/Client";
+import { Cursor } from "api/Client";
 
 // CODE
 

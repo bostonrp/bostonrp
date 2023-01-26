@@ -1,6 +1,11 @@
+
+// IMPORTS
+
 import Items from "./index";
 
-export default class Item {
+// CODE
+
+class Item {
     private _id?:number;
     private _name:string = '';
     private _type:number = 0;
@@ -106,4 +111,8 @@ export default class Item {
     getDurability() {
         return this._durability;
     }
+
+    //? OTHERS
 }
+
+export default Item;
