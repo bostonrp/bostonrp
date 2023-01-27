@@ -12,3 +12,5 @@ node_modules
 /client_packages/client.js
 /client_packages/game_resources/dlcpacks
 /logs
+.vscode
+.idea
