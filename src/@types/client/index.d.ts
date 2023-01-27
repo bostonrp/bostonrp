@@ -6,4 +6,6 @@
 
 ///<reference path="./systems/auth.d.ts" />
 
+///<reference path="./modules/rpc.d.ts" />
+
 // CODE
