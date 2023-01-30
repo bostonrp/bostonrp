@@ -22,12 +22,11 @@ class Auth {
     // todo ты не можешь сохранять не шифрованый пароль в базу, это не безопасно
     public static async createAccount(options?:TBoston.Systems.Auth.createAccount) {
         if(!options) return;
-        let _passwordHash = this.generatePasswordHash(options.password);
 
         await Accounts.methods?.create({
             email: options.email,
             username: options.username,
-            password: _passwordHash,
+            password: options.password,
             social_id: options.social_id,
             social_name: options.social_name,
             hwid: options.hwid,

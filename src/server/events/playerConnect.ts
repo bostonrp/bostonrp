@@ -1,7 +1,7 @@
 
 // IMPORTS
 
-import { User } from "../api/Users";
+import User from "api/users/user";
 import terminal from "../modules/terminal";
 
 // CODE

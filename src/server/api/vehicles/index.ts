@@ -5,7 +5,7 @@ import VehiclesInfo from "../../modules/database/models/vehicles_info";
 import enums from "../../../shared/enums/server/vehicles/index";
 import methods, { List, RGB } from "../../modules/methods";
 import terminal from "../../modules/terminal";
-import Users from "../Users";
+import Users from "../users/index";
 import Fuel from "./fuel";
 import Mileage from "./mileage";
 

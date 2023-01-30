@@ -1,7 +1,7 @@
 
 // IMPORTS
 
-import Users from "api/Users";
+import Users from "api/users/index";
 import Vehicles, { Vehicle } from "api/vehicles";
 import methods, { RGB } from "modules/methods";
 import terminal from "modules/terminal";
