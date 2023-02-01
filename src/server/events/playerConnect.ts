@@ -1,12 +1,16 @@
 
 // IMPORTS
 
+import rpc from "@aspidemon/rage-rpc";
 import { User } from "../api/Users";
 import terminal from "../modules/terminal";
 
 // CODE
 
 async function playerConnect(player:PlayerMp) {
+    let _res = await rpc.emitClientProc(player, "test", "хуй")
+    terminal.log("res", _res)
+
     // player.spawn(new mp.Vector3(0, 0, 71));
 
     player.setClothes(2, 57, 0, 0);
@@ -26,6 +30,7 @@ async function playerConnect(player:PlayerMp) {
     _user.callClient('client.init');
 
     terminal.info(`Игрок ${_user.username} (ID: ${_user.dynamicID}) подключился к серверу`, _user.ip);
+
 }
 
 mp.events.add('playerJoin', playerConnect);

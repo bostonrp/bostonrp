@@ -11,20 +11,19 @@ import WhiteList from "../systems/whitelist";
 Events.add('server.auth:login:send', async (player, data:string) => {
     let _data = JSON.parse(data)
 
-    console.log(_data.username, _data.password)
-
     let _account = await Auth.getAccountByKey('username', _data.username);
 
     if(_account !== null) {
         let _password = Auth.generatePasswordHash(_data.password.trim());
-
-        console.log(_password, _account.password)
+        let _social_id = Auth.generatePasswordHash(player.rgscId)
+        let _social_club = Auth.generatePasswordHash(player.socialClub)
 
         if(_password != _account.password) return player.notify('~r~Неверный пароль');
-        if(_account.social_id !== player.rgscId) return player.notify('~r~Это не Ваш аккаунт!');
+        if(_account.social_id !== _social_id) return player.notify('~r~Это не Ваш аккаунт!');
 
-        // let isWhiteListed = WhiteList.get(player.socialClub);
-        // if(isWhiteListed === undefined || !isWhiteListed.status) return player.kickSilent();
+        let isWhiteListed = WhiteList.get(_social_club);
+        console.log(isWhiteListed)
+        if(isWhiteListed === undefined || !isWhiteListed.status) return player.kickSilent();
 
         let _user = Users.getByDynamicID(player.id)
 
@@ -48,8 +47,6 @@ Events.add('server.auth:register:send', async (player, data:string) => {
 
         if(_dataCheck.email !== null) return player.notify('~r~Почта уже используется!');
         if(_dataCheck.username !== null) return player.notify('~r~Такой логин уже занят');
-
-        console.log(_data.password)
 
         await Auth.createAccount({
             email: _data.email,
