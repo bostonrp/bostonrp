@@ -10,3 +10,10 @@ declare namespace TBoston.Users {
         ip?:string;
     }
 }
+
+declare namespace TBoston.Users.Economy {
+    interface createOptions {
+        cash:number;
+        max_cash:number;
+    }
+}

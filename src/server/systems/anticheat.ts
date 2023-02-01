@@ -1,9 +1,10 @@
 
 // IMPORTS
 
+import User from "api/users/user";
 import { ignoreEvents } from "../../shared/enums/server/anticheat";
 import Events from "../api/Events";
-import Users, { User } from "../api/Users";
+import Users from "../api/users/index";
 import { LogFile } from "../modules/logs";
 
 // CODE

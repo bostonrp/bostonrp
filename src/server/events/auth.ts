@@ -1,7 +1,7 @@
 
 // IMPORTS
 
-import Users from "api/Users";
+import Users from "api/users/index";
 import Events from "../api/Events";
 import Auth from "../systems/auth";
 import WhiteList from "../systems/whitelist";

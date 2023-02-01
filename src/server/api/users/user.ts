@@ -1,44 +1,22 @@
 
 // IMPORTS
 
-import methods, { List } from "../modules/methods";
-import terminal from "../modules/terminal";
+import methods from "modules/methods";
+import terminal from "modules/terminal";
+import Economy from "./economy";
+import Users from "./index";
 
 // CODE
 
-class Users {
-    public static list = new List('Users');
-
-    // public static getByStaticID(staticID:number):User {
-    //     return this.list.getByID(staticID);
-    // }
-
-    public static getByDynamicID(id:number): User {
-        return this.list.getByID(id);
-    }
-
-    public static getSecretExists(secret:string) {
-        let _result = this.list.getAll().find((_player:User) => _player.secret == secret);
-
-        if(_result != undefined) return true;
-        return false;
-    }
-
-    // todo Возможно не будет использоваться
-    public static exists(id:number):boolean {
-        let _player = mp.players.at(id);
-        if(_player !== null) return true;
-        return false;
-    }
-}
-
-export class User {
+class User {
     public dynamicID:number;
     public staticID:number|null = null;
     public social_id:number;
     public username:string;
     public socialName:string;
     public ip?:string;
+
+    public economy:Economy;
 
     private _secret:string = 'none';
     private _isLoging:boolean = false;
@@ -49,6 +27,12 @@ export class User {
         this.social_id = options.social_id;
         this.socialName = options.social_name;
         this.ip = options.ip;
+
+        // todo Нужно доработать
+        this.economy = new Economy({
+            cash: 0,
+            max_cash: 1
+        });
 
         this.generateSecret();
         Users.list.add(this);
@@ -163,4 +147,4 @@ export class User {
     }
 }
 
-export default Users;
+export default User;
