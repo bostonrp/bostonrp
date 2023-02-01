@@ -11,6 +11,7 @@ import WhiteList from "../whitelist";
 import Time from "../time";
 
 import './commands';
+import rpc from "@aspidemon/rage-rpc";
 
 // CODE
 
@@ -93,7 +94,7 @@ class Admin {
 
     public static getCameraPosition(playerID:number) {
         let _player = mp.players.at(playerID);
-        if(_player) _player.call('client.camera:position:get', ['default']);
+        if(_player) rpc.emitClient(_player, 'client.camera:position:get', ['default']);
     }
 
     public static teleportVehicleToMe(playerID:number, vehicleID:number) {
@@ -124,7 +125,7 @@ class Admin {
         try {
             let _player = mp.players.at(_user.dynamicID);
             if(_player) {
-                let _zone = await _player.callProc('client.weather:zone:get');
+                let _zone = await rpc.emitClientProc(_player, 'client.weather:zone:get');
                 let _category = enums.getCategoryNameByZoneName(_zone);
                 if(_category) Weather.setWeatherByCategory(_category, weather);
             }
@@ -278,7 +279,7 @@ class Admin {
         // }
 
         let _player = mp.players.at(playerID);
-        if(_player) _player.call('client.user:visible:set', [status]);
+        if(_player) rpc.emitClient(_player, 'client.user:visible:set', [status]);
     }
 
     public static setInvincible(playerID:number, status:boolean) {
@@ -290,7 +291,7 @@ class Admin {
         // }
 
         let _player = mp.players.at(playerID);
-        if(_player) _player.call('client.user:invincible:set', [status]);
+        if(_player) rpc.emitClient(_player, 'client.user:invincible:set', [status]);
     }
 }
 

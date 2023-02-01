@@ -1,8 +1,10 @@
 
 // IMPORTS
 
+import rpc from "@aspidemon/rage-rpc";
+
 // CODE
 
 mp.events.add('playerEnterVehicle', (player) => {
-    player.call('client.vehicle:mileage:tick:start');
+    rpc.emitClient(player, 'client.vehicle:mileage:tick:start');
 });

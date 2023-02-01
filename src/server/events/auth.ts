@@ -1,14 +1,14 @@
 
 // IMPORTS
 
+import rpc from "@aspidemon/rage-rpc";
 import Users from "api/users/index";
-import Events from "../api/Events";
 import Auth from "../systems/auth";
 import WhiteList from "../systems/whitelist";
 
 // CODE
 
-Events.add('server.auth:login:send', async (player, data:string) => {
+rpc.on('server.auth:login:send', async (player, data:string) => {
     let _data = JSON.parse(data)
 
     let _account = await Auth.getAccountByKey('username', _data.username);
@@ -34,7 +34,7 @@ Events.add('server.auth:login:send', async (player, data:string) => {
     }
 });
 
-Events.add('server.auth:register:send', async (player, data:string) => {
+rpc.on('server.auth:register:send', async (player, data:string) => {
     let _data:TBoston.Systems.Auth.registerData = JSON.parse(data);
 
     let _account = await Auth.getAccountByKey('social_id', player.rgscId);

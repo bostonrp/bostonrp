@@ -1,6 +1,7 @@
 
 // IMPORTS
 
+import rpc from "@aspidemon/rage-rpc";
 import methods from "modules/methods";
 import terminal from "modules/terminal";
 import Economy from "./economy";
@@ -117,7 +118,7 @@ class User {
 
     public callClient(eventName:string, ...args:any[]) {
         let _player = mp.players.at(this.dynamicID);
-        if(_player) _player.call(eventName, [...args]);
+        if(_player) rpc.emitClient(_player, eventName, ...args);
     }
 
     public quit() {

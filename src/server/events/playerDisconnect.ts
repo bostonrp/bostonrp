@@ -1,7 +1,8 @@
 
 // IMPORTS
 
-import Users, { User } from "../api/users/index";
+import User from "api/users/user";
+import Users from "../api/users/index";
 
 // CODE
 

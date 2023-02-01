@@ -8,6 +8,7 @@ import terminal from "../../modules/terminal";
 import Users from "../users/index";
 import Fuel from "./fuel";
 import Mileage from "./mileage";
+import rpc from "@aspidemon/rage-rpc";
 
 // CODE
 
@@ -93,7 +94,7 @@ export class Vehicle {
                 let _player = this._handle.getOccupant(enums.seatNumbers.driver);
     
                 if(_player && Users.exists(_player.id)) {
-                    let _speed = await _player.callProc('client.vehicle:speed:get');
+                    let _speed = await rpc.emitClientProc(_player, 'client.vehicle:speed:get');
                     if(_speed != null) _coefficient += 0.001 * _speed;
                 }
 

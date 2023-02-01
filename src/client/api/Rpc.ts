@@ -1,8 +1,14 @@
+
+// IMPORTS
+
+import rpc from "@aspidemon/rage-rpc";
 import { mainBrowser } from "./Browser";
+
+// CODE
 
 const localPlayer = mp.players.local;
 
-mp.events.add("auth:cef:hide", () => {
+rpc.on("auth:cef:hide", () => {
     mp.console.logInfo("Disable")
     mainBrowser.call('cef.auth:visible:set', false);
 

@@ -28,7 +28,7 @@ function sendClient() {
     password: password.value
   })
 
-  app.appContext.config.globalProperties.$mp.trigger('client.auth:login:send:server', _data);
+  app.appContext.config.globalProperties.$events.emit('client.auth:login:send:server', _data);
 }
 
 </script>

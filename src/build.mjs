@@ -13,7 +13,7 @@ build({
 
     platform: 'node',
     bundle: true,
-    minify: true,
+    minify: false,
     watch: false,
     logLevel: 'info',
     outfile: './packages/gamemode/index.js',
