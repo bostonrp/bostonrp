@@ -16,7 +16,7 @@ const username = ref("");
 const password = ref("");
 
 function openPage(page) {   
-  app.appContext.config.globalProperties.$events.call('cef.auth:page:set', page);
+  app.appContext.config.globalProperties.$events.emit('cef.auth:page:set', page);
 }
 
 function sendClient() {
@@ -28,7 +28,7 @@ function sendClient() {
     password: password.value
   })
 
-  app.appContext.config.globalProperties.$events.emit('client.auth:login:send:server', _data);
+  app.appContext.config.globalProperties.$events.emitClient('client.auth:login:send:server', _data);
 }
 
 </script>

@@ -4,23 +4,11 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 
-import rpc from '@aspidemon/rage-rpc'
+import rpc from '@aspidemon/rage-rpc/src/web'
 
 // CODE
 
-// const events = new EventManager(true);
-
-// global.emit = (eventName, ...args) => {
-//     events.call(eventName, ...args);
-// }
-
-// global.on = (eventName, handler) => {
-//     events.add(eventName, handler);
-// }
-
-// global.off = (eventName) => {
-//     events.remove(eventName);
-// }
+global.rpc = rpc;
 
 let app = createApp(App);
 

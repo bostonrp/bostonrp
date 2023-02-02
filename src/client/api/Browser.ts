@@ -1,6 +1,8 @@
 
 // IMPORTS
 
+import rpc from "@aspidemon/rage-rpc";
+
 // CODE
 
 class Browsers {
@@ -38,11 +40,15 @@ export class Browser {
     // OTHERS
 
     call(eventName:string, ...args:any[]) {
-        this._handle.execute(`emit('${eventName}', ${JSON.stringify(args)})`);
+        this._handle.execute(`rpc.emit('${eventName}', ${JSON.stringify(args)})`);
     }
 }
 
 export let mainBrowser = new Browser('default', 'http://localhost:8080/');
 mainBrowser.setActive(true);
+
+rpc.on('client.browser:main:emit', (eventName:string, ...args:any[]) => {
+    mainBrowser.call(eventName, ...args);
+});
 
 export default Browsers;

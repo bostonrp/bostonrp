@@ -8,7 +8,7 @@ import client from "../api/Client";
 
 //? Ивент, который инициализирует клиентку игрока
 rpc.on('client.init', () => {
-    client.init();
+    // client.init();
 });
 
 //? Ивент, через который передается ключ для ивентов

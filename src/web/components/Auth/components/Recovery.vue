@@ -16,7 +16,7 @@ const error = ref(null);
 const app = getCurrentInstance()
 
 function openPage(page) {   
-  app.appContext.config.globalProperties.$events.call('cef.auth:page:set', page);
+  app.appContext.config.globalProperties.$events.emitClient('cef.auth:page:set', page);
 }
 
 </script>

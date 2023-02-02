@@ -25,7 +25,9 @@ async function playerConnect(player:PlayerMp) {
         ip: player.ip,
     });
 
-    _user.callClient('client.init');
+    // _user.callClient('client.init');
+    _user.callBrowser('cef.auth:visible:set', true);
+    _user.callBrowser('cef.auth:page:set', 'login');
 
     terminal.info(`Игрок ${_user.username} (ID: ${_user.dynamicID}) подключился к серверу`, _user.ip);
 }

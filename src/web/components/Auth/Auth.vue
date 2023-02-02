@@ -43,7 +43,7 @@ export default {
     },
 
     mounted() {
-        this.$events.add('cef.auth:visible:set', (status) => {
+        this.$events.on('cef.auth:visible:set', (status) => {
             if(!status) {
                 this.updatePage('none');
 
@@ -55,7 +55,7 @@ export default {
             }
         });
 
-        this.$events.add('cef.auth:page:set', (page) => {
+        this.$events.on('cef.auth:page:set', (page) => {
             this.updatePage(page);
         });
     }

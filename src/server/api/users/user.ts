@@ -101,6 +101,11 @@ class User {
 
     // OTHERS
 
+    public callBrowser(eventName:string, ...args:any[]) {
+        let _player = mp.players.at(this.dynamicID);
+        if(_player) rpc.emitClient(_player, 'client.browser:main:emit', eventName, ...args);
+    }
+
     public kick() {
         let _player = mp.players.at(this.dynamicID);
         if(_player) _player.kickSilent();

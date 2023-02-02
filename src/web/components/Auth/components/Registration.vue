@@ -22,7 +22,7 @@ const promo = ref("")
 const app = getCurrentInstance()
 
 function openPage(page) {   
-  app.appContext.config.globalProperties.$events.call('cef.auth:page:set', page);
+  app.appContext.config.globalProperties.$events.emitClient('cef.auth:page:set', page);
 }
 
 function sendClient() {
@@ -36,7 +36,7 @@ function sendClient() {
     referal_code: promo.value
   });
 
-  app.appContext.config.globalProperties.$mp.trigger('client.auth:register:send:server', _data);
+  app.appContext.config.globalProperties.$events.emitClient('client.auth:register:send:server', _data);
 }
 
 </script>
