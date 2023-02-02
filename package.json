@@ -15,7 +15,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@aspidemon/rage-rpc": "^0.0.22",
+    "@aspidemon/rage-rpc": "^0.1.1",
     "concurrently": "^7.6.0",
     "console-log-colors": "^0.3.3",
     "crypto-js": "^4.1.1",
