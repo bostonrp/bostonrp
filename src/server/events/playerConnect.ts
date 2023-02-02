@@ -25,7 +25,7 @@ async function playerConnect(player:PlayerMp) {
         ip: player.ip,
     });
 
-    // _user.callClient('client.init');
+    _user.callClient('client.init');
     _user.callBrowser('cef.auth:visible:set', true);
     _user.callBrowser('cef.auth:page:set', 'login');
 

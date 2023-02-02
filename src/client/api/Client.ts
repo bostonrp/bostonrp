@@ -21,19 +21,14 @@ class Client {
         setTimeout(() => {
             Weather.startGettingInZone();
 
-            setTimeout(() => {
-                mainBrowser.call('cef.auth:visible:set', true);
-                mainBrowser.call('cef.auth:page:set', 'login');
-            }, 1000);
-
             mp.gui.cursor.show(true, true)
             mp.gui.chat.show(false);
             mp.gui.chat.activate(false);
             mp.game.ui.displayRadar(false);
             localPlayer.freezePosition(true);
-            // mp.game.cam.doScreenFadeOut(1000);
+            mp.game.cam.doScreenFadeOut(1000);
             
-            // CameraMethods.generateRandomCameraScene();
+            CameraMethods.generateRandomCameraScene();
         }, 500);
     }
 
