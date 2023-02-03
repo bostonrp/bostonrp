@@ -1,22 +1,21 @@
-<script setup>
+<script>
 
 import Input from './Common/Input.vue';
-import LoginSVG from '../assets/icons/username.vue'
-import ErrorSVG from '../assets/icons/error.vue'
-import PasswordSVG from '../assets/icons/password.vue'
-import EmailSVG from '../assets/icons/email.vue'
-import BackSVG from '../assets/icons/back.vue'
-import PromocodeSVG from '../assets/icons/promocode.vue'
 
-import { getCurrentInstance } from 'vue'
-import { ref } from 'vue';
-
-const error = ref(null);
-
-const app = getCurrentInstance()
-
-function openPage(page) {   
-  app.appContext.config.globalProperties.$events.emit('cef.auth:page:set', page);
+export default {
+  data() {
+    return {
+      error: null
+    }
+  },
+  methods: {
+    openPage(page) {
+      this.$events.emit('cef.auth:page:set', page);
+    }
+  },
+  components: {
+    Input
+  }
 }
 
 </script>
@@ -30,14 +29,14 @@ function openPage(page) {
         </div>
         <Input
           :is-password="false"
-          :icon="EmailSVG"
+          icon="Email"
           title="Почта"
           id="email"
           class="input"
         ></Input>
         <Input
           :is-password="false"
-          :icon="LoginSVG"
+          icon="Login"
           title="Логин"
           id="login"
           class="input"

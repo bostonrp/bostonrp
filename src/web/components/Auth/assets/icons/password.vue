@@ -5,7 +5,7 @@ export default {
 
     props: {
         fill: String,
-        opacity: Number
+        opacity: String
     }
 }
 </script>

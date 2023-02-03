@@ -7,7 +7,7 @@ import config from '../../shared/configs/client.json';
 
 // CODE
 
-export let activeCamera:Camera;
+export let activeCamera = undefined as Camera | undefined;
 const localPlayer = mp.players.local;
 
 export class CameraMethods {
@@ -34,6 +34,8 @@ export class CameraMethods {
         let _interval:any = setInterval(() => {
             let _positionPlayer = _camera.getPosition();
             localPlayer.position = new mp.Vector3(_positionPlayer.x, _positionPlayer.y, _positionPlayer.z + 5);
+
+            if (!activeCamera) return clearInterval(_interval)
         }, 100);
 
         setTimeout(() => {
@@ -58,6 +60,8 @@ class Camera {
         if(options?.active) this.setActive(options?.active);
 
         this.setRender(false);
+
+        activeCamera = this
     }
 
     // SETTERS
@@ -78,7 +82,11 @@ class Camera {
         this._handle.setActive(status);
         this.setRender(status);
 
-        activeCamera = this;
+        if (status) {
+            activeCamera = this;
+        } else {
+            activeCamera = undefined;
+        }
     }
 
     // GETTERS

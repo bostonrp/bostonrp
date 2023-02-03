@@ -3,6 +3,7 @@
 
 import rpc from "@aspidemon/rage-rpc";
 import Users from "api/users/index";
+import methods from "modules/methods";
 import terminal from "modules/terminal";
 import Auth from "../systems/auth";
 import WhiteList from "../systems/whitelist";
@@ -12,29 +13,35 @@ import WhiteList from "../systems/whitelist";
 rpc.on('server.auth:login:send', async (player:PlayerMp, data:string) => {
     let _data = JSON.parse(data)
 
+    let _user = Users.getByDynamicID(player.id)
     let _account = await Auth.getAccountByKey('username', _data.username);
+
+    terminal.log(_account)
 
     if(_account !== null) {
         let _password = Auth.generatePasswordHash(_data.password.trim());
         let _social_id = Auth.generatePasswordHash(player.rgscId)
         let _social_club = player.socialClub
 
-        if(_password != _account.password) return player.notify('~r~Неверный пароль');
-        if(_account.social_id !== _social_id) return player.notify('~r~Это не Ваш аккаунт!');
-
         let isWhiteListed = WhiteList.get(_social_club);
-        if(isWhiteListed === undefined || !isWhiteListed) return /*player.kickSilent();*/ terminal.log('Ошибка');
 
-        let _user = Users.getByDynamicID(player.id)
+        if(isWhiteListed === undefined || !isWhiteListed) {
+            _user.callBrowser('cef.auth:notify:set', 'У вас нет доступа к WhiteList.\n Наш дискорд: https://discord.gg/SnnKVv5N');
+            await methods.sleep(1500)
+            return player.kickSilent()
+        };
+
+        if(_password != _account.password) return _user.callBrowser('cef.auth:notify:set', 'Неверный пароль');
+        if(_account.social_id !== _social_id) return _user.callBrowser('cef.auth:notify:set', 'Это не Ваш аккаунт!');
 
         if (_user)
             _user.callClient("client.auth:cef:hide")
     } else {
-        player.notify('~r~Такого логина не существует');
+        _user.callBrowser('cef.auth:notify:set', 'Такого логина не существует');
     }
 });
 
-rpc.on('server.auth:register:send', async (player, data:string) => {
+rpc.on('server.auth:register:send', async (player:PlayerMp, data:string) => {
     let _data:TBoston.Systems.Auth.registerData = JSON.parse(data);
 
     let _account = await Auth.getAccountByKey('social_id', player.rgscId);

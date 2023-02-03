@@ -10,9 +10,9 @@ import User from "./user";
 class Users {
     public static list = new List('Users');
 
-    // public static getByStaticID(staticID:number):User {
-    //     return this.list.getByID(staticID);
-    // }
+    public static getByStaticID(staticID:number):User {
+        return this.list.getByID(staticID);
+    }
 
     public static getByDynamicID(id:number): User {
         return this.list.getByID(id);

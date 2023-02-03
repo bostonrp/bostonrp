@@ -1,42 +1,39 @@
-<script setup>
+<script>
 
 import Input from './Common/Input.vue';
-import LoginSVG from '../assets/icons/username.vue'
-import ErrorSVG from '../assets/icons/error.vue'
-import PasswordSVG from '../assets/icons/password.vue'
-import EmailSVG from '../assets/icons/email.vue'
-import BackSVG from '../assets/icons/back.vue'
-import PromocodeSVG from '../assets/icons/promocode.vue'
 
-import { getCurrentInstance } from 'vue'
-import { ref } from 'vue';
+export default {
+  data() {
+    return {
+      error: null,
+      email: "",
+      reg_username: "",
+      reg_password: "",
+      repeat_password: "",
+      promo: ""
+    }
+  },
+  methods: {
+    openPage(page) {
+      this.$events.emit('cef.auth:page:set', page)
+    },
+    sendClient() {
+      if(this.email == '' || this.reg_username == '' || this.reg_password == '' || this.repeat_password == '') return this.error = 'Заполните пустые поля!';
+      if(this.reg_password !== this.repeat_password) return this.error = 'Пароли не совпадают';
 
-const error = ref(null);
-
-const email = ref("")
-const reg_username = ref("")
-const reg_password = ref("")
-const repeat_password = ref("")
-const promo = ref("")
-
-const app = getCurrentInstance()
-
-function openPage(page) {   
-  app.appContext.config.globalProperties.$events.emit('cef.auth:page:set', page);
-}
-
-function sendClient() {
-  if(email.value == '' || reg_username.value == '' || reg_password.value == '' || repeat_password.value == '') return error.value = 'Заполните пустые поля!';
-  if(reg_password.value !== repeat_password.value) return error.value = 'Пароли не совпадают';
-
-  let _data = JSON.stringify({
-    email: email.value,
-    username: reg_username.value,
-    password: reg_password.value,
-    referal_code: promo.value
-  });
-
-  app.appContext.config.globalProperties.$events.emitServer('server.auth:register:send', _data);
+      let _data = JSON.stringify({
+        email: this.email,
+        username: this.reg_username,
+        password: this.reg_password,
+        referal_code: this.promo
+      });
+    
+      this.$events.emitServer('server.auth:register:send', _data);
+    }
+  },
+  components: {
+    Input
+  }
 }
 
 </script>
@@ -50,7 +47,7 @@ function sendClient() {
         </div>
         <Input
           :is-password="false"
-          :icon="EmailSVG"
+          icon="Email"
           title="Почта"
           id="email"
           v-model="email"
@@ -58,7 +55,7 @@ function sendClient() {
         ></Input>
         <Input
           :is-password="false"
-          :icon="LoginSVG"
+          icon="Login"
           title="Логин"
           id="reg_login"
           v-model="reg_username"
@@ -69,7 +66,7 @@ function sendClient() {
         </div>
         <Input
           :is-password="true"
-          :icon="PasswordSVG"
+          icon="Password"
           title="Пароль"
           id="reg_password"
           v-model="reg_password"
@@ -77,7 +74,7 @@ function sendClient() {
         ></Input>
         <Input
           :is-password="true"
-          :icon="PasswordSVG"
+          icon="Password"
           title="Повторите пароль"
           id="repeat_password"
           v-model="repeat_password"
@@ -88,7 +85,7 @@ function sendClient() {
         </div>
         <Input
           :is-password="false"
-          :icon="PromocodeSVG"
+          icon="Promocode"
           title="Промокод"
           id="promocode"
           v-model="promo"

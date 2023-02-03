@@ -1,34 +1,45 @@
-<script setup>
+<script>
 
 import Input from './Common/Input.vue';
 import LoginSVG from '../assets/icons/username.vue'
 import ErrorSVG from '../assets/icons/error.vue'
 import PasswordSVG from '../assets/icons/password.vue'
 
-import { ref } from 'vue';
-import { getCurrentInstance } from 'vue'
+export default {
+  name: "AuthPage",
+  data() {
+    return {
+      username: "",
+      password: "",
+      error: null
+    }
+  },
+  methods: {
+    sendClient() {
+      if (this.username === '' || this.password === '') return this.error = 'Заполните пустые поля!'
 
-const app = getCurrentInstance()
+      let _data = JSON.stringify({
+        username: this.username,
+        password: this.password
+      })
 
-const error = ref(null);
-
-const username = ref("");
-const password = ref("");
-
-function openPage(page) {   
-  app.appContext.config.globalProperties.$events.emit('cef.auth:page:set', page);
-}
-
-function sendClient() {
-  console.log(username.value, password.value)
-  if (username.value === '' || password.value === '') return error.value = 'Заполните пустые поля!'
-
-  let _data = JSON.stringify({
-    username: username.value,
-    password: password.value
-  })
-
-  app.appContext.config.globalProperties.$events.emitServer('server.auth:login:send', _data);
+      this.$events.emitServer('server.auth:login:send', _data);
+    },
+    openPage(page) {
+      this.$events.emit('cef.auth:page:set', page);
+    }
+  },
+  mounted() {
+    this.$events.on("cef.auth:notify:set", (error) => {
+      this.error = error[0]
+    })
+  },
+  components: {
+    Input,
+    LoginSVG,
+    ErrorSVG,
+    PasswordSVG
+  },
 }
 
 </script>
@@ -45,19 +56,17 @@ function sendClient() {
         </div>
         <Input
           :is-password="false"
-          :icon="LoginSVG"
+          icon="Login"
           v-model="username"
           title="Логин"
           id="login"
-          class="input"
         ></Input>
         <Input
           :is-password="true"
-          :icon="PasswordSVG"
+          icon="Password"
           v-model="password"
           title="Пароль"
           id="password"
-          class="input"
         ></Input>
         <div class="error" v-if="error">
           <div class="error_svg">
@@ -203,8 +212,9 @@ function sendClient() {
   justify-content: space-around;
   align-items: center;
 
-  height: 70px;
-  width: 100%;
+  min-height: 80px;
+  max-width: 400px;
+  min-width: 400px;
 
   background: linear-gradient(90deg, rgba(153, 25, 25, 0.5) 0%, rgba(106, 9, 9, 0.5) 100%);
   border-radius: 5px;
@@ -222,10 +232,6 @@ function sendClient() {
 
 .error_text {
   width: 80%;
-}
-
-.input {
-  margin-bottom: 15px;
 }
 
 </style>

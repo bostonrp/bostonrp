@@ -1,46 +1,68 @@
-<script setup>
+<script>
 import SVGAye from '../../assets/icons/ayes.vue'
-import { ref } from 'vue'
+import LoginSVG from '../../assets/icons/username.vue'
+import ErrorSVG from '../../assets/icons/error.vue'
+import PasswordSVG from '../../assets/icons/password.vue'
+import EmailSVG from '../../assets/icons/email.vue'
+import BackSVG from '../../assets/icons/back.vue'
+import PromocodeSVG from '../../assets/icons/promocode.vue'
 
-const props = defineProps({
-    title: String,
-    id: String,
-    modelValue: String,
-    icon: Object,
-    isPassword: Boolean 
-})
+export default {
+    name: "AuthInput",
+    data() {
+        return {
+            _input: null,
+            ayes: false,
+            isActive: false
+        }
+    },
+    props: {
+        title: String,
+        id: String,
+        modelValue: String,
+        icon: String,
+        isPassword: Boolean
+    },
+    mounted() {
+        console.log(this.icon)
+    },
+    emits: ["update:modelValue"],
+    methods: {
+        clickInput(id) {
+            let input = document.querySelector(`#${id}`)
 
-const emit = defineEmits(['update:modelValue'])
+            if(input.style.height == 0 || input.value == '' || input.value == ' ' || input.value.length <= 0) {
+                input.style.height = '30px';
+                input.focus();
 
-const _input = ref(null)
-const ayes = ref(false)
-const isActive = ref(false)
+                this.isActive = true
 
-function clickInput(id) {
-    let input = document.querySelector(`#${id}`)
+                let title = document.querySelector(`#title-${id}`)
+                title.style.fontSize = '12px';
+            }
+        },
+        unfocusInput(id) {
+            let input = document.querySelector(`#${id}`)
 
-    if(input.style.height == 0 || input.value == '' || input.value == ' ' || input.value.length <= 0) {
-        input.style.height = '30px';
-        input.focus();
+            if (input.value.length < 1) {
+                let title = document.querySelector(`#title-${id}`)
+                title.style.fontSize = '14px';
 
-        isActive.value = true
+                this.isActive = false
 
-        let title = document.querySelector(`#title-${id}`)
-        title.style.fontSize = '12px';
-    }
-}
-
-function unfocusInput(id) {
-    let input = document.querySelector(`#${id}`)
-
-    if (input.value.length < 1) {
-        let title = document.querySelector(`#title-${id}`)
-        title.style.fontSize = '14px';
-
-        isActive.value = false
-
-        input.style.height = '0px';
-        input.blur();
+                input.style.height = '0px';
+                input.blur();
+            }
+        }
+    },
+    components: {
+        SVGAye,
+        LoginSVG,
+        ErrorSVG,
+        PasswordSVG,
+        EmailSVG,
+        BackSVG,
+        PromocodeSVG
     }
 }
 </script>
@@ -48,13 +70,15 @@ function unfocusInput(id) {
 <template>
     <div class="input-box" @click="clickInput(id)">
         <div class="input-icon">
-            <component :is="props.icon" fill="#FFFFFF" :opacity="isActive ? '1' : '0.25'" />
+            <template v-if="icon">
+                <component :is="icon + 'SVG'" fill="#FFFFFF" :opacity="isActive ? '1' : '0.25'" />
+            </template>
         </div>
 
         <div class="input-sub-box">
             <div class="input-sub-title" :id="'title-' + id" :ref="_input">{{ title }}</div>
             <input 
-                :type="props.isPassword ? ayes ? 'text' : 'password' : 'text'" 
+                :type="isPassword ? ayes ? 'text' : 'password' : 'text'" 
                 :value="modelValue"
                 :id="id"
                 @input="$emit('update:modelValue', $event.target.value)"
@@ -83,6 +107,8 @@ function unfocusInput(id) {
     background: rgba(252, 252, 252, 0.02);
     border: 1px solid rgba(157, 157, 157, 0.05);
     border-radius: 5px;
+
+    margin-bottom: 20px;
 }
 
 .input-icon {

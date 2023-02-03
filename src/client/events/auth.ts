@@ -3,6 +3,7 @@
 
 import rpc from "@aspidemon/rage-rpc";
 import { mainBrowser } from "api/Browser";
+import Camera, { activeCamera } from "api/Camera";
 import methods from "modules/methods";
 
 // CODE
@@ -18,9 +19,13 @@ rpc.on('client.auth:login:send:server', (data:string) => {
 rpc.on("client.auth:cef:hide", () => {
     mainBrowser.call('cef.auth:visible:set', false);
 
-    mp.gui.cursor.show(false, false);
-    mp.gui.chat.show(true);
-    mp.gui.chat.activate(true);
-    mp.game.ui.displayRadar(true);
-    mp.players.local.freezePosition(false);
+    activeCamera?.destroy()
+
+    setTimeout(() => {
+        mp.gui.cursor.show(false, false);
+        mp.gui.chat.show(true);
+        mp.gui.chat.activate(true);
+        mp.game.ui.displayRadar(true);
+        mp.players.local.freezePosition(false);
+    }, 1)
 });
