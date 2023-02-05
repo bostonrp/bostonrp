@@ -3,6 +3,7 @@
 import './assets/fonts/style.css';
 
 import Auth from './components/Auth/Auth.vue';
+import SelectCharacters from './components/SelectCharacters/SelectCharacters.vue';
 
 export default {
     name: 'App',
@@ -18,7 +19,8 @@ export default {
     },
 
     components: {
-        Auth
+        Auth,
+        SelectCharacters
     }
 }
 </script>
@@ -26,6 +28,7 @@ export default {
 <template>
     <div id="bostonrp">
         <Auth />
+        <SelectCharacters />
     </div>
 </template>
 

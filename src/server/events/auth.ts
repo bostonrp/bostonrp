@@ -34,10 +34,16 @@ rpc.on('server.auth:login:send', async (player:PlayerMp, data:string) => {
         if(_password != _account.password) return _user.callBrowser('cef.auth:notify:set', 'Неверный пароль');
         if(_account.social_id !== _social_id) return _user.callBrowser('cef.auth:notify:set', 'Это не Ваш аккаунт!');
 
-        if (_user)
+        if (_user) {
             _user.callClient("client.auth:cef:hide")
+            _user.callBrowser('cef.select_characters:visible:set', true)
+        }
+
+        return;
     } else {
         _user.callBrowser('cef.auth:notify:set', 'Такого логина не существует');
+
+        return;
     }
 });
 
