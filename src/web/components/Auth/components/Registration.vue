@@ -31,6 +31,11 @@ export default {
       this.$events.emitServer('server.auth:register:send', _data);
     }
   },
+  mounted() {
+    this.$events.on("cef.register:notify:set", (error) => {
+      this.error = error[0]
+    })
+  },
   components: {
     Input
   }

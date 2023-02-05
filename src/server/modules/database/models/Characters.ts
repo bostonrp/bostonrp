@@ -49,6 +49,12 @@ const Characters = new DBModel('characters', {
         allowNull: false
     },
 
+    faction_department: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1
+    },
+
     job: {
         type: DataTypes.INTEGER,
         allowNull: false

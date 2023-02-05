@@ -46,14 +46,16 @@ rpc.on('server.auth:register:send', async (player:PlayerMp, data:string) => {
 
     let _account = await Auth.getAccountByKey('social_id', player.rgscId);
 
+    let _user = Users.getByDynamicID(player.id)
+
     if(_account === null) {
         let _dataCheck = {
             email: await Auth.getAccountByKey('email', _data.email),
             username: await Auth.getAccountByKey('username', _data.username)
         };
 
-        if(_dataCheck.email !== null) return player.notify('~r~Почта уже используется!');
-        if(_dataCheck.username !== null) return player.notify('~r~Такой логин уже занят');
+        if(_dataCheck.email !== null) return _user.callBrowser('cef.register:notify:set', 'Почта уже используется');
+        if(_dataCheck.username !== null) return _user.callBrowser('cef.register:notify:set', 'Такой логин уже используется');
 
         await Auth.createAccount({
             email: _data.email,
@@ -68,6 +70,6 @@ rpc.on('server.auth:register:send', async (player:PlayerMp, data:string) => {
 
         // todo Все хорошо, нужно пропустить игрока к выбору персонажа
     } else {
-        player.notify('~r~У Вас уже существует аккаунт!');
+        _user.callBrowser('cef.register:notify:set', 'У Вас уже существует аккаунт');
     }
 });

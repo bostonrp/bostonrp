@@ -19,7 +19,6 @@ class Auth {
         return _passwordHash;
     }
 
-    // todo ты не можешь сохранять не шифрованый пароль в базу, это не безопасно
     public static async createAccount(options?:TBoston.Systems.Auth.createAccount) {
         if(!options) return;
         let _passwordHash = this.generatePasswordHash(options.password);
