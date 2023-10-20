@@ -2,11 +2,11 @@
 // IMPORTS
 
 import { DataTypes } from 'sequelize';
-import { DBModel } from '../index';
+import { BaseModel } from '../index';
 
 // CODE
 
-const Accounts = new DBModel('accounts', {
+const Accounts = new BaseModel('accounts', {
     email: {
         type: DataTypes.CHAR({ length: 35 }),
         allowNull: false
@@ -44,12 +44,12 @@ const Accounts = new DBModel('accounts', {
     
     last_ip: {
         type: DataTypes.TEXT,
-        allowNull: false
+        allowNull: true
     },
 
     reg_date: {
         type: DataTypes.BIGINT,
-        allowNull: true
+        allowNull: false
     },
 
     last_date: {

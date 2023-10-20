@@ -1,7 +1,7 @@
 
 // IMPORTS
 
-import WorldTime from "../modules/database/models/world_time";
+import WorldTime from "../modules/database/models/WorldTime";
 import config from "../../shared/configs/server.json";
 import methods from "../modules/methods";
 import terminal from "../modules/terminal";

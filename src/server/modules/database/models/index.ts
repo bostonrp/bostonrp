@@ -2,10 +2,10 @@
 // IMPORTS
 
 import './accounts';
-import './world_time';
-import './world_weather';
+import './WorldTime';
+import './WorldWeather';
 import './characters';
-import './inventory_items';
-import './vehicles_info';
-import './whitelist';
-import './houses';
+import './InventoryItems';
+import './VehicleInfo';
+import './Whitelist';
+import './Houses';

@@ -2,11 +2,11 @@
 // IMPORTS
 
 import { DataTypes } from 'sequelize';
-import { DBModel } from '../index';
+import { BaseModel } from '../index';
 
 // CODE
 
-const InventoryItems = new DBModel('inventory_items', {
+const InventoryItems = new BaseModel('inventory_items', {
     name: {
         type: DataTypes.CHAR({ length: 25 }),
         allowNull: false
@@ -31,8 +31,8 @@ const InventoryItems = new DBModel('inventory_items', {
 
     image: {
         type: DataTypes.CHAR({ length: 20 }),
-        allowNull: false,
-        defaultValue: 'none'
+        allowNull: true,
+        defaultValue: null
     },
 
     maxStack: {
@@ -49,8 +49,8 @@ const InventoryItems = new DBModel('inventory_items', {
 
     interaction: {
         type: DataTypes.TEXT,
-        allowNull: false,
-        defaultValue: 'none'
+        allowNull: true,
+        defaultValue: null
     },
 
     durability: {

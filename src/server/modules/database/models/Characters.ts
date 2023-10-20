@@ -2,13 +2,13 @@
 // IMPORTS
 
 import { DataTypes } from 'sequelize';
-import { DBModel } from '../index';
+import { BaseModel } from '../index';
 
 // CODE
 
 // todo Нужно описать модель таблицы для персонажей
-const Characters = new DBModel('characters', {
-    accountID: {
+const Characters = new BaseModel('characters', {
+    account_id: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
@@ -23,13 +23,8 @@ const Characters = new DBModel('characters', {
         allowNull: false
     },
 
-    age: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-
-    age_months: {
-        type: DataTypes.FLOAT,
+    birth_date: {
+        type: DataTypes.DATE,
         allowNull: false
     },
 
@@ -39,12 +34,7 @@ const Characters = new DBModel('characters', {
         defaultValue: 0
     },
 
-    faction: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-
-    faction_rank: {
+    faction_id: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
@@ -55,17 +45,17 @@ const Characters = new DBModel('characters', {
         defaultValue: 1
     },
 
-    job: {
+    faction_rank: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
 
-    adminLevel: {
+    job_id: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
 
-    helperLevel: {
+    admin_level: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
@@ -90,14 +80,9 @@ const Characters = new DBModel('characters', {
         allowNull: false
     },
 
-    jailed: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false
-    },
-
     jailed_time: {
         type: DataTypes.TEXT,
-        allowNull: false
+        allowNull: true
     },
 
     jailed_reason: {
@@ -110,8 +95,8 @@ const Characters = new DBModel('characters', {
         allowNull: false
     },
 
-    ban_time: {
-        type: DataTypes.TEXT,
+    ban_expires_at: {
+        type: DataTypes.TIME,
         allowNull: false
     },
 
@@ -147,22 +132,26 @@ const Characters = new DBModel('characters', {
 
     is_online: {
         type: DataTypes.BOOLEAN,
-        allowNull: false
+        allowNull: false,
+        defaultValue: false
     },
 
     played_time: {
         type: DataTypes.FLOAT,
-        allowNull: false
+        allowNull: false,
+        defaultValue: 0
     },
 
     date_create: {
         type: DataTypes.TEXT,
-        allowNull: false
+        allowNull: false,
+        defaultValue: Date.now()
     },
 
     date_last_login: {
         type: DataTypes.TEXT,
-        allowNull: false
+        allowNull: false,
+        defaultValue: Date.now()
     },
 });
 

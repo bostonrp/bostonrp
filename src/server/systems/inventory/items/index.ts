@@ -1,7 +1,7 @@
 
 // IMPORTS
 
-import InventoryItems from "modules/database/models/inventory_items";
+import InventoryItems from "modules/database/models/InventoryItems";
 import methods from "modules/methods";
 import { List } from "modules/methods";
 import terminal from "modules/terminal";

@@ -1,19 +1,19 @@
 
 // IMPORTS
 
-import config from '../../../shared/configs/mysql.json';
-import { DataTypes, Model, ModelAttributes, ModelCtor, Optional, Sequelize, UpsertOptions} from 'sequelize';
+import config from '../../../shared/configs/postgres.json';
+import { DataTypes, Model, ModelAttributes, ModelCtor, Optional, Sequelize, UpsertOptions } from 'sequelize';
 import methods from '../methods';
 import terminal from '../terminal';
 
 // CODE
 
-let models:Array<DBModel> = new Array();
+let models: Array<BaseModel> = new Array();
 
 class DataBase {
-    public static main:Sequelize = new Sequelize({
+    public static main: Sequelize = new Sequelize({
         dialect: 'postgres',
-    
+
         host: config.hostname,
         username: config.username,
         password: config.password,
@@ -21,21 +21,21 @@ class DataBase {
 
         logging: config.debug ? console.log : false
     });
-    
-    public static async Init():Promise<any> {
+
+    public static async Init(): Promise<any> {
         terminal.debugDetailed('DataBase.Init();');
-        
-        if(!await this.hasConnection()) return
+
+        if (!await this.hasConnection()) return
         await this._loadModels();
     }
 
-    public static async hasConnection():Promise<boolean> {
+    public static async hasConnection(): Promise<boolean> {
         terminal.debugDetailed('DataBase.hasConnection();');
 
         try {
             await this.main.authenticate();
             return true;
-        } catch(e) {
+        } catch (e) {
             terminal.error(e);
             return false;
         }
@@ -46,22 +46,22 @@ class DataBase {
 
         try {
             let funcTime = methods.getPerfomance(() => {
-                models.forEach((model:DBModel) => {
+                models.forEach((model: BaseModel) => {
                     model.init();
                 });
             });
 
             terminal.done('[DataBase] Модуль базы данных был загружен', `${funcTime}ms`);
-        } catch(e) { terminal.error(e); }
+        } catch (e) { terminal.error(e); }
     }
 }
 
-export class DBModel {
-    private _modelName:string;
-    private _modelColumns:any;
-    private _model:ModelCtor<Model> | undefined;
+export class BaseModel {
+    private _modelName: string;
+    private _modelColumns: any;
+    private _model: ModelCtor<Model> | undefined;
 
-    constructor(modelName:string, modelColumns:ModelAttributes<Model<any, any>, any>) {
+    constructor(modelName: string, modelColumns: ModelAttributes<Model<any, any>, any>) {
         this._modelName = modelName;
 
         let _defaultValues = {
@@ -85,7 +85,7 @@ export class DBModel {
         return this._model;
     }
 
-    get name():string {
+    get name(): string {
         return this._modelName;
     }
 
@@ -99,17 +99,17 @@ export class DBModel {
                 timestamps: false,
                 freezeTableName: true
             });
-            
+
             this._model.sync({ alter: true });
             // this._delete();
-        } catch(e) {
+        } catch (e) {
             console.log(e);
         }
     }
 
     // private _delete():boolean {
     //     try {
-    //         let _modelIndex = models.findIndex((model:DBModel) => model.name == this._modelName);
+    //         let _modelIndex = models.findIndex((model:BaseModel) => model.name == this._modelName);
     //         models.splice(_modelIndex, 1);
     //         return true;
     //     } catch(e) {

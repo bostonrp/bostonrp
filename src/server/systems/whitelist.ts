@@ -2,7 +2,7 @@
 // IMPORTS
 
 import terminal from "../modules/terminal";
-import DBWhiteList from '../modules/database/models//whitelist';
+import DBWhiteList from '../modules/database/models/Whitelist';
 
 // CODE
 

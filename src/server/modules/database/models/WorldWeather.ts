@@ -2,11 +2,11 @@
 // IMPORTS
 
 import { DataTypes } from 'sequelize';
-import { DBModel } from '../index';
+import { BaseModel } from '../index';
 
 // CODE
 
-const WorldWeather = new DBModel('world_weather', {
+const WorldWeather = new BaseModel('world_weather', {
     south_ls: {
         type: DataTypes.CHAR({ length: 15 }),
         allowNull: false,

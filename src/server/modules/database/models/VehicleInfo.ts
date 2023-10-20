@@ -2,11 +2,11 @@
 // IMPORTS
 
 import { DataTypes } from 'sequelize';
-import { DBModel } from '../index';
+import { BaseModel } from '../index';
 
 // CODE
 
-const VehiclesInfo = new DBModel('vehicles_info', {
+const VehiclesInfo = new BaseModel('vehicles_info', {
     hash_name: {
         type: DataTypes.CHAR({ length: 15 }),
         allowNull: true

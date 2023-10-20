@@ -1,7 +1,7 @@
 
 // IMPORTS
 
-import WorldWeather from "../modules/database/models//world_weather";
+import WorldWeather from "../modules/database/models/WorldWeather";
 import methods from "../modules/methods";
 import terminal from "../modules/terminal";
 import * as enums from '../../shared/enums/server/weather/index';

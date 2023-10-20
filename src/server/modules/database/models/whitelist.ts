@@ -2,11 +2,11 @@
 // IMPORTS
 
 import { DataTypes } from 'sequelize';
-import { DBModel } from '../index';
+import { BaseModel } from '../index';
 
 // CODE
 
-const WhiteList = new DBModel('whitelist', {
+const WhiteList = new BaseModel('whitelist', {
     socialClub: {
         type: DataTypes.TEXT,
         allowNull: false

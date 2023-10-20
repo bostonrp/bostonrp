@@ -2,11 +2,11 @@
 // IMPORTS
 
 import { DataTypes } from 'sequelize';
-import { DBModel } from '../index';
+import { BaseModel } from '../index';
 
 // CODE
 
-const WorldTime = new DBModel('world_time', {
+const WorldTime = new BaseModel('world_time', {
     year: {
         type: DataTypes.INTEGER,
         allowNull: false,
