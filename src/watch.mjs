@@ -4,8 +4,23 @@
 import { build } from 'esbuild';
 import { watch } from "chokidar";
 import inlineImportPlugin from 'esbuild-plugin-inline-import';
+import { execFile } from 'child_process';
 
 // CODE
+
+let child;
+
+const startServer = () => {
+    console.log('[RAGEMP | SERVER] Start server')
+
+    child = execFile('D:\\bostonrp\\ragemp-server.exe', [], (error, stdout, stderr) => {
+      if (error) {
+        throw error;
+      }
+
+      console.log(stdout);
+    })
+}
 
 const buildServer = async () => {
     build({
@@ -27,10 +42,16 @@ const buildServer = async () => {
 
 const serverWatcher = watch(['./src/server/index.ts']);
 
-buildServer()
+buildServer();
+
+startServer();
 
 serverWatcher.on("change", () => {
-    buildServer()
+    buildServer();
+
+    child.kill('SIGINT');
+
+    startServer();
 })
 
 serverWatcher.on("ready", () => {
