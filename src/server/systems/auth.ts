@@ -1,17 +1,17 @@
 
 // IMPORTS
 
-import Accounts from "../modules/database/models/accounts";
+import Accounts from "../modules/database/models/Accounts";
 import methods from "../modules/methods";
 
 // CODE
 
 class Auth {
-    public static async getAccountByKey(key:string, value:any):Promise<any> {
+    public static async getAccountByKey(key: string, value: any): Promise<any> {
         return await Accounts.methods?.findOne({ where: { [key]: value } });
     }
 
-    public static generatePasswordHash(password:string) {
+    public static generatePasswordHash(password: string) {
         let _passwordHash = null;
         _passwordHash = methods.createCryptoHash(password, 'md5');
         _passwordHash = methods.createCryptoHash(_passwordHash, 'sha256');
@@ -19,8 +19,8 @@ class Auth {
         return _passwordHash;
     }
 
-    public static async createAccount(options?:TBoston.Systems.Auth.createAccount) {
-        if(!options) return;
+    public static async createAccount(options?: TBoston.Systems.Auth.createAccount) {
+        if (!options) return;
         let _passwordHash = this.generatePasswordHash(options.password);
 
         await Accounts.methods?.create({
@@ -39,8 +39,8 @@ class Auth {
         });
     }
 
-    public static async deleteAccount(id:number) {
-        if(!await this.getAccountByKey('id', id)) return;
+    public static async deleteAccount(id: number) {
+        if (!await this.getAccountByKey('id', id)) return;
         Accounts.methods?.destroy({ where: { id } });
     }
 }

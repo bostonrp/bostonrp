@@ -1,10 +1,10 @@
 
 // IMPORTS
 
-import './accounts';
+import './Accounts';
 import './WorldTime';
 import './WorldWeather';
-import './characters';
+import './Characters';
 import './InventoryItems';
 import './VehicleInfo';
 import './Whitelist';

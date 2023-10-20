@@ -1,8 +1,8 @@
 {
-    "debug": false,
+    "debug": true,
 
     "hostname": "localhost",
     "username": "postgres",
-    "password": "",
+    "password": "qwerty123!",
     "databasename": "bostonrp"
 }
